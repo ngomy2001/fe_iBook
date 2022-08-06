@@ -1,0 +1,195 @@
+.Login-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Login-leftside{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.Login-headline{
+    width: 313.97px;
+    height: 75.39px;
+    margin-top: 100px;
+}
+
+.Login-headline-title{
+    /* position: absolute; */
+    width: 309px;
+    height: 37px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 34px;
+    line-height: 51px;
+    text-align: center;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #030303;
+}
+
+.Login-headline-subtitle{
+    /* position: absolute; */
+    width: 313.97px;
+    height: 21.69px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    letter-spacing: 0.03em;
+    color: #636364;
+}
+.Email-form{
+    /* position: absolute; */
+    display: flex;
+    flex-direction: column;
+    width: 315px;
+    height: 69.2px;
+    margin-top: 100px;
+    /* margin-left: 108px; */
+}
+
+.Email-form label{
+    /* position: absolute; */
+    /* width: 42.34px;
+    height: 21.69px; */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;  
+    letter-spacing: 0.03em;
+    color: #181818;
+}
+
+.Email-form Input{
+    /* box-sizing: border-box;
+    position: absolute;
+    width: 313.97px;
+    height: 41.31px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
+    border-radius: 12px; */
+    margin-top: 20px;
+}
+
+.Password-form{
+    /* position: absolute; */
+    width: 315px;
+    height: 69.2px;
+    margin-top: 20px;
+    /* margin-left: 108px; */
+}
+
+.Password-form label{
+    /* position: absolute; */
+    /* width: 42.34px;
+    height: 21.69px; */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    letter-spacing: 0.03em;
+    color: #181818;
+}
+
+.Password-form Input{
+    /* box-sizing: border-box;
+    position: absolute;
+    width: 313.97px;
+    height: 41.31px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
+    border-radius: 12px; */
+    margin-top: 20px;
+}
+.Btn-block{
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+.Btn-sign-in{
+    
+    width: 313.97px;
+    height: 41.31px;
+    background: #EA454C;
+    box-shadow: 0px 4px 10px rgba(233, 68, 75, 0.25);
+    border-radius: 12px;    
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    letter-spacing: 0.03em;
+    color: #FFFFFF;
+    /* margin-top: 50px; */
+    /* margin-left: 109px; */
+}
+
+.Btn-sign-in-google{
+   
+    width: 313.97px;
+    height: 41.31px;
+    background: #FFFFFF;
+    filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25));
+    border-radius: 12px;    
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
+    letter-spacing: 0.03em;
+    color: #000000;
+    margin-top: 20px;
+    /* margin-left: 109px; */
+}
+
+.Option-form{
+    /* position: absolute; */
+
+    /* width: 308.8px;
+    height: 18.59px;
+    margin-top: 360px; */
+    /* margin-left: 115px; */
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+
+.Option-form p{
+    /* position: absolute; */
+    width: 98.11px;
+    height: 18.59px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: left;
+    letter-spacing: 0.03em;
+    color: #181818;
+    
+}
+
+.Option-form a{
+    /* position: absolute; */
+    width: 140px;
+    height: 18.59px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: right;
+    letter-spacing: 0.03em;
+    color: #181818;
+    margin-top: 12px;
+}
