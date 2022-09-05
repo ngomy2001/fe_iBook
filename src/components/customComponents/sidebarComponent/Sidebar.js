@@ -1,6 +1,6 @@
 import React from 'react';
-import Link from './Link';
-import { topPages, bottomPages } from './DataLink';
+import CustomLink from '../customLinkComponent/Link';
+import { topPages, bottomPages } from '../customLinkComponent/DataLink';
 import './style.css';
 
 const Sidebar = () => {
@@ -8,13 +8,13 @@ const Sidebar = () => {
     <div className="SideBar">
       <div className="Menu-top">
         {topPages.map((topPage) => (
-          <Link label={topPage.name} />
+          <CustomLink label={topPage.label} />
         ))}
       </div>
       <div className="Menu-bottom">
         <div className="Menu-top">
           {bottomPages.map((bottomPage) => (
-            <Link label={bottomPage.name} />
+            <CustomLink label={bottomPage.label} />
           ))}
         </div>
       </div>

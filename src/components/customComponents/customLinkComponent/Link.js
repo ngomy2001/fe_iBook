@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from '@nextui-org/react';
 import './style.css';
 
-const Link = ({ label }) => {
+const CustomLink = ({ label }) => {
   return (
     <div>
       <Link className="item" block color="error">
@@ -12,4 +12,4 @@ const Link = ({ label }) => {
   );
 };
 
-export default Link;
+export default CustomLink;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Input } from '@nextui-org/react';
 import './style.css';
 
-const SearchField = ({}) => {
+const SearchField = () => {
   return (
     <div className="Search-input">
       <Input

@@ -1,0 +1,14 @@
+.Logo{
+    width: 20%;
+    padding: 10px  
+}
+
+.Headline-title{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 40px;
+    line-height: 49px;
+    color: #F31260;
+    padding-left: 25px;
+}

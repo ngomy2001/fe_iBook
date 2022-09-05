@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button } from '@nextui-org/react';
-import './style.css';
 
-const Button = ({ label, color }) => {
+const PrimaryButton = ({ label, color }) => {
   return (
     <div>
       <Button auto color="error" rounded bordered>
@@ -12,4 +11,4 @@ const Button = ({ label, color }) => {
   );
 };
 
-export default Button;
+export default PrimaryButton;

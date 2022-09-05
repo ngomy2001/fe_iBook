@@ -1,7 +1,7 @@
 import React from 'react';
-import Button from './Button';
-import Logo from './Logo';
-import SearchField from './SearchField';
+import PrimaryButton from '../customButtonComponent/Button';
+import Logo from '../logoComponent/Logo';
+import SearchField from '../searchFieldComponent/SearchField';
 import { User } from '@nextui-org/react';
 import './style.css';
 
@@ -11,7 +11,7 @@ const Navbar = () => {
       <Logo />
       <SearchField />
       <div className="Avatar-notification">
-        <Button label="Notifications"></Button>
+        <PrimaryButton label="Notifications"></PrimaryButton>
         <User
           src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
           name="Ariana Wattson"

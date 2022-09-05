@@ -1,0 +1,20 @@
+.NavBar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 15%;
+    background-color: #FFFFFF;
+}
+
+.Avatar-notification{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 20%;
+    padding: 10px 
+}

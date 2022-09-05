@@ -1,11 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import HomePage from '../components/homePage/HomePage';
-
+import LibrarianMainLayout from '../components/mainLayout/LibrarianMainLayout';
+import BookPage from '../components/bookPage/BookPage';
 const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage />}></Route>
+        <Route path="/" element={<LibrarianMainLayout />}>
+          <Route index element={<BookPage />}></Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   );

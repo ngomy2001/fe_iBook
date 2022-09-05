@@ -1,0 +1,22 @@
+.SideBar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100vh;
+    padding: 30px;
+}
+
+.Menu-top{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.Menu-bottom{
+    display: flex;
+    flex-direction: column;
+    border-top: 0.5px solid #8E8E8E;
+    padding-top: 10px;
+    gap: 15px;
+}
