@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LibrarianMainLayout from '../components/mainLayout/LibrarianMainLayout';
-import BookPage from '../components/bookPage/BookPage';
+import BookPage from '../components/bookPage/index';
 const AppRouter = () => {
   return (
     <BrowserRouter>

@@ -6,4 +6,10 @@ const getCategories = async () => {
   return categories;
 };
 
-export default getCategories;
+const createCategory = async (payload) => {
+  try {
+    const URL = 'http://localhost:3001/api/category/createCategory';
+    await axios.post(URL, payload);
+  } catch (error) {}
+};
+export { getCategories, createCategory };
