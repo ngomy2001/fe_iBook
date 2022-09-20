@@ -4,28 +4,24 @@ import { useForm, Controller } from 'react-hook-form';
 
 import { Modal, Button, Text, Input } from '@nextui-org/react';
 
-import { getAuthors, updateAuthor } from '../../../api/authorAPI';
+import { getPublishers, createPublisher } from '../../../api/publisherAPI';
 
-const UpdatePopup = ({ visible, closeModal, authorDetails }) => {
-  const [author, setAuthor] = useState([]);
+const CreatePopup = ({ visible, closeModal }) => {
+  const [publisher, setPublisher] = useState([]);
+
   const { control, handleSubmit } = useForm();
 
-  const getAuthorsData = async () => {
-    const authors = await getAuthors();
-    setAuthor(authors);
+  const getPublisherData = async () => {
+    const publishers = await getPublishers();
+    setPublisher(publishers);
   };
 
   const onSubmit = async (data) => {
     try {
-      const response = await updateAuthor(
-        authorDetails.id,
-        data.firstName,
-        data.lastName,
-        data.description
-      );
+      const response = await createPublisher(data.name, data.description);
       console.log(response);
     } catch (error) {
-      console.log('🚀 ~ file: index.js ~ line 28 ~ onSubmit ~ error', error);
+      console.log('🚀 ~ file: index.js ~ line 24 ~ onSubmit ~ error', error);
     }
   };
 
@@ -34,7 +30,7 @@ const UpdatePopup = ({ visible, closeModal, authorDetails }) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Modal.Header>
           <Text id="modal-title" b size={18}>
-            Update author
+            Add new publisher
           </Text>
         </Modal.Header>
         <Modal.Body>
@@ -46,11 +42,11 @@ const UpdatePopup = ({ visible, closeModal, authorDetails }) => {
                 fullWidth
                 color="primary"
                 size="lg"
-                placeholder={authorDetails.firstName}
+                placeholder="Enter the publisher name"
                 {...field}
               />
             )}
-            name="firstName"
+            name="name"
             control={control}
             defaultValue=""
           />
@@ -62,23 +58,7 @@ const UpdatePopup = ({ visible, closeModal, authorDetails }) => {
                 fullWidth
                 color="primary"
                 size="lg"
-                placeholder={authorDetails.lastName}
-                {...field}
-              />
-            )}
-            name="lastName"
-            control={control}
-            defaultValue=""
-          />
-          <Controller
-            render={({ field }) => (
-              <Input
-                clearable
-                bordered
-                fullWidth
-                color="primary"
-                size="lg"
-                placeholder={authorDetails.description}
+                placeholder="Enter the description"
                 {...field}
               />
             )}
@@ -96,7 +76,7 @@ const UpdatePopup = ({ visible, closeModal, authorDetails }) => {
             type="submit"
             onClick={() => {
               closeModal(false);
-              getAuthorsData();
+              getPublisherData();
             }}
           >
             Submit
@@ -107,4 +87,4 @@ const UpdatePopup = ({ visible, closeModal, authorDetails }) => {
   );
 };
 
-export default UpdatePopup;
+export default CreatePopup;

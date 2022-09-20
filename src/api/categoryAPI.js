@@ -49,6 +49,11 @@ const deleteCategory = async (id) => {
     const response = await axios.delete(URL, id);
     console.log(response);
     return response;
-  } catch (error) {}
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: categoryAPI.js ~ line 53 ~ deleteCategory ~ error',
+      JSON.stringify(error)
+    );
+  }
 };
 export { getCategories, createCategory, updateCategory, deleteCategory };
