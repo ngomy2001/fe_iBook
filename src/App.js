@@ -1,14 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
 import * as React from 'react';
 import { NextUIProvider } from '@nextui-org/react';
-import LoginPage from './components/loginPage/LoginPage';
+import AppRouter from './appRouter/Router';
 
 function App({ Component }) {
   // 2. Use at the root of your app
   return (
     <NextUIProvider>
-      <LoginPage />
+      <AppRouter />
     </NextUIProvider>
   );
 }

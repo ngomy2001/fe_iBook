@@ -1,0 +1,18 @@
+.Main{
+    width: 100vw;
+    height: 100vh;
+}
+
+
+.Bottom-side{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.Content{
+    width: 100vw;
+    height: 100vh;
+    background-color: #D9D9D9;
+    padding: 30px;
+}
