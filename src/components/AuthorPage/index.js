@@ -8,14 +8,26 @@ import { getAuthors } from '../../api/authorAPI';
 
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
+import CreatePopup from './CreatePopup';
+import UpdatePopup from './UpdatePopup';
 
 import './style.css';
 const AuthorPage = () => {
   const [author, setAuthor] = useState([]);
+  const [visibleCreatePopup, setVisibleCreatePopup] = useState(false);
+  const [visibleUpdatePopup, setVisibleUpdatePopup] = useState(false);
+  const [authorDetails, setAuthorDetails] = useState([]);
 
   const getAuthorsData = async () => {
     const authors = await getAuthors();
     setAuthor(authors);
+  };
+
+  const handleUpdate = async (id, firstName, lastName, description) => {
+    const details = { id, firstName, lastName, description };
+    setAuthorDetails(details);
+    setVisibleUpdatePopup(true);
+    await getAuthorsData();
   };
 
   useEffect(() => {
@@ -25,13 +37,12 @@ const AuthorPage = () => {
   return (
     <div className="table-space">
       <div>
-        <Button auto shadow>
+        <Button auto shadow onClick={() => setVisibleCreatePopup(true)}>
           Add new author
         </Button>
       </div>
       <div>
         <Table
-          aria-label="Example table with static content"
           css={{
             height: 'auto',
             minWidth: '100%',
@@ -53,7 +64,17 @@ const AuthorPage = () => {
                   <Table.Cell>{row.description}</Table.Cell>
                   <Table.Cell>
                     <div className="ActionGroupButton">
-                      <PrimaryButton label="Update"></PrimaryButton>
+                      <PrimaryButton
+                        label="Update"
+                        onClick={() =>
+                          handleUpdate(
+                            row._id,
+                            row.firstName,
+                            row.lastName,
+                            row.description
+                          )
+                        }
+                      ></PrimaryButton>
                       <PrimaryButton label="Delete"></PrimaryButton>
                     </div>
                   </Table.Cell>
@@ -61,6 +82,15 @@ const AuthorPage = () => {
               ))}
           </Table.Body>
         </Table>
+        <CreatePopup
+          visible={visibleCreatePopup}
+          closeModal={setVisibleCreatePopup}
+        />
+        <UpdatePopup
+          visible={visibleUpdatePopup}
+          closeModal={setVisibleUpdatePopup}
+          authorDetails={authorDetails}
+        />
       </div>
     </div>
   );
