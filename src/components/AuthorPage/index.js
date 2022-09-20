@@ -8,10 +8,13 @@ import { getAuthors } from '../../api/authorAPI';
 
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
+import CreatePopup from './CreatePopup';
 
 import './style.css';
 const AuthorPage = () => {
   const [author, setAuthor] = useState([]);
+  const [visibleCreatePopup, setVisibleCreatePopup] = useState(false);
+  const [authorDetails, setAuthorDetails] = useState([]);
 
   const getAuthorsData = async () => {
     const authors = await getAuthors();
@@ -25,7 +28,7 @@ const AuthorPage = () => {
   return (
     <div className="table-space">
       <div>
-        <Button auto shadow>
+        <Button auto shadow onClick={() => setVisibleCreatePopup(true)}>
           Add new author
         </Button>
       </div>
@@ -61,6 +64,10 @@ const AuthorPage = () => {
               ))}
           </Table.Body>
         </Table>
+        <CreatePopup
+          visible={visibleCreatePopup}
+          closeModal={setVisibleCreatePopup}
+        />
       </div>
     </div>
   );

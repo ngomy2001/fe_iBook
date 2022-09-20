@@ -51,7 +51,7 @@ const CreatePopup = ({ visible, closeModal }) => {
             )}
             name="categoryName"
             control={control}
-            // defaultValue="aaa"
+            defaultValue=""
           />
           <Controller
             render={({ field }) => (
@@ -67,7 +67,7 @@ const CreatePopup = ({ visible, closeModal }) => {
             )}
             name="categoryDescription"
             control={control}
-            // defaultValue="aaaa"
+            defaultValue=""
           />
         </Modal.Body>
         <Modal.Footer>
