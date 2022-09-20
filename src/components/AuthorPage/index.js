@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button } from '@nextui-org/react';
 
 /* import service */
-import { getAuthors } from '../../api/authorAPI';
+import { getAuthors, deleteAuthor } from '../../api/authorAPI';
 
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
@@ -27,6 +27,11 @@ const AuthorPage = () => {
     const details = { id, firstName, lastName, description };
     setAuthorDetails(details);
     setVisibleUpdatePopup(true);
+    await getAuthorsData();
+  };
+
+  const handleDelete = async (id) => {
+    const deletedAuthor = await deleteAuthor(id);
     await getAuthorsData();
   };
 
@@ -75,7 +80,10 @@ const AuthorPage = () => {
                           )
                         }
                       ></PrimaryButton>
-                      <PrimaryButton label="Delete"></PrimaryButton>
+                      <PrimaryButton
+                        label="Delete"
+                        onClick={() => handleDelete(row._id)}
+                      ></PrimaryButton>
                     </div>
                   </Table.Cell>
                 </Table.Row>
