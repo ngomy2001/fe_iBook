@@ -1,8 +1,11 @@
 const topPages = [
-  { label: 'Book', path: '/' },
-  { label: 'User', path: '/' },
-  { label: 'Invoices', path: '/' },
-  { label: 'Insight', path: '/' },
+  { label: 'Book', path: '/librarian/book' },
+  { label: 'Category', path: '/librarian/category' },
+  { label: 'Author', path: '/librarian/author' },
+  { label: 'Publisher', path: '/librarian/publisher' },
+  { label: 'User', path: '/librarian/user' },
+  { label: 'Invoices', path: '/librarian/invoice' },
+  { label: 'Insight', path: '/librarian/insight' },
 ];
 
 const bottomPages = [
