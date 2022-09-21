@@ -4,6 +4,7 @@ import CategoryPageForLibrarian from '../components/CategoryPage/index';
 import AuthorPageForLibrarian from '../components/AuthorPage/index';
 import PublisherPageForLibrarian from '../components/PublisherPage/index';
 import UserPageForLibrarian from '../components/UserPage/index';
+import BookPageForLibrarian from '../components/BookPage/index';
 const AppRouter = () => {
   return (
     <BrowserRouter>
@@ -19,6 +20,9 @@ const AppRouter = () => {
         </Route>
         <Route path="/librarian/user" element={<LibrarianMainLayout />}>
           <Route index element={<UserPageForLibrarian />}></Route>
+        </Route>
+        <Route path="/librarian/book" element={<LibrarianMainLayout />}>
+          <Route index element={<BookPageForLibrarian />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

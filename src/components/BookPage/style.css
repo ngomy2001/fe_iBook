@@ -1,0 +1,17 @@
+.ActionGroupButton{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.table-description{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.table-space{
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+}
