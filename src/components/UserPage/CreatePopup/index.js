@@ -4,28 +4,30 @@ import { useForm, Controller } from 'react-hook-form';
 
 import { Modal, Button, Text, Input } from '@nextui-org/react';
 
-import { getAuthors, createAuthor } from '../../../api/authorAPI';
+import { getUsers, createUser } from '../../../api/userAPI';
 
 const CreatePopup = ({ visible, closeModal }) => {
-  const [author, setAuthor] = useState([]);
+  const [user, setUser] = useState([]);
 
   const { control, handleSubmit } = useForm();
 
-  const getAuthorsData = async () => {
-    const authors = await getAuthors();
-    setAuthor(authors);
+  const getUsersData = async () => {
+    const users = await getUsers();
+    setUser(users);
   };
 
   const onSubmit = async (data) => {
     try {
-      const response = await createAuthor(
+      const response = await createUser(
         data.firstName,
         data.lastName,
-        data.description
+        data.role,
+        data.email,
+        data.password
       );
       return response;
     } catch (error) {
-      console.log('🚀 ~ file: index.js ~ line 10 ~ onSubmit ~ error', error);
+      console.log('🚀 ~ file: index.js ~ line 30 ~ onSubmit ~ error', error);
     }
   };
 
@@ -34,7 +36,7 @@ const CreatePopup = ({ visible, closeModal }) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Modal.Header>
           <Text id="modal-title" b size={18}>
-            Add new author
+            Add new user
           </Text>
         </Modal.Header>
         <Modal.Body>
@@ -46,7 +48,7 @@ const CreatePopup = ({ visible, closeModal }) => {
                 fullWidth
                 color="primary"
                 size="lg"
-                placeholder="Enter the author first name"
+                placeholder="Enter the first name"
                 {...field}
               />
             )}
@@ -62,7 +64,7 @@ const CreatePopup = ({ visible, closeModal }) => {
                 fullWidth
                 color="primary"
                 size="lg"
-                placeholder="Enter the author last name"
+                placeholder="Enter the last name"
                 {...field}
               />
             )}
@@ -78,11 +80,43 @@ const CreatePopup = ({ visible, closeModal }) => {
                 fullWidth
                 color="primary"
                 size="lg"
-                placeholder="Enter the description"
+                placeholder="Enter the role of user"
                 {...field}
               />
             )}
-            name="description"
+            name="role"
+            control={control}
+            defaultValue=""
+          />
+          <Controller
+            render={({ field }) => (
+              <Input
+                clearable
+                bordered
+                fullWidth
+                color="primary"
+                size="lg"
+                placeholder="Enter the user email"
+                {...field}
+              />
+            )}
+            name="email"
+            control={control}
+            defaultValue=""
+          />
+          <Controller
+            render={({ field }) => (
+              <Input
+                clearable
+                bordered
+                fullWidth
+                color="primary"
+                size="lg"
+                placeholder="Enter the user password"
+                {...field}
+              />
+            )}
+            name="password"
             control={control}
             defaultValue=""
           />
@@ -96,7 +130,7 @@ const CreatePopup = ({ visible, closeModal }) => {
             type="submit"
             onClick={() => {
               closeModal(false);
-              getAuthorsData();
+              getUsersData();
             }}
           >
             Submit
