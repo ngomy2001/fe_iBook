@@ -1,5 +1,5 @@
-import Navbar from '../customComponents/navbarComponent/Navbar';
-import Sidebar from '../customComponents/sidebarComponent/Sidebar';
+import Navbar from '../../customComponents/navbarComponent/Navbar';
+import Sidebar from '../../customComponents/sidebarComponent/Sidebar';
 import { Outlet } from 'react-router-dom';
 import './style.css';
 
