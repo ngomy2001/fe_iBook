@@ -4,27 +4,28 @@ import { useForm, Controller } from 'react-hook-form';
 
 import { Modal, Button, Text, Input } from '@nextui-org/react';
 
-import { getCategories, createCategory } from '../../../api/categoryAPI';
+import { getPublishers, updatePublisher } from '../../../api/publisherAPI';
 
-const CreatePopup = ({ visible, closeModal }) => {
-  const [category, setCategory] = useState([]);
+const UpdatePopup = ({ visible, closeModal, publisherDetails }) => {
+  const [publisher, setPublisher] = useState([]);
 
   const { control, handleSubmit } = useForm();
 
-  const getData = async () => {
-    const categories = await getCategories();
-    setCategory(categories);
+  const getPublisherData = async () => {
+    const publishers = await getPublishers();
+    setPublisher(publishers);
   };
 
   const onSubmit = async (data) => {
     try {
-      const response = await createCategory(
-        data.categoryName,
-        data.categoryDescription
+      const response = await updatePublisher(
+        publisherDetails.id,
+        data.name,
+        data.description
       );
       console.log(response);
     } catch (error) {
-      console.log('🚀 ~ file: index.js ~ line 25 ~ onSubmit ~ error', error);
+      console.log('🚀 ~ file: index.js ~ line 28 ~ onSubmit ~ error', error);
     }
   };
 
@@ -33,7 +34,7 @@ const CreatePopup = ({ visible, closeModal }) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Modal.Header>
           <Text id="modal-title" b size={18}>
-            Add new category
+            Update publisher
           </Text>
         </Modal.Header>
         <Modal.Body>
@@ -45,11 +46,11 @@ const CreatePopup = ({ visible, closeModal }) => {
                 fullWidth
                 color="primary"
                 size="lg"
-                placeholder="Enter the category name"
+                placeholder={publisherDetails.name}
                 {...field}
               />
             )}
-            name="categoryName"
+            name="name"
             control={control}
             defaultValue=""
           />
@@ -61,11 +62,11 @@ const CreatePopup = ({ visible, closeModal }) => {
                 fullWidth
                 color="primary"
                 size="lg"
-                placeholder="Enter the description"
+                placeholder={publisherDetails.description}
                 {...field}
               />
             )}
-            name="categoryDescription"
+            name="description"
             control={control}
             defaultValue=""
           />
@@ -79,7 +80,7 @@ const CreatePopup = ({ visible, closeModal }) => {
             type="submit"
             onClick={() => {
               closeModal(false);
-              getData();
+              getPublisherData();
             }}
           >
             Submit
@@ -90,4 +91,4 @@ const CreatePopup = ({ visible, closeModal }) => {
   );
 };
 
-export default CreatePopup;
+export default UpdatePopup;

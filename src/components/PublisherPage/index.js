@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button } from '@nextui-org/react';
 
 /* import service */
-import { getAuthors, deleteAuthor } from '../../api/authorAPI';
+import { getPublishers, deletePublisher } from '../../api/publisherAPI';
 
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
@@ -12,38 +12,39 @@ import CreatePopup from './CreatePopup';
 import UpdatePopup from './UpdatePopup';
 
 import './style.css';
-const AuthorPage = () => {
-  const [author, setAuthor] = useState([]);
+
+const PublisherPage = () => {
+  const [publisher, setPublisher] = useState([]);
   const [visibleCreatePopup, setVisibleCreatePopup] = useState(false);
   const [visibleUpdatePopup, setVisibleUpdatePopup] = useState(false);
-  const [authorDetails, setAuthorDetails] = useState([]);
+  const [publisherDetails, setPublisherDetails] = useState([]);
 
-  const getAuthorsData = async () => {
-    const authors = await getAuthors();
-    setAuthor(authors);
+  const getPublisherData = async () => {
+    const publishers = await getPublishers();
+    setPublisher(publishers);
   };
 
-  const handleUpdate = async (id, firstName, lastName, description) => {
-    const details = { id, firstName, lastName, description };
-    setAuthorDetails(details);
+  const handleUpdate = async (id, name, description) => {
+    const details = { id, name, description };
+    setPublisherDetails(details);
     setVisibleUpdatePopup(true);
-    await getAuthorsData();
+    await getPublisherData();
   };
 
   const handleDelete = async (id) => {
-    const deletedAuthor = await deleteAuthor(id);
-    await getAuthorsData();
+    const deletedPublisher = await deletePublisher(id);
+    await getPublisherData();
   };
 
   useEffect(() => {
-    getAuthorsData();
-  }, [author]);
+    getPublisherData();
+  }, [publisher]);
 
   return (
     <div className="table-space">
       <div>
         <Button auto shadow onClick={() => setVisibleCreatePopup(true)}>
-          Add new author
+          Add new publisher
         </Button>
       </div>
       <div>
@@ -55,29 +56,22 @@ const AuthorPage = () => {
           }}
         >
           <Table.Header>
-            <Table.Column>FIRST NAME</Table.Column>
-            <Table.Column>LAST NAME</Table.Column>
+            <Table.Column>NAME</Table.Column>
             <Table.Column>DESCRIPTION</Table.Column>
             <Table.Column>ACTION</Table.Column>
           </Table.Header>
           <Table.Body>
-            {author.data &&
-              author.data.map((row) => (
+            {publisher.data &&
+              publisher.data.map((row) => (
                 <Table.Row key={row._id}>
-                  <Table.Cell>{row.firstName}</Table.Cell>
-                  <Table.Cell>{row.lastName}</Table.Cell>
+                  <Table.Cell>{row.name}</Table.Cell>
                   <Table.Cell>{row.description}</Table.Cell>
                   <Table.Cell>
                     <div className="ActionGroupButton">
                       <PrimaryButton
                         label="Update"
                         onClick={() =>
-                          handleUpdate(
-                            row._id,
-                            row.firstName,
-                            row.lastName,
-                            row.description
-                          )
+                          handleUpdate(row._id, row.name, row.description)
                         }
                       ></PrimaryButton>
                       <PrimaryButton
@@ -90,6 +84,7 @@ const AuthorPage = () => {
               ))}
           </Table.Body>
         </Table>
+
         <CreatePopup
           visible={visibleCreatePopup}
           closeModal={setVisibleCreatePopup}
@@ -97,11 +92,11 @@ const AuthorPage = () => {
         <UpdatePopup
           visible={visibleUpdatePopup}
           closeModal={setVisibleUpdatePopup}
-          authorDetails={authorDetails}
+          publisherDetails={publisherDetails}
         />
       </div>
     </div>
   );
 };
 
-export default AuthorPage;
+export default PublisherPage;

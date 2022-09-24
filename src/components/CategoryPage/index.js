@@ -17,10 +17,6 @@ const CategoryPage = () => {
   const [visibleCreatePopup, setVisibleCreatePopup] = useState(false);
   const [visibleUpdatePopup, setVisibleUpdatePopup] = useState(false);
   const [categoryDetails, setCategoryDetails] = useState([]);
-  console.log(
-    '🚀 ~ file: index.js ~ line 20 ~ CategoryPage ~ categoryDetails',
-    categoryDetails
-  );
 
   const getData = async () => {
     const categories = await getCategories();
@@ -52,7 +48,6 @@ const CategoryPage = () => {
       </div>
       <div>
         <Table
-          aria-label="Example table with static content"
           css={{
             height: 'auto',
             minWidth: '100%',

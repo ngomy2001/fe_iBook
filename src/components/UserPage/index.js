@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button } from '@nextui-org/react';
 
 /* import service */
-import { getAuthors, deleteAuthor } from '../../api/authorAPI';
+import { getUsers } from '../../api/userAPI';
 
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
@@ -12,38 +12,41 @@ import CreatePopup from './CreatePopup';
 import UpdatePopup from './UpdatePopup';
 
 import './style.css';
-const AuthorPage = () => {
-  const [author, setAuthor] = useState([]);
+
+const UserPage = () => {
+  const [user, setUser] = useState([]);
   const [visibleCreatePopup, setVisibleCreatePopup] = useState(false);
   const [visibleUpdatePopup, setVisibleUpdatePopup] = useState(false);
-  const [authorDetails, setAuthorDetails] = useState([]);
+  const [userDetails, setUserDetails] = useState([]);
 
-  const getAuthorsData = async () => {
-    const authors = await getAuthors();
-    setAuthor(authors);
+  const getUsersData = async () => {
+    const users = await getUsers();
+    setUser(users);
   };
 
-  const handleUpdate = async (id, firstName, lastName, description) => {
-    const details = { id, firstName, lastName, description };
-    setAuthorDetails(details);
+  const handleUpdate = async (
+    id,
+    firstName,
+    lastName,
+    role,
+    email,
+    password
+  ) => {
+    const details = { id, firstName, lastName, role, email, password };
+    setUserDetails(details);
     setVisibleUpdatePopup(true);
-    await getAuthorsData();
-  };
-
-  const handleDelete = async (id) => {
-    const deletedAuthor = await deleteAuthor(id);
-    await getAuthorsData();
+    await getUsersData();
   };
 
   useEffect(() => {
-    getAuthorsData();
-  }, [author]);
+    getUsersData();
+  }, [user]);
 
   return (
     <div className="table-space">
       <div>
         <Button auto shadow onClick={() => setVisibleCreatePopup(true)}>
-          Add new author
+          Add new user
         </Button>
       </div>
       <div>
@@ -57,16 +60,20 @@ const AuthorPage = () => {
           <Table.Header>
             <Table.Column>FIRST NAME</Table.Column>
             <Table.Column>LAST NAME</Table.Column>
-            <Table.Column>DESCRIPTION</Table.Column>
+            <Table.Column>ROLE</Table.Column>
+            <Table.Column>EMAIL</Table.Column>
+            <Table.Column>PASSWORD</Table.Column>
             <Table.Column>ACTION</Table.Column>
           </Table.Header>
           <Table.Body>
-            {author.data &&
-              author.data.map((row) => (
+            {user.data &&
+              user.data.map((row) => (
                 <Table.Row key={row._id}>
                   <Table.Cell>{row.firstName}</Table.Cell>
                   <Table.Cell>{row.lastName}</Table.Cell>
-                  <Table.Cell>{row.description}</Table.Cell>
+                  <Table.Cell>{row.role}</Table.Cell>
+                  <Table.Cell>{row.email}</Table.Cell>
+                  <Table.Cell>{row.password}</Table.Cell>
                   <Table.Cell>
                     <div className="ActionGroupButton">
                       <PrimaryButton
@@ -76,13 +83,11 @@ const AuthorPage = () => {
                             row._id,
                             row.firstName,
                             row.lastName,
-                            row.description
+                            row.role,
+                            row.email,
+                            row.password
                           )
                         }
-                      ></PrimaryButton>
-                      <PrimaryButton
-                        label="Delete"
-                        onClick={() => handleDelete(row._id)}
                       ></PrimaryButton>
                     </div>
                   </Table.Cell>
@@ -97,11 +102,11 @@ const AuthorPage = () => {
         <UpdatePopup
           visible={visibleUpdatePopup}
           closeModal={setVisibleUpdatePopup}
-          authorDetails={authorDetails}
+          userDetails={userDetails}
         />
       </div>
     </div>
   );
 };
 
-export default AuthorPage;
+export default UserPage;
