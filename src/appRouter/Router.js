@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LibrarianMainLayout from '../components/mainLayout/LibrarianMainLayout';
+import LibrarianMainLayout from '../components/mainLayout/LibrarianLayout/LibrarianMainLayout';
 import CategoryPageForLibrarian from '../components/CategoryPage/index';
 import AuthorPageForLibrarian from '../components/AuthorPage/index';
 import PublisherPageForLibrarian from '../components/PublisherPage/index';
 import UserPageForLibrarian from '../components/UserPage/index';
 import BookPageForLibrarian from '../components/BookPage/index';
+import MemberMainLayout from '../components/mainLayout/MemberLayout/MemberMainLayout';
 const AppRouter = () => {
   return (
     <BrowserRouter>
@@ -22,6 +23,9 @@ const AppRouter = () => {
           <Route index element={<UserPageForLibrarian />}></Route>
         </Route>
         <Route path="/librarian/book" element={<LibrarianMainLayout />}>
+          <Route index element={<BookPageForLibrarian />}></Route>
+        </Route>
+        <Route path="/member/" element={<MemberMainLayout />}>
           <Route index element={<BookPageForLibrarian />}></Route>
         </Route>
       </Routes>
