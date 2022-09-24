@@ -1,19 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import { useForm, Controller } from 'react-hook-form';
 
-import { Modal, Button, Text, Input } from '@nextui-org/react';
+import { Modal, Button, Text, Input, Dropdown } from '@nextui-org/react';
 
 import { getBooks, createBook } from '../../../api/bookAPI';
 
-const CreatePopup = ({ visible, closeModal }) => {
+const CreatePopup = ({ visible, closeModal, publisher, author, category }) => {
+  console.log(
+    '🚀 ~ file: index.js ~ line 10 ~ CreatePopup ~ publisher',
+    publisher
+  );
   const [book, setBook] = useState([]);
+  const [selected, setSelected] = useState(new Set(['']));
+  console.log(
+    '🚀 ~ file: index.js ~ line 14 ~ CreatePopup ~ selected',
+    JSON.stringify(selected)
+  );
 
   const { control, handleSubmit } = useForm();
 
   const getBooksData = async () => {
     const books = await getBooks();
     setBook(books);
+  };
+
+  const selectedValue = () => {
+    /*console.log('da chon');
+    console.log(
+      '🚀 ~ file: index.js ~ line 36 ~ selectedValue ~ publisher',
+      publisher
+    );
+    const { currentKey } = selected;
+    //if (publisher.data.length) {
+    const selectedPublisher = publisher.data.find(
+      (item) => item._id === currentKey
+    );
+
+    console.log(
+      '🚀 ~ file: index.js ~ line 30 ~ selectedValue ~ selectedPublisher',
+      selectedPublisher
+    );
+    if (selectedPublisher) {
+      return selectedPublisher.name;
+    }
+    //}*/
+    return selected.currentKey;
   };
 
   const onSubmit = async (data) => {
@@ -58,97 +90,76 @@ const CreatePopup = ({ visible, closeModal }) => {
             control={control}
             defaultValue=""
           />
+          <Text h6>Select category:</Text>
           <Controller
             render={({ field }) => (
-              <Input
-                clearable
-                bordered
-                fullWidth
-                color="primary"
-                size="lg"
-                placeholder="Enter the book category"
-                {...field}
-              />
+              <Dropdown>
+                <Dropdown.Button flat color="error"></Dropdown.Button>
+                <Dropdown.Menu selectionMode="single">
+                  {category.data &&
+                    category.data.map((row) => (
+                      <Dropdown.Item key={row._id}>{row.name}</Dropdown.Item>
+                    ))}
+                </Dropdown.Menu>
+              </Dropdown>
             )}
             name="categoryId"
             control={control}
             defaultValue=""
           />
+
+          <Text h6>Select author:</Text>
           <Controller
             render={({ field }) => (
-              <Input
-                clearable
-                bordered
-                fullWidth
-                color="primary"
-                size="lg"
-                placeholder="Enter the book author"
-                {...field}
-              />
+              <Dropdown>
+                <Dropdown.Button flat color="error"></Dropdown.Button>
+                <Dropdown.Menu selectionMode="single">
+                  {author.data &&
+                    author.data.map((row) => (
+                      <Dropdown.Item key={row._id}>
+                        {row.firstName} {row.lastName}
+                      </Dropdown.Item>
+                    ))}
+                </Dropdown.Menu>
+              </Dropdown>
             )}
             name="authorId"
             control={control}
             defaultValue=""
           />
+          <Text h6>Select publisher:</Text>
           <Controller
             render={({ field }) => (
-              <Input
-                clearable
-                bordered
-                fullWidth
-                color="primary"
-                size="lg"
-                placeholder="Enter the book publisher"
-                {...field}
-              />
+              <Dropdown>
+                <Dropdown.Button flat color="error">
+                  {selectedValue()}
+                </Dropdown.Button>
+                <Dropdown.Menu
+                  selectionMode="single"
+                  selectedKeys={selected}
+                  onSelectionChange={setSelected}
+                >
+                  {publisher.data &&
+                    publisher.data.map((row) => (
+                      <Dropdown.Item key={row._id}>{row.name}</Dropdown.Item>
+                    ))}
+                </Dropdown.Menu>
+              </Dropdown>
             )}
             name="publisherId"
             control={control}
             defaultValue=""
           />
+          <Text h6>Select language:</Text>
           <Controller
             render={({ field }) => (
-              <Input
-                clearable
-                bordered
-                fullWidth
-                color="primary"
-                size="lg"
-                placeholder="Enter the book publisher"
-                {...field}
-              />
-            )}
-            name="publisherId"
-            control={control}
-            defaultValue=""
-          />
-          <Controller
-            render={({ field }) => (
-              <Input
-                clearable
-                bordered
-                fullWidth
-                color="primary"
-                size="lg"
-                placeholder="Enter the book langue"
-                {...field}
-              />
-            )}
-            name="language"
-            control={control}
-            defaultValue=""
-          />
-          <Controller
-            render={({ field }) => (
-              <Input
-                clearable
-                bordered
-                fullWidth
-                color="primary"
-                size="lg"
-                placeholder="Enter the book langue"
-                {...field}
-              />
+              <Dropdown>
+                <Dropdown.Button flat color="error"></Dropdown.Button>
+                <Dropdown.Menu selectionMode="single">
+                  <Dropdown.Item key="Vietnamese">Vietnamese</Dropdown.Item>
+                  <Dropdown.Item key="English">English</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             )}
             name="language"
             control={control}

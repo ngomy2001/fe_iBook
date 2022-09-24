@@ -5,6 +5,9 @@ import { Table, Button } from '@nextui-org/react';
 
 /* import service */
 import { getBooks } from '../../api/bookAPI';
+import { getPublishers } from '../../api/publisherAPI';
+import { getAuthors } from '../../api/authorAPI';
+import { getCategories } from '../../api/categoryAPI';
 
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
@@ -14,6 +17,9 @@ import './style.css';
 
 const BookPage = () => {
   const [book, setBook] = useState([]);
+  const [publisher, setPublisher] = useState(null);
+  const [author, setAuthor] = useState(null);
+  const [category, setCategory] = useState(null);
   const [visibleCreatePopup, setVisibleCreatePopup] = useState(false);
   //const [bookDetails, setBookDetails] = useState([]);
 
@@ -22,10 +28,35 @@ const BookPage = () => {
     setBook(books);
   };
 
+  const getPublisherData = async () => {
+    const publishers = await getPublishers();
+    setPublisher(publishers);
+  };
+
+  const getAuthorData = async () => {
+    const authors = await getAuthors();
+    setAuthor(authors);
+  };
+
+  const getCategoryData = async () => {
+    const categories = await getCategories();
+    setCategory(categories);
+  };
   useEffect(() => {
     getBooksData();
-  }, [book]);
+  }, []);
 
+  useEffect(() => {
+    getPublisherData();
+  }, []);
+
+  useEffect(() => {
+    getAuthorData();
+  }, []);
+
+  useEffect(() => {
+    getCategoryData();
+  }, []);
   return (
     <div className="table-space">
       <div>
@@ -56,9 +87,11 @@ const BookPage = () => {
               book.data.map((row) => (
                 <Table.Row key={row._id}>
                   <Table.Cell>{row.title}</Table.Cell>
-                  <Table.Cell>{row.categoryId}</Table.Cell>
-                  <Table.Cell>{row.authorId}</Table.Cell>
-                  <Table.Cell>{row.publisherId}</Table.Cell>
+                  <Table.Cell>{row.categoryId.name}</Table.Cell>
+                  <Table.Cell>
+                    {row.authorId.firstName} {row.authorId.lastName}
+                  </Table.Cell>
+                  <Table.Cell>{row.publisherId.name}</Table.Cell>
                   <Table.Cell>{row.language}</Table.Cell>
                   <Table.Cell>{row.numberOfPages}</Table.Cell>
                   <Table.Cell>{row.numberOfCopies}</Table.Cell>
@@ -72,9 +105,13 @@ const BookPage = () => {
               ))}
           </Table.Body>
         </Table>
+
         <CreatePopup
           visible={visibleCreatePopup}
           closeModal={setVisibleCreatePopup}
+          publisher={publisher}
+          author={author}
+          category={category}
         />
       </div>
     </div>
