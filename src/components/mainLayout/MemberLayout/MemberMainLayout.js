@@ -32,7 +32,7 @@ const MemberMainLayout = () => {
           </Navbar.Content>
           <Navbar.Collapse
             css={{
-              background: '#FFFFFF', // colors.pink800
+              background: '#FFFFFF',
             }}
           >
             {memberCollapseItems.map((item) => (

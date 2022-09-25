@@ -6,6 +6,11 @@ import { Table } from '@nextui-org/react';
 /* import service */
 import { getBooks } from '../../api/bookAPI';
 
+/* import component */
+import PrimaryButton from '../customComponents/customButtonComponent/Button';
+
+import './style.css';
+
 const BookPage = () => {
   const [book, setBook] = useState([]);
 
@@ -35,6 +40,7 @@ const BookPage = () => {
           <Table.Column>LANGUAGE</Table.Column>
           <Table.Column>NUMBER OF PAGES</Table.Column>
           <Table.Column>NUMBER OF COPIES</Table.Column>
+          <Table.Column>ACTION</Table.Column>
         </Table.Header>
         <Table.Body>
           {book.data &&
@@ -49,6 +55,12 @@ const BookPage = () => {
                 <Table.Cell>{row.language}</Table.Cell>
                 <Table.Cell>{row.numberOfPages}</Table.Cell>
                 <Table.Cell>{row.numberOfCopies}</Table.Cell>
+                <Table.Cell>
+                  <div className="ActionGroupButton">
+                    <PrimaryButton label="Read sample"></PrimaryButton>
+                    <PrimaryButton label="Check out"></PrimaryButton>
+                  </div>
+                </Table.Cell>
               </Table.Row>
             ))}
         </Table.Body>
