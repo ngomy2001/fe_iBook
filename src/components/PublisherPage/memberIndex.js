@@ -16,7 +16,7 @@ const PublisherPage = () => {
 
   useEffect(() => {
     getPublisherData();
-  });
+  }, []);
 
   return (
     <div>
