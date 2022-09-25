@@ -4,18 +4,18 @@ import React, { useState, useEffect } from 'react';
 import { Table } from '@nextui-org/react';
 
 /* import service */
-import { getAuthors } from '../../api/authorAPI';
+import { getPublishers } from '../../api/publisherAPI';
 
-const AuthorPage = () => {
-  const [author, setAuthor] = useState([]);
+const PublisherPage = () => {
+  const [publisher, setPublisher] = useState([]);
 
-  const getAuthorsData = async () => {
-    const authors = await getAuthors();
-    setAuthor(authors);
+  const getPublisherData = async () => {
+    const publishers = await getPublishers();
+    setPublisher(publishers);
   };
 
   useEffect(() => {
-    getAuthorsData();
+    getPublisherData();
   });
 
   return (
@@ -32,12 +32,10 @@ const AuthorPage = () => {
           <Table.Column>DESCRIPTION</Table.Column>
         </Table.Header>
         <Table.Body>
-          {author.data &&
-            author.data.map((row) => (
+          {publisher.data &&
+            publisher.data.map((row) => (
               <Table.Row key={row._id}>
-                <Table.Cell>
-                  {row.firstName} {row.lastName}
-                </Table.Cell>
+                <Table.Cell>{row.name}</Table.Cell>
                 <Table.Cell>{row.description}</Table.Cell>
               </Table.Row>
             ))}
@@ -47,4 +45,4 @@ const AuthorPage = () => {
   );
 };
 
-export default AuthorPage;
+export default PublisherPage;
