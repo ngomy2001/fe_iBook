@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LibrarianMainLayout from '../components/mainLayout/LibrarianLayout/LibrarianMainLayout';
 import CategoryPageForLibrarian from '../components/CategoryPage/index';
+import CategoryPageForMember from '../components/CategoryPage/memberIndex';
 import AuthorPageForLibrarian from '../components/AuthorPage/index';
 import PublisherPageForLibrarian from '../components/PublisherPage/index';
 import UserPageForLibrarian from '../components/UserPage/index';
@@ -25,8 +26,8 @@ const AppRouter = () => {
         <Route path="/librarian/book" element={<LibrarianMainLayout />}>
           <Route index element={<BookPageForLibrarian />}></Route>
         </Route>
-        <Route path="/member/" element={<MemberMainLayout />}>
-          <Route index element={<BookPageForLibrarian />}></Route>
+        <Route path="/member/category" element={<MemberMainLayout />}>
+          <Route index element={<CategoryPageForMember />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
