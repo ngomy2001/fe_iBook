@@ -16,7 +16,7 @@ const AuthorPage = () => {
 
   useEffect(() => {
     getAuthorsData();
-  });
+  }, []);
 
   return (
     <div>

@@ -16,7 +16,7 @@ const CategoryPage = () => {
 
   useEffect(() => {
     getCategoryData();
-  });
+  }, []);
 
   return (
     <div>

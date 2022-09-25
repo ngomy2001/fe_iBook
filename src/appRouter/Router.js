@@ -20,6 +20,7 @@ import UserPageForLibrarian from '../components/UserPage/index';
 
 /* Book Page */
 import BookPageForLibrarian from '../components/BookPage/index';
+import BookPageForMember from '../components/BookPage/memberIndex';
 
 const AppRouter = () => {
   return (
@@ -48,6 +49,9 @@ const AppRouter = () => {
         </Route>
         <Route path="/librarian/book" element={<LibrarianMainLayout />}>
           <Route index element={<BookPageForLibrarian />}></Route>
+        </Route>
+        <Route path="/member/book" element={<MemberMainLayout />}>
+          <Route index element={<BookPageForMember />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
