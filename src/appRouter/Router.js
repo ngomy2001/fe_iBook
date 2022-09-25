@@ -13,6 +13,7 @@ import AuthorPageForMember from '../components/AuthorPage/memberIndex';
 
 /* Publisher Page */
 import PublisherPageForLibrarian from '../components/PublisherPage/index';
+import PublisherPageForMember from '../components/PublisherPage/memberIndex';
 
 /* User Page */
 import UserPageForLibrarian from '../components/UserPage/index';
@@ -38,6 +39,9 @@ const AppRouter = () => {
         </Route>
         <Route path="/librarian/publisher" element={<LibrarianMainLayout />}>
           <Route index element={<PublisherPageForLibrarian />}></Route>
+        </Route>
+        <Route path="/member/publisher" element={<MemberMainLayout />}>
+          <Route index element={<PublisherPageForMember />}></Route>
         </Route>
         <Route path="/librarian/user" element={<LibrarianMainLayout />}>
           <Route index element={<UserPageForLibrarian />}></Route>
