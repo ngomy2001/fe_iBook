@@ -1,4 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+/* Login Page */
+import LoginPage from '../components/loginPage/LoginPage';
 /* Main Layout */
 import LibrarianMainLayout from '../components/mainLayout/LibrarianLayout/LibrarianMainLayout';
 import MemberMainLayout from '../components/mainLayout/MemberLayout/MemberMainLayout';
@@ -26,6 +29,7 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<LoginPage />}></Route>
         <Route path="/librarian/category" element={<LibrarianMainLayout />}>
           <Route index element={<CategoryPageForLibrarian />}></Route>
         </Route>
