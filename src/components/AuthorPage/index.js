@@ -37,7 +37,7 @@ const AuthorPage = () => {
 
   useEffect(() => {
     getAuthorsData();
-  }, [author]);
+  }, []);
 
   return (
     <div className="table-space">

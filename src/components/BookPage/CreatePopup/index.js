@@ -13,10 +13,6 @@ const CreatePopup = ({ visible, closeModal, publisher, author, category }) => {
   );
   const [book, setBook] = useState([]);
   const [selected, setSelected] = useState(new Set(['']));
-  console.log(
-    '🚀 ~ file: index.js ~ line 14 ~ CreatePopup ~ selected',
-    JSON.stringify(selected)
-  );
 
   const { control, handleSubmit } = useForm();
 
@@ -25,30 +21,8 @@ const CreatePopup = ({ visible, closeModal, publisher, author, category }) => {
     setBook(books);
   };
 
-  const selectedValue = () => {
-    /*console.log('da chon');
-    console.log(
-      '🚀 ~ file: index.js ~ line 36 ~ selectedValue ~ publisher',
-      publisher
-    );
-    const { currentKey } = selected;
-    //if (publisher.data.length) {
-    const selectedPublisher = publisher.data.find(
-      (item) => item._id === currentKey
-    );
-
-    console.log(
-      '🚀 ~ file: index.js ~ line 30 ~ selectedValue ~ selectedPublisher',
-      selectedPublisher
-    );
-    if (selectedPublisher) {
-      return selectedPublisher.name;
-    }
-    //}*/
-    return selected.currentKey;
-  };
-
   const onSubmit = async (data) => {
+    console.log('🚀 ~ file: index.js ~ line 44 ~ onSubmit ~ data', data);
     try {
       const response = await createBook(
         data.title,
@@ -127,17 +101,17 @@ const CreatePopup = ({ visible, closeModal, publisher, author, category }) => {
             control={control}
             defaultValue=""
           />
+
           <Text h6>Select publisher:</Text>
           <Controller
             render={({ field }) => (
               <Dropdown>
-                <Dropdown.Button flat color="error">
-                  {selectedValue()}
-                </Dropdown.Button>
+                <Dropdown.Button flat color="error"></Dropdown.Button>
                 <Dropdown.Menu
                   selectionMode="single"
                   selectedKeys={selected}
                   onSelectionChange={setSelected}
+                  // {...field}
                 >
                   {publisher.data &&
                     publisher.data.map((row) => (
@@ -150,6 +124,7 @@ const CreatePopup = ({ visible, closeModal, publisher, author, category }) => {
             control={control}
             defaultValue=""
           />
+
           <Text h6>Select language:</Text>
           <Controller
             render={({ field }) => (

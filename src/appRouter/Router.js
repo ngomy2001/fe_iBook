@@ -30,32 +30,22 @@ const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LoginPage />}></Route>
-        <Route path="/librarian/category" element={<LibrarianMainLayout />}>
-          <Route index element={<CategoryPageForLibrarian />}></Route>
+
+        <Route path="/member" element={<MemberMainLayout />}>
+          <Route path="category" element={<CategoryPageForMember />}></Route>
+          <Route path="author" element={<AuthorPageForMember />}></Route>
+          <Route path="publisher" element={<PublisherPageForMember />}></Route>
+          <Route path="book" element={<BookPageForMember />}></Route>
         </Route>
-        <Route path="/member/category" element={<MemberMainLayout />}>
-          <Route index element={<CategoryPageForMember />}></Route>
-        </Route>
-        <Route path="/librarian/author" element={<LibrarianMainLayout />}>
-          <Route index element={<AuthorPageForLibrarian />}></Route>
-        </Route>
-        <Route path="/member/author" element={<MemberMainLayout />}>
-          <Route index element={<AuthorPageForMember />}></Route>
-        </Route>
-        <Route path="/librarian/publisher" element={<LibrarianMainLayout />}>
-          <Route index element={<PublisherPageForLibrarian />}></Route>
-        </Route>
-        <Route path="/member/publisher" element={<MemberMainLayout />}>
-          <Route index element={<PublisherPageForMember />}></Route>
-        </Route>
-        <Route path="/librarian/user" element={<LibrarianMainLayout />}>
-          <Route index element={<UserPageForLibrarian />}></Route>
-        </Route>
-        <Route path="/librarian/book" element={<LibrarianMainLayout />}>
-          <Route index element={<BookPageForLibrarian />}></Route>
-        </Route>
-        <Route path="/member/book" element={<MemberMainLayout />}>
-          <Route index element={<BookPageForMember />}></Route>
+        <Route path="/librarian" element={<LibrarianMainLayout />}>
+          <Route path="author" element={<AuthorPageForLibrarian />}></Route>
+          <Route path="category" element={<CategoryPageForLibrarian />}></Route>
+          <Route
+            path="publisher"
+            element={<PublisherPageForLibrarian />}
+          ></Route>
+          <Route path="book" element={<BookPageForLibrarian />}></Route>
+          <Route path="user" element={<UserPageForLibrarian />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

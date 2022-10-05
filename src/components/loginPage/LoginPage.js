@@ -31,7 +31,7 @@ const LoginPage = () => {
       const token = response.data.token;
       if (!token) return;
       localStorage.setItem('access_token', token);
-      navigate('/');
+      navigate('/librarian/book');
     } catch (error) {
       setError('Something went wrong, please try again or contact us');
     }
