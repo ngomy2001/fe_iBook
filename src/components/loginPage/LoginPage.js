@@ -6,6 +6,8 @@ import { FaGoogle } from 'react-icons/fa';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoggedInUser } from '../../redux/features/auth';
 
 /* import service */
 import { login } from '../../api/authAPI';
@@ -13,6 +15,13 @@ import { login } from '../../api/authAPI';
 import '../loginPage/LoginPage.css';
 const LoginPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userLoggedIn = useSelector((state) => state.auth.payload.id);
+  console.log(
+    '🚀 ~ file: LoginPage.js ~ line 20 ~ LoginPage ~ userLoggedIn',
+    userLoggedIn
+  );
+
   const [error, setError] = useState('');
   const {
     register,
@@ -28,9 +37,16 @@ const LoginPage = () => {
         password,
       };
       const response = await login(payload);
+      console.log(
+        '🚀 ~ file: LoginPage.js ~ line 34 ~ handleLogin ~ response',
+        response
+      );
+      dispatch(setLoggedInUser(response.data));
+
       const token = response.data.token;
       if (!token) return;
       localStorage.setItem('access_token', token);
+
       navigate('/librarian/book');
     } catch (error) {
       setError('Something went wrong, please try again or contact us');
