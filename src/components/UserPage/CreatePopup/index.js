@@ -6,15 +6,15 @@ import { Modal, Button, Text, Input } from '@nextui-org/react';
 
 import { getUsers, createUser } from '../../../api/userAPI';
 
-const CreatePopup = ({ visible, closeModal }) => {
-  const [user, setUser] = useState([]);
+const CreatePopup = ({ visible, closeModal, onCreate }) => {
+  // const [user, setUser] = useState([]);
 
   const { control, handleSubmit } = useForm();
 
-  const getUsersData = async () => {
-    const users = await getUsers();
-    setUser(users);
-  };
+  // const getUsersData = async () => {
+  //   const users = await getUsers();
+  //   setUser(users);
+  // };
 
   const onSubmit = async (data) => {
     try {
@@ -25,6 +25,8 @@ const CreatePopup = ({ visible, closeModal }) => {
         data.email,
         data.password
       );
+      onCreate();
+      closeModal(false);
       return response;
     } catch (error) {
       console.log('🚀 ~ file: index.js ~ line 30 ~ onSubmit ~ error', error);
@@ -128,10 +130,10 @@ const CreatePopup = ({ visible, closeModal }) => {
           <Button
             auto
             type="submit"
-            onClick={() => {
-              closeModal(false);
-              getUsersData();
-            }}
+            // onClick={() => {
+            //   closeModal(false);
+            //   getUsersData();
+            // }}
           >
             Submit
           </Button>

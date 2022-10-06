@@ -40,7 +40,7 @@ const UserPage = () => {
 
   useEffect(() => {
     getUsersData();
-  }, [user]);
+  }, []);
 
   return (
     <div className="table-space">
@@ -98,6 +98,7 @@ const UserPage = () => {
         <CreatePopup
           visible={visibleCreatePopup}
           closeModal={setVisibleCreatePopup}
+          onCreate={getUsersData}
         />
         <UpdatePopup
           visible={visibleUpdatePopup}
