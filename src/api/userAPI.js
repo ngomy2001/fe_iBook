@@ -28,7 +28,7 @@ const createUser = async (firstName, lastName, role, email, password) => {
 
 const updateUser = async (id, firstName, lastName, role, email, password) => {
   try {
-    const payload = { id, firstName, lastName, role, email, password };
+    const payload = { firstName, lastName, role, email, password };
     const URL = `http://localhost:3001/api/accounts/${id}`;
     const response = await axios.put(URL, payload);
     console.log(response);
