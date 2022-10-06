@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useForm, Controller } from 'react-hook-form';
 
 import { Modal, Button, Text, Input } from '@nextui-org/react';
 
-import { getCategories, createCategory } from '../../../api/categoryAPI';
+import { createCategory } from '../../../api/categoryAPI';
 
 const CreatePopup = ({ visible, closeModal, onCreate }) => {
   // const [category, setCategory] = useState([]);
@@ -21,10 +21,6 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
       const response = await createCategory(
         data.categoryName,
         data.categoryDescription
-      );
-      console.log(
-        '🚀 ~ file: index.js ~ line 25 ~ onSubmit ~ response',
-        JSON.stringify(response)
       );
       onCreate();
       closeModal(false);

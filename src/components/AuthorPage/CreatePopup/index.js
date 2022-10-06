@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useForm, Controller } from 'react-hook-form';
 
 import { Modal, Button, Text, Input } from '@nextui-org/react';
 
-import { getAuthors, createAuthor } from '../../../api/authorAPI';
+import { createAuthor } from '../../../api/authorAPI';
 
-const CreatePopup = ({ visible, closeModal }) => {
-  const [author, setAuthor] = useState([]);
+const CreatePopup = ({ visible, closeModal, onCreate }) => {
+  // const [author, setAuthor] = useState([]);
 
   const { control, handleSubmit } = useForm();
 
-  const getAuthorsData = async () => {
-    const authors = await getAuthors();
-    setAuthor(authors);
-  };
+  // const getAuthorsData = async () => {
+  //   const authors = await getAuthors();
+  //   setAuthor(authors);
+  // };
 
   const onSubmit = async (data) => {
     try {
@@ -23,6 +23,8 @@ const CreatePopup = ({ visible, closeModal }) => {
         data.lastName,
         data.description
       );
+      onCreate();
+      closeModal(false);
       return response;
     } catch (error) {
       console.log('🚀 ~ file: index.js ~ line 10 ~ onSubmit ~ error', error);
@@ -94,10 +96,10 @@ const CreatePopup = ({ visible, closeModal }) => {
           <Button
             auto
             type="submit"
-            onClick={() => {
-              closeModal(false);
-              getAuthorsData();
-            }}
+            // onClick={() => {
+            //   closeModal(false);
+            //   getAuthorsData();
+            // }}
           >
             Submit
           </Button>
