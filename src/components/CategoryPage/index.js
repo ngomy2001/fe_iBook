@@ -37,7 +37,7 @@ const CategoryPage = () => {
 
   useEffect(() => {
     getData();
-  }, [category]);
+  }, []);
 
   return (
     <div className="table-space">
@@ -87,6 +87,7 @@ const CategoryPage = () => {
         <CreatePopup
           visible={visibleCreatePopup}
           closeModal={setVisibleCreatePopup}
+          onCreate={getData}
         />
         <UpdatePopup
           visible={visibleUpdatePopup}

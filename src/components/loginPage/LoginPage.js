@@ -6,7 +6,7 @@ import { FaGoogle } from 'react-icons/fa';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setLoggedInUser } from '../../redux/features/auth';
 
 /* import service */
@@ -16,11 +16,6 @@ import '../loginPage/LoginPage.css';
 const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userLoggedIn = useSelector((state) => state.auth.payload.id);
-  console.log(
-    '🚀 ~ file: LoginPage.js ~ line 20 ~ LoginPage ~ userLoggedIn',
-    userLoggedIn
-  );
 
   const [error, setError] = useState('');
   const {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
 import { useForm, Controller } from 'react-hook-form';
+import Select from 'react-select';
 
 import { Modal, Button, Text, Input, Dropdown } from '@nextui-org/react';
 
