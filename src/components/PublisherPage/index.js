@@ -21,6 +21,10 @@ const PublisherPage = () => {
 
   const getPublisherData = async () => {
     const publishers = await getPublishers();
+    console.log(
+      '🚀 ~ file: index.js ~ line 24 ~ getPublisherData ~ publishers',
+      JSON.stringify(publishers)
+    );
     setPublisher(publishers);
   };
 
@@ -38,7 +42,7 @@ const PublisherPage = () => {
 
   useEffect(() => {
     getPublisherData();
-  }, [publisher]);
+  }, []);
 
   return (
     <div className="table-space">
@@ -88,6 +92,7 @@ const PublisherPage = () => {
         <CreatePopup
           visible={visibleCreatePopup}
           closeModal={setVisibleCreatePopup}
+          onCreate={getPublisherData}
         />
         <UpdatePopup
           visible={visibleUpdatePopup}
