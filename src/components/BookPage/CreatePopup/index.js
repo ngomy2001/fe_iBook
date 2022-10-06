@@ -7,20 +7,23 @@ import { Modal, Button, Text, Input, Dropdown } from '@nextui-org/react';
 
 import { getBooks, createBook } from '../../../api/bookAPI';
 
-const CreatePopup = ({ visible, closeModal, publisher, author, category }) => {
-  console.log(
-    '🚀 ~ file: index.js ~ line 10 ~ CreatePopup ~ publisher',
-    publisher
-  );
-  const [book, setBook] = useState([]);
+const CreatePopup = ({
+  visible,
+  closeModal,
+  publisher,
+  author,
+  category,
+  onCreate,
+}) => {
+  // const [book, setBook] = useState([]);
   const [selected, setSelected] = useState(new Set(['']));
 
   const { control, handleSubmit } = useForm();
 
-  const getBooksData = async () => {
-    const books = await getBooks();
-    setBook(books);
-  };
+  // const getBooksData = async () => {
+  //   const books = await getBooks();
+  //   setBook(books);
+  // };
 
   const onSubmit = async (data) => {
     console.log('🚀 ~ file: index.js ~ line 44 ~ onSubmit ~ data', data);
@@ -34,6 +37,8 @@ const CreatePopup = ({ visible, closeModal, publisher, author, category }) => {
         data.numberOfPages,
         data.numberOfCopies
       );
+      onCreate();
+      closeModal(false);
       return response;
     } catch (error) {
       console.log('🚀 ~ file: index.js ~ line 32 ~ onSubmit ~ error', error);
@@ -181,10 +186,10 @@ const CreatePopup = ({ visible, closeModal, publisher, author, category }) => {
           <Button
             auto
             type="submit"
-            onClick={() => {
-              closeModal(false);
-              getBooksData();
-            }}
+            // onClick={() => {
+            //   closeModal(false);
+            //   getBooksData();
+            // }}
           >
             Submit
           </Button>
