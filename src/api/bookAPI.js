@@ -37,4 +37,43 @@ const createBook = async (
   }
 };
 
-export { getBooks, createBook };
+const updateBook = async (
+  id,
+  title,
+  categoryId,
+  authorId,
+  publisherId,
+  language,
+  numberOfPages,
+  numberOfCopies
+) => {
+  try {
+    const payload = {
+      title,
+      categoryId,
+      authorId,
+      publisherId,
+      language,
+      numberOfPages,
+      numberOfCopies,
+    };
+    const URL = `http://localhost:3001/api/book/${id}`;
+    const response = await axios.put(URL, payload);
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log('🚀 ~ file: bookAPI.js ~ line 65 ~ error', error);
+  }
+};
+
+const deleteBook = async (id) => {
+  try {
+    const URL = `http://localhost:3001/api/book/${id}`;
+    const response = await axios.delete(URL, id);
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log('🚀 ~ file: bookAPI.js ~ line 76 ~ deleteBook ~ error', error);
+  }
+};
+export { getBooks, createBook, updateBook, deleteBook };

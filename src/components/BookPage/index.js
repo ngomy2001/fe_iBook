@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button } from '@nextui-org/react';
 
 /* import service */
-import { getBooks } from '../../api/bookAPI';
+import { getBooks, deleteBook } from '../../api/bookAPI';
 import { getPublishers } from '../../api/publisherAPI';
 import { getAuthors } from '../../api/authorAPI';
 import { getCategories } from '../../api/categoryAPI';
@@ -28,6 +28,10 @@ const BookPage = () => {
     setBook(books);
   };
 
+  const handleDeleteBook = async (id) => {
+    const deletedBook = await deleteBook(id);
+    await getBooksData();
+  };
   const getPublisherData = async () => {
     const publishers = await getPublishers();
     setPublisher(publishers);
@@ -99,6 +103,10 @@ const BookPage = () => {
                     <div className="ActionGroupButton">
                       <PrimaryButton label="Read sample"></PrimaryButton>
                       <PrimaryButton label="Update"></PrimaryButton>
+                      <PrimaryButton
+                        label="Delete"
+                        onClick={() => handleDeleteBook(row._id)}
+                      ></PrimaryButton>
                     </div>
                   </Table.Cell>
                 </Table.Row>
@@ -109,6 +117,7 @@ const BookPage = () => {
         <CreatePopup
           visible={visibleCreatePopup}
           closeModal={setVisibleCreatePopup}
+          onCreate={getBooksData}
           publisher={publisher}
           author={author}
           category={category}

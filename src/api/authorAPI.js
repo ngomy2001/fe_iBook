@@ -31,7 +31,7 @@ const createAuthor = async (firstName, lastName, description) => {
 
 const updateAuthor = async (id, firstName, lastName, description) => {
   try {
-    const payload = { id, firstName, lastName, description };
+    const payload = { firstName, lastName, description };
     const URL = `http://localhost:3001/api/author/${id}`;
     const response = await axios.put(URL, payload);
     console.log(response);

@@ -37,7 +37,7 @@ const AuthorPage = () => {
 
   useEffect(() => {
     getAuthorsData();
-  }, [author]);
+  }, []);
 
   return (
     <div className="table-space">
@@ -93,6 +93,7 @@ const AuthorPage = () => {
         <CreatePopup
           visible={visibleCreatePopup}
           closeModal={setVisibleCreatePopup}
+          onCreate={getAuthorsData}
         />
         <UpdatePopup
           visible={visibleUpdatePopup}

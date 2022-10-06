@@ -1,54 +1,32 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
 import { useForm, Controller } from 'react-hook-form';
+import Select from 'react-select';
 
 import { Modal, Button, Text, Input, Dropdown } from '@nextui-org/react';
 
 import { getBooks, createBook } from '../../../api/bookAPI';
 
-const CreatePopup = ({ visible, closeModal, publisher, author, category }) => {
-  console.log(
-    '🚀 ~ file: index.js ~ line 10 ~ CreatePopup ~ publisher',
-    publisher
-  );
-  const [book, setBook] = useState([]);
+const CreatePopup = ({
+  visible,
+  closeModal,
+  publisher,
+  author,
+  category,
+  onCreate,
+}) => {
+  // const [book, setBook] = useState([]);
   const [selected, setSelected] = useState(new Set(['']));
-  console.log(
-    '🚀 ~ file: index.js ~ line 14 ~ CreatePopup ~ selected',
-    JSON.stringify(selected)
-  );
 
   const { control, handleSubmit } = useForm();
 
-  const getBooksData = async () => {
-    const books = await getBooks();
-    setBook(books);
-  };
-
-  const selectedValue = () => {
-    /*console.log('da chon');
-    console.log(
-      '🚀 ~ file: index.js ~ line 36 ~ selectedValue ~ publisher',
-      publisher
-    );
-    const { currentKey } = selected;
-    //if (publisher.data.length) {
-    const selectedPublisher = publisher.data.find(
-      (item) => item._id === currentKey
-    );
-
-    console.log(
-      '🚀 ~ file: index.js ~ line 30 ~ selectedValue ~ selectedPublisher',
-      selectedPublisher
-    );
-    if (selectedPublisher) {
-      return selectedPublisher.name;
-    }
-    //}*/
-    return selected.currentKey;
-  };
+  // const getBooksData = async () => {
+  //   const books = await getBooks();
+  //   setBook(books);
+  // };
 
   const onSubmit = async (data) => {
+    console.log('🚀 ~ file: index.js ~ line 44 ~ onSubmit ~ data', data);
     try {
       const response = await createBook(
         data.title,
@@ -59,6 +37,8 @@ const CreatePopup = ({ visible, closeModal, publisher, author, category }) => {
         data.numberOfPages,
         data.numberOfCopies
       );
+      onCreate();
+      closeModal(false);
       return response;
     } catch (error) {
       console.log('🚀 ~ file: index.js ~ line 32 ~ onSubmit ~ error', error);
@@ -127,17 +107,17 @@ const CreatePopup = ({ visible, closeModal, publisher, author, category }) => {
             control={control}
             defaultValue=""
           />
+
           <Text h6>Select publisher:</Text>
           <Controller
             render={({ field }) => (
               <Dropdown>
-                <Dropdown.Button flat color="error">
-                  {selectedValue()}
-                </Dropdown.Button>
+                <Dropdown.Button flat color="error"></Dropdown.Button>
                 <Dropdown.Menu
                   selectionMode="single"
                   selectedKeys={selected}
                   onSelectionChange={setSelected}
+                  // {...field}
                 >
                   {publisher.data &&
                     publisher.data.map((row) => (
@@ -150,6 +130,7 @@ const CreatePopup = ({ visible, closeModal, publisher, author, category }) => {
             control={control}
             defaultValue=""
           />
+
           <Text h6>Select language:</Text>
           <Controller
             render={({ field }) => (
@@ -205,10 +186,10 @@ const CreatePopup = ({ visible, closeModal, publisher, author, category }) => {
           <Button
             auto
             type="submit"
-            onClick={() => {
-              closeModal(false);
-              getBooksData();
-            }}
+            // onClick={() => {
+            //   closeModal(false);
+            //   getBooksData();
+            // }}
           >
             Submit
           </Button>
