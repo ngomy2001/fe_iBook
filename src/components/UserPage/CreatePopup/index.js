@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useForm, Controller } from 'react-hook-form';
 
 import { Modal, Button, Text, Input } from '@nextui-org/react';
 
-import { getUsers, createUser } from '../../../api/userAPI';
+import { createUser } from '../../../api/userAPI';
 
 const CreatePopup = ({ visible, closeModal, onCreate }) => {
   // const [user, setUser] = useState([]);
