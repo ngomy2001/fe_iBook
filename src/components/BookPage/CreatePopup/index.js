@@ -1,29 +1,57 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
 import { useForm, Controller } from 'react-hook-form';
-import Select from 'react-select';
+import ReactSelect from 'react-select';
 
+import { getPublishers } from '../../../api/publisherAPI';
+import { getAuthors } from '../../../api/authorAPI';
+import { getCategories } from '../../../api/categoryAPI';
 import { Modal, Button, Text, Input, Dropdown } from '@nextui-org/react';
 
 import { getBooks, createBook } from '../../../api/bookAPI';
 
-const CreatePopup = ({
-  visible,
-  closeModal,
-  publisher,
-  author,
-  category,
-  onCreate,
-}) => {
-  // const [book, setBook] = useState([]);
-  const [selected, setSelected] = useState(new Set(['']));
+const CreatePopup = ({ visible, closeModal, onCreate }) => {
+  const [publishers, setPublishers] = useState([]);
+  const [authors, setAuthors] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const { control, handleSubmit } = useForm();
 
-  // const getBooksData = async () => {
-  //   const books = await getBooks();
-  //   setBook(books);
-  // };
+  const fetchPublisherData = async () => {
+    const response = await getPublishers();
+    const result = response.data.map((item) => ({
+      value: item._id,
+      label: item.name,
+    }));
+
+    setPublishers(result);
+  };
+
+  const fetchAuthors = async () => {
+    const response = await getAuthors();
+    const result = response.data.map((item) => ({
+      value: item._id,
+      label: item.firstName + ' ' + item.lastName,
+    }));
+
+    setAuthors(result);
+  };
+
+  const fetchCategories = async () => {
+    const response = await getCategories();
+    const result = response.data.map((item) => ({
+      value: item._id,
+      label: item.name,
+    }));
+
+    setCategories(result);
+  };
+
+  useEffect(() => {
+    fetchPublisherData();
+    fetchAuthors();
+    fetchCategories();
+  }, []);
 
   const onSubmit = async (data) => {
     console.log('🚀 ~ file: index.js ~ line 44 ~ onSubmit ~ data', data);
@@ -54,6 +82,7 @@ const CreatePopup = ({
           </Text>
         </Modal.Header>
         <Modal.Body>
+          <Text h6>Title:</Text>
           <Controller
             render={({ field }) => (
               <Input
@@ -70,82 +99,51 @@ const CreatePopup = ({
             control={control}
             defaultValue=""
           />
-          <Text h6>Select category:</Text>
+
+          <Text h6>Category:</Text>
           <Controller
-            render={({ field }) => (
-              <Dropdown>
-                <Dropdown.Button flat color="error"></Dropdown.Button>
-                <Dropdown.Menu selectionMode="single">
-                  {category.data &&
-                    category.data.map((row) => (
-                      <Dropdown.Item key={row._id}>{row.name}</Dropdown.Item>
-                    ))}
-                </Dropdown.Menu>
-              </Dropdown>
-            )}
             name="categoryId"
             control={control}
-            defaultValue=""
+            render={({ field }) => (
+              <ReactSelect isClearable {...field} options={categories} />
+            )}
           />
 
           <Text h6>Select author:</Text>
           <Controller
-            render={({ field }) => (
-              <Dropdown>
-                <Dropdown.Button flat color="error"></Dropdown.Button>
-                <Dropdown.Menu selectionMode="single">
-                  {author.data &&
-                    author.data.map((row) => (
-                      <Dropdown.Item key={row._id}>
-                        {row.firstName} {row.lastName}
-                      </Dropdown.Item>
-                    ))}
-                </Dropdown.Menu>
-              </Dropdown>
-            )}
             name="authorId"
             control={control}
-            defaultValue=""
+            render={({ field }) => (
+              <ReactSelect isClearable {...field} options={authors} />
+            )}
           />
 
-          <Text h6>Select publisher:</Text>
+          <Text h6>Publisher:</Text>
           <Controller
-            render={({ field }) => (
-              <Dropdown>
-                <Dropdown.Button flat color="error"></Dropdown.Button>
-                <Dropdown.Menu
-                  selectionMode="single"
-                  selectedKeys={selected}
-                  onSelectionChange={setSelected}
-                  // {...field}
-                >
-                  {publisher.data &&
-                    publisher.data.map((row) => (
-                      <Dropdown.Item key={row._id}>{row.name}</Dropdown.Item>
-                    ))}
-                </Dropdown.Menu>
-              </Dropdown>
-            )}
             name="publisherId"
             control={control}
-            defaultValue=""
+            render={({ field }) => (
+              <ReactSelect isClearable {...field} options={publishers} />
+            )}
           />
 
-          <Text h6>Select language:</Text>
+          <Text h6>Language:</Text>
           <Controller
-            render={({ field }) => (
-              <Dropdown>
-                <Dropdown.Button flat color="error"></Dropdown.Button>
-                <Dropdown.Menu selectionMode="single">
-                  <Dropdown.Item key="Vietnamese">Vietnamese</Dropdown.Item>
-                  <Dropdown.Item key="English">English</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            )}
             name="language"
             control={control}
-            defaultValue=""
+            render={({ field }) => (
+              <ReactSelect
+                isClearable
+                {...field}
+                options={[
+                  { value: 'Vietnamese', label: 'Vietnamese' },
+                  { value: 'English', label: 'English' },
+                ]}
+              />
+            )}
           />
+
+          <Text h6>Number of Pages:</Text>
           <Controller
             render={({ field }) => (
               <Input
@@ -154,6 +152,7 @@ const CreatePopup = ({
                 fullWidth
                 color="primary"
                 size="lg"
+                type="number"
                 placeholder="Enter the number of pages"
                 {...field}
               />
@@ -162,6 +161,8 @@ const CreatePopup = ({
             control={control}
             defaultValue=""
           />
+
+          <Text h6>Number of Copies:</Text>
           <Controller
             render={({ field }) => (
               <Input
@@ -169,6 +170,7 @@ const CreatePopup = ({
                 bordered
                 fullWidth
                 color="primary"
+                type="number"
                 size="lg"
                 placeholder="Enter the number of copies"
                 {...field}
