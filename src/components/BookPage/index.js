@@ -6,9 +6,6 @@ import { Table, Button } from '@nextui-org/react';
 /* import service */
 import { getBooks, deleteBook } from '../../api/bookAPI';
 import { getPublishers } from '../../api/publisherAPI';
-import { getAuthors } from '../../api/authorAPI';
-import { getCategories } from '../../api/categoryAPI';
-
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
 import CreatePopup from './CreatePopup';
@@ -17,9 +14,6 @@ import './style.css';
 
 const BookPage = () => {
   const [book, setBook] = useState([]);
-  const [publisher, setPublisher] = useState(null);
-  const [author, setAuthor] = useState(null);
-  const [category, setCategory] = useState(null);
   const [visibleCreatePopup, setVisibleCreatePopup] = useState(false);
   //const [bookDetails, setBookDetails] = useState([]);
 
@@ -32,35 +26,11 @@ const BookPage = () => {
     const deletedBook = await deleteBook(id);
     await getBooksData();
   };
-  const getPublisherData = async () => {
-    const publishers = await getPublishers();
-    setPublisher(publishers);
-  };
 
-  const getAuthorData = async () => {
-    const authors = await getAuthors();
-    setAuthor(authors);
-  };
-
-  const getCategoryData = async () => {
-    const categories = await getCategories();
-    setCategory(categories);
-  };
   useEffect(() => {
     getBooksData();
   }, []);
 
-  useEffect(() => {
-    getPublisherData();
-  }, []);
-
-  useEffect(() => {
-    getAuthorData();
-  }, []);
-
-  useEffect(() => {
-    getCategoryData();
-  }, []);
   return (
     <div className="table-space">
       <div>
@@ -118,9 +88,6 @@ const BookPage = () => {
           visible={visibleCreatePopup}
           closeModal={setVisibleCreatePopup}
           onCreate={getBooksData}
-          publisher={publisher}
-          author={author}
-          category={category}
         />
       </div>
     </div>
