@@ -14,7 +14,6 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
   const [publishers, setPublishers] = useState([]);
   const [authors, setAuthors] = useState([]);
   const [categories, setCategories] = useState([]);
-
   const { control, handleSubmit } = useForm();
 
   const fetchPublisherData = async () => {
@@ -58,10 +57,10 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
     try {
       const response = await createBook(
         data.title,
-        data.categoryId,
-        data.authorId,
-        data.publisherId,
-        data.language,
+        data.categoryId.value,
+        data.authorId.value,
+        data.publisherId.value,
+        data.language.value,
         data.numberOfPages,
         data.numberOfCopies
       );
