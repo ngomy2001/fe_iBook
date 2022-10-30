@@ -9,17 +9,44 @@ import { getPublishers } from '../../api/publisherAPI';
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
 import CreatePopup from './CreatePopup';
+import UpdatePopup from './UpdatePopup';
 
 import './style.css';
 
 const BookPage = () => {
   const [book, setBook] = useState([]);
   const [visibleCreatePopup, setVisibleCreatePopup] = useState(false);
-  //const [bookDetails, setBookDetails] = useState([]);
+  const [visibleUpdatePopup, setVisibleUpdatePopup] = useState(false);
+  const [bookDetails, setBookDetails] = useState([]);
 
   const getBooksData = async () => {
     const books = await getBooks();
     setBook(books);
+  };
+
+  const handleUpdate = async (
+    id,
+    title,
+    categoryId,
+    authorId,
+    publisherId,
+    language,
+    numberOfPages,
+    numberOfCopies
+  ) => {
+    const details = {
+      id,
+      title,
+      categoryId,
+      authorId,
+      publisherId,
+      language,
+      numberOfPages,
+      numberOfCopies,
+    };
+    setBookDetails(details);
+    setVisibleUpdatePopup(true);
+    await getBooksData();
   };
 
   const handleDeleteBook = async (id) => {
@@ -72,7 +99,21 @@ const BookPage = () => {
                   <Table.Cell>
                     <div className="ActionGroupButton">
                       <PrimaryButton label="Read sample"></PrimaryButton>
-                      <PrimaryButton label="Update"></PrimaryButton>
+                      <PrimaryButton
+                        label="Update"
+                        onClick={() =>
+                          handleUpdate(
+                            row._id,
+                            row.title,
+                            row.categoryId,
+                            row.authorId,
+                            row.publisherId,
+                            row.language,
+                            row.numberOfPages,
+                            row.numberOfCopies
+                          )
+                        }
+                      ></PrimaryButton>
                       <PrimaryButton
                         label="Delete"
                         onClick={() => handleDeleteBook(row._id)}
@@ -87,6 +128,12 @@ const BookPage = () => {
         <CreatePopup
           visible={visibleCreatePopup}
           closeModal={setVisibleCreatePopup}
+          onCreate={getBooksData}
+        />
+        <UpdatePopup
+          visible={visibleUpdatePopup}
+          closeModal={setVisibleUpdatePopup}
+          bookDetails={bookDetails}
           onCreate={getBooksData}
         />
       </div>
