@@ -7,14 +7,7 @@ import { Modal, Button, Text, Input } from '@nextui-org/react';
 import { createPublisher } from '../../../api/publisherAPI';
 
 const CreatePopup = ({ visible, closeModal, onCreate }) => {
-  // const [publisher, setPublisher] = useState([]);
-
   const { control, handleSubmit } = useForm();
-
-  // const getPublisherData = async () => {
-  //   const publishers = await getPublishers();
-  //   setPublisher(publishers);
-  // };
 
   const onSubmit = async (data) => {
     try {
@@ -73,14 +66,7 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
           <Button auto flat color="error" onClick={() => closeModal(false)}>
             Close
           </Button>
-          <Button
-            auto
-            type="submit"
-            // onClick={() => {
-            //   closeModal(false);
-            //   getPublisherData();
-            // }}
-          >
+          <Button auto type="submit">
             Submit
           </Button>
         </Modal.Footer>

@@ -6,14 +6,8 @@ import { Modal, Button, Text, Input } from '@nextui-org/react';
 
 import { getUsers, updateUser } from '../../../api/userAPI';
 
-const UpdatePopup = ({ visible, closeModal, userDetails }) => {
-  const [user, setUser] = useState([]);
+const UpdatePopup = ({ visible, closeModal, userDetails, onCreate }) => {
   const { control, handleSubmit } = useForm();
-
-  const getUsersData = async () => {
-    const users = await getUsers();
-    setUser(users);
-  };
 
   const onSubmit = async (data) => {
     try {
@@ -25,6 +19,8 @@ const UpdatePopup = ({ visible, closeModal, userDetails }) => {
         data.email,
         data.password
       );
+      onCreate();
+      closeModal(false);
       return response;
     } catch (error) {
       console.log('🚀 ~ file: index.js ~ line 29 ~ onSubmit ~ error', error);
@@ -125,14 +121,7 @@ const UpdatePopup = ({ visible, closeModal, userDetails }) => {
           <Button auto flat color="error" onClick={() => closeModal(false)}>
             Close
           </Button>
-          <Button
-            auto
-            type="submit"
-            onClick={() => {
-              closeModal(false);
-              getUsersData();
-            }}
-          >
+          <Button auto type="submit">
             Submit
           </Button>
         </Modal.Footer>

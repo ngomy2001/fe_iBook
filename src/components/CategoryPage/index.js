@@ -93,6 +93,7 @@ const CategoryPage = () => {
           visible={visibleUpdatePopup}
           closeModal={setVisibleUpdatePopup}
           categoryDetails={categoryDetails}
+          onCreate={getData}
         />
       </div>
     </div>

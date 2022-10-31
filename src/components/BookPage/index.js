@@ -5,7 +5,6 @@ import { Table, Button } from '@nextui-org/react';
 
 /* import service */
 import { getBooks, deleteBook } from '../../api/bookAPI';
-import { getPublishers } from '../../api/publisherAPI';
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
 import CreatePopup from './CreatePopup';

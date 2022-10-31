@@ -23,7 +23,7 @@ const PublisherPage = () => {
     const publishers = await getPublishers();
     console.log(
       '🚀 ~ file: index.js ~ line 24 ~ getPublisherData ~ publishers',
-      JSON.stringify(publishers)
+      publishers
     );
     setPublisher(publishers);
   };
@@ -98,6 +98,7 @@ const PublisherPage = () => {
           visible={visibleUpdatePopup}
           closeModal={setVisibleUpdatePopup}
           publisherDetails={publisherDetails}
+          onCreate={getPublisherData}
         />
       </div>
     </div>

@@ -7,14 +7,7 @@ import { Modal, Button, Text, Input } from '@nextui-org/react';
 import { createAuthor } from '../../../api/authorAPI';
 
 const CreatePopup = ({ visible, closeModal, onCreate }) => {
-  // const [author, setAuthor] = useState([]);
-
   const { control, handleSubmit } = useForm();
-
-  // const getAuthorsData = async () => {
-  //   const authors = await getAuthors();
-  //   setAuthor(authors);
-  // };
 
   const onSubmit = async (data) => {
     try {
@@ -93,14 +86,7 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
           <Button auto flat color="error" onClick={() => closeModal(false)}>
             Close
           </Button>
-          <Button
-            auto
-            type="submit"
-            // onClick={() => {
-            //   closeModal(false);
-            //   getAuthorsData();
-            // }}
-          >
+          <Button auto type="submit">
             Submit
           </Button>
         </Modal.Footer>
