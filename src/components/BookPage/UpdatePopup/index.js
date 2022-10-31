@@ -6,15 +6,25 @@ import ReactSelect from 'react-select';
 import { getPublishers } from '../../../api/publisherAPI';
 import { getAuthors } from '../../../api/authorAPI';
 import { getCategories } from '../../../api/categoryAPI';
-import { Modal, Button, Text, Input, Dropdown } from '@nextui-org/react';
+import { Modal, Button, Text, Input } from '@nextui-org/react';
 
-import { getBooks, createBook } from '../../../api/bookAPI';
+import { getBooks, updateBook } from '../../../api/bookAPI';
 
-const CreatePopup = ({ visible, closeModal, onCreate }) => {
+const UpdatePopup = ({ visible, closeModal, bookDetails, onCreate }) => {
+  console.log(
+    '🚀 ~ file: index.js ~ line 14 ~ UpdatePopup ~ bookDetails',
+    bookDetails
+  );
+  const [book, setBook] = useState([]);
   const [publishers, setPublishers] = useState([]);
   const [authors, setAuthors] = useState([]);
   const [categories, setCategories] = useState([]);
   const { control, handleSubmit } = useForm();
+
+  //   const getBooksData = async () => {
+  //     const books = await getBooks();
+  //     setBook(books);
+  //   };
 
   const fetchPublisherData = async () => {
     const response = await getPublishers();
@@ -53,9 +63,10 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
   }, []);
 
   const onSubmit = async (data) => {
-    console.log('🚀 ~ file: index.js ~ line 44 ~ onSubmit ~ data', data);
+    console.log('🚀 ~ file: index.js ~ line 66 ~ onSubmit ~ data', data);
     try {
-      const response = await createBook(
+      const response = await updateBook(
+        bookDetails.id,
         data.title,
         data.categoryId.value,
         data.authorId.value,
@@ -64,11 +75,11 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
         data.numberOfPages,
         data.numberOfCopies
       );
+      console.log(response);
       onCreate();
       closeModal(false);
-      return response;
     } catch (error) {
-      console.log('🚀 ~ file: index.js ~ line 32 ~ onSubmit ~ error', error);
+      console.log('🚀 ~ file: index.js ~ line 75 ~ onSubmit ~ error', error);
     }
   };
 
@@ -77,7 +88,7 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Modal.Header>
           <Text id="modal-title" b size={18}>
-            Add new book
+            Update Book
           </Text>
         </Modal.Header>
         <Modal.Body>
@@ -90,7 +101,7 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
                 fullWidth
                 color="primary"
                 size="lg"
-                placeholder="Enter the book title"
+                placeholder={bookDetails.title}
                 {...field}
               />
             )}
@@ -104,7 +115,12 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
             name="categoryId"
             control={control}
             render={({ field }) => (
-              <ReactSelect isClearable {...field} options={categories} />
+              <ReactSelect
+                isClearable
+                {...field}
+                placeholder={bookDetails.categoryId.name}
+                options={categories}
+              />
             )}
           />
 
@@ -113,7 +129,16 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
             name="authorId"
             control={control}
             render={({ field }) => (
-              <ReactSelect isClearable {...field} options={authors} />
+              <ReactSelect
+                isClearable
+                {...field}
+                placeholder={
+                  bookDetails.authorId.firstName +
+                  ' ' +
+                  bookDetails.authorId.lastName
+                }
+                options={authors}
+              />
             )}
           />
 
@@ -122,7 +147,12 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
             name="publisherId"
             control={control}
             render={({ field }) => (
-              <ReactSelect isClearable {...field} options={publishers} />
+              <ReactSelect
+                isClearable
+                {...field}
+                placeholder={bookDetails.publisherId.name}
+                options={publishers}
+              />
             )}
           />
 
@@ -134,6 +164,7 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
               <ReactSelect
                 isClearable
                 {...field}
+                placeholder={bookDetails.language}
                 options={[
                   { value: 'Vietnamese', label: 'Vietnamese' },
                   { value: 'English', label: 'English' },
@@ -152,7 +183,7 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
                 color="primary"
                 size="lg"
                 type="number"
-                placeholder="Enter the number of pages"
+                placeholder={bookDetails.numberOfPages}
                 {...field}
               />
             )}
@@ -171,7 +202,7 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
                 color="primary"
                 type="number"
                 size="lg"
-                placeholder="Enter the number of copies"
+                placeholder={bookDetails.numberOfCopies}
                 {...field}
               />
             )}
@@ -184,14 +215,7 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
           <Button auto flat color="error" onClick={() => closeModal(false)}>
             Close
           </Button>
-          <Button
-            auto
-            type="submit"
-            // onClick={() => {
-            //   closeModal(false);
-            //   getBooksData();
-            // }}
-          >
+          <Button auto type="submit">
             Submit
           </Button>
         </Modal.Footer>
@@ -200,4 +224,4 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
   );
 };
 
-export default CreatePopup;
+export default UpdatePopup;
