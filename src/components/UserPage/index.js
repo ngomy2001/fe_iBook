@@ -104,6 +104,7 @@ const UserPage = () => {
           visible={visibleUpdatePopup}
           closeModal={setVisibleUpdatePopup}
           userDetails={userDetails}
+          onCreate={getUsersData}
         />
       </div>
     </div>

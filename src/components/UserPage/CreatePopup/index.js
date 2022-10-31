@@ -7,14 +7,7 @@ import { Modal, Button, Text, Input } from '@nextui-org/react';
 import { createUser } from '../../../api/userAPI';
 
 const CreatePopup = ({ visible, closeModal, onCreate }) => {
-  // const [user, setUser] = useState([]);
-
   const { control, handleSubmit } = useForm();
-
-  // const getUsersData = async () => {
-  //   const users = await getUsers();
-  //   setUser(users);
-  // };
 
   const onSubmit = async (data) => {
     try {
@@ -127,14 +120,7 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
           <Button auto flat color="error" onClick={() => closeModal(false)}>
             Close
           </Button>
-          <Button
-            auto
-            type="submit"
-            // onClick={() => {
-            //   closeModal(false);
-            //   getUsersData();
-            // }}
-          >
+          <Button auto type="submit">
             Submit
           </Button>
         </Modal.Footer>

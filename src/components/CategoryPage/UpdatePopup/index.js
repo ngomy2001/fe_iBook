@@ -1,19 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useForm, Controller } from 'react-hook-form';
 
 import { Modal, Button, Text, Input } from '@nextui-org/react';
 
-import { getCategories, updateCategory } from '../../../api/categoryAPI';
+import { updateCategory } from '../../../api/categoryAPI';
 
-const UpdatePopup = ({ visible, closeModal, categoryDetails }) => {
-  const [category, setData] = useState([]);
+const UpdatePopup = ({ visible, closeModal, categoryDetails, onCreate }) => {
   const { control, handleSubmit } = useForm();
-
-  const getData = async () => {
-    const categories = await getCategories();
-    setData(categories);
-  };
 
   const onSubmit = async (data) => {
     try {
@@ -22,7 +16,9 @@ const UpdatePopup = ({ visible, closeModal, categoryDetails }) => {
         data.categoryName,
         data.categoryDescription
       );
-      console.log(response);
+      onCreate();
+      closeModal(false);
+      return response;
     } catch (error) {
       console.log('🚀 ~ file: index.js ~ line 25 ~ onSubmit ~ error', error);
     }
@@ -74,14 +70,7 @@ const UpdatePopup = ({ visible, closeModal, categoryDetails }) => {
           <Button auto flat color="error" onClick={() => closeModal(false)}>
             Close
           </Button>
-          <Button
-            auto
-            type="submit"
-            onClick={() => {
-              closeModal(false);
-              getData();
-            }}
-          >
+          <Button auto type="submit">
             Submit
           </Button>
         </Modal.Footer>

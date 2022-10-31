@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useForm, Controller } from 'react-hook-form';
 import ReactSelect from 'react-select';
@@ -8,23 +8,13 @@ import { getAuthors } from '../../../api/authorAPI';
 import { getCategories } from '../../../api/categoryAPI';
 import { Modal, Button, Text, Input } from '@nextui-org/react';
 
-import { getBooks, updateBook } from '../../../api/bookAPI';
+import { updateBook } from '../../../api/bookAPI';
 
 const UpdatePopup = ({ visible, closeModal, bookDetails, onCreate }) => {
-  console.log(
-    '🚀 ~ file: index.js ~ line 14 ~ UpdatePopup ~ bookDetails',
-    bookDetails
-  );
-  const [book, setBook] = useState([]);
   const [publishers, setPublishers] = useState([]);
   const [authors, setAuthors] = useState([]);
   const [categories, setCategories] = useState([]);
   const { control, handleSubmit } = useForm();
-
-  //   const getBooksData = async () => {
-  //     const books = await getBooks();
-  //     setBook(books);
-  //   };
 
   const fetchPublisherData = async () => {
     const response = await getPublishers();
@@ -63,7 +53,6 @@ const UpdatePopup = ({ visible, closeModal, bookDetails, onCreate }) => {
   }, []);
 
   const onSubmit = async (data) => {
-    console.log('🚀 ~ file: index.js ~ line 66 ~ onSubmit ~ data', data);
     try {
       const response = await updateBook(
         bookDetails.id,
@@ -75,9 +64,9 @@ const UpdatePopup = ({ visible, closeModal, bookDetails, onCreate }) => {
         data.numberOfPages,
         data.numberOfCopies
       );
-      console.log(response);
       onCreate();
       closeModal(false);
+      return response;
     } catch (error) {
       console.log('🚀 ~ file: index.js ~ line 75 ~ onSubmit ~ error', error);
     }

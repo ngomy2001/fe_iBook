@@ -99,6 +99,7 @@ const AuthorPage = () => {
           visible={visibleUpdatePopup}
           closeModal={setVisibleUpdatePopup}
           authorDetails={authorDetails}
+          onCreate={getAuthorsData}
         />
       </div>
     </div>

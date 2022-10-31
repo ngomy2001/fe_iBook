@@ -7,14 +7,7 @@ import { Modal, Button, Text, Input } from '@nextui-org/react';
 import { createCategory } from '../../../api/categoryAPI';
 
 const CreatePopup = ({ visible, closeModal, onCreate }) => {
-  // const [category, setCategory] = useState([]);
-
   const { control, handleSubmit } = useForm();
-
-  // const getData = async () => {
-  //   const categories = await getCategories();
-  //   setCategory(categories);
-  // };
 
   const onSubmit = async (data) => {
     try {
@@ -24,7 +17,7 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
       );
       onCreate();
       closeModal(false);
-      console.log(response);
+      return response;
     } catch (error) {
       console.log('🚀 ~ file: index.js ~ line 25 ~ onSubmit ~ error', error);
     }
@@ -76,13 +69,7 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
           <Button auto flat color="error" onClick={() => closeModal(false)}>
             Close
           </Button>
-          <Button
-            auto
-            type="submit"
-            // onClick={() => {
-            //   getData();
-            // }}
-          >
+          <Button auto type="submit">
             Submit
           </Button>
         </Modal.Footer>

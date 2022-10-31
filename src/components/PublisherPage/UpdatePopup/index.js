@@ -1,20 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useForm, Controller } from 'react-hook-form';
 
 import { Modal, Button, Text, Input } from '@nextui-org/react';
 
-import { getPublishers, updatePublisher } from '../../../api/publisherAPI';
+import { updatePublisher } from '../../../api/publisherAPI';
 
-const UpdatePopup = ({ visible, closeModal, publisherDetails }) => {
-  const [publisher, setPublisher] = useState([]);
-
+const UpdatePopup = ({ visible, closeModal, publisherDetails, onCreate }) => {
   const { control, handleSubmit } = useForm();
-
-  const getPublisherData = async () => {
-    const publishers = await getPublishers();
-    setPublisher(publishers);
-  };
 
   const onSubmit = async (data) => {
     try {
@@ -23,7 +16,9 @@ const UpdatePopup = ({ visible, closeModal, publisherDetails }) => {
         data.name,
         data.description
       );
-      console.log(response);
+      onCreate();
+      closeModal(false);
+      return response;
     } catch (error) {
       console.log('🚀 ~ file: index.js ~ line 28 ~ onSubmit ~ error', error);
     }
@@ -75,14 +70,7 @@ const UpdatePopup = ({ visible, closeModal, publisherDetails }) => {
           <Button auto flat color="error" onClick={() => closeModal(false)}>
             Close
           </Button>
-          <Button
-            auto
-            type="submit"
-            onClick={() => {
-              closeModal(false);
-              getPublisherData();
-            }}
-          >
+          <Button auto type="submit">
             Submit
           </Button>
         </Modal.Footer>

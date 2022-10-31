@@ -15,7 +15,6 @@ import './style.css';
 
 const BookPage = () => {
   const [book, setBook] = useState([]);
-  const [checkout, setCheckOut] = useState(false);
 
   const item = {
     description: 'Design+Code React Hooks book',
@@ -32,9 +31,6 @@ const BookPage = () => {
 
   return (
     <div>
-      {/* {checkout ? (
-        <PayPal />
-      ) : ( */}
       <div>
         <Table
           css={{
@@ -72,12 +68,6 @@ const BookPage = () => {
                       <PaypalCheckoutButton product={item}>
                         {' '}
                       </PaypalCheckoutButton>
-                      {/* <PrimaryButton
-                        onClick={() => {
-                          setCheckOut(true);
-                        }}
-                        label="Check out"
-                      ></PrimaryButton> */}
                     </div>
                   </Table.Cell>
                 </Table.Row>
@@ -85,7 +75,6 @@ const BookPage = () => {
           </Table.Body>
         </Table>
       </div>
-      {/* )} */}
     </div>
   );
 };
