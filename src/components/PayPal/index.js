@@ -1,36 +1,120 @@
 import { PayPalButtons } from '@paypal/react-paypal-js';
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { createTransaction } from '../../api/transactionAPI';
+import { createInvoice } from '../../api/invoiceAPI';
+import { updateBookCopy } from '../../api/bookCopyAPI';
+import { getBookCopyAvailable } from '../../api/bookAPI';
+import { Button } from 'flowbite-react';
+import { Navigate, useNavigate } from 'react-router-dom';
 const PaypalCheckoutButton = (props) => {
-  const { product } = props;
+  const { product, bookId } = props;
+  console.log(
+    '🚀 ~ file: index.js ~ line 12 ~ PaypalCheckoutButton ~ bookId',
+    bookId
+  );
   const [paidFor, setPaidFor] = useState(false);
   const [error, setError] = useState(null);
-  // const userLoggedIn = useSelector((state) => state.auth.payload.id);
+  const [availableBook, setAvailableBook] = useState();
+  console.log(
+    '🚀 ~ file: index.js ~ line 15 ~ PaypalCheckoutButton ~ availableBook',
+    availableBook
+  );
+  const [bookCopyAvailable, setBookCopyAvailable] = useState();
+
+  if (bookCopyAvailable) {
+    const bookCopy = bookCopyAvailable[0];
+  }
+
+  const userLoggedIn = useSelector((state) => state.auth.payload.id);
+  // const payload = { userLoggedIn, bookCopy };
+  // console.log('payload ccc', payload);
   // console.log(
   //   '🚀 ~ file: LoginPage.js ~ line 20 ~ LoginPage ~ userLoggedIn',
   //   userLoggedIn
   // );
+  const checkAvailableBook = async () => {
+    const availableBook = await getBookCopyAvailable(bookId);
+    setBookCopyAvailable(availableBook.data);
+    setAvailableBook(availableBook.data.length);
+  };
+  useEffect(() => {
+    checkAvailableBook();
+  }, []);
+  const Navigate = useNavigate();
 
-  const handleApprove = (orderID) => {
-    //Call backend func to fullfill order
+  const handleNavigation = () => {
+    <Navigate to="/member/book"></Navigate>;
+  };
 
-    //if response is success
-    setPaidFor(true);
-    //Refresh user account
+  const handleCreateInvoice = async () => {
+    try {
+      const userId = userLoggedIn;
 
-    //If response is error
-    //Alert user
+      const bookId = bookCopyAvailable[0]._id;
 
-    if (paidFor) {
-      // Display success message, modal or redirect user to success page
-      alert('Thank you!');
-    }
+      const status = 'Waiting';
+      const bookCopyId = bookId;
 
-    if (error) {
-      alert(error);
+      const data = { userId, bookCopyId, status };
+
+      const createNewInvoice = await createInvoice(data);
+      const statusBookCopy = 'Reserved';
+
+      const updateBookCopyStatus = await updateBookCopy(bookId, statusBookCopy);
+    } catch (error) {
+      console.log('createInvoice', error);
     }
   };
-  return (
+
+  const handleCreateTransaction = async (transactionId, statusTransaction) => {
+    try {
+      const id = transactionId;
+      const amount = product.price;
+      const status = statusTransaction;
+      const payload = { transactionId, amount, statusTransaction };
+      console.log(
+        '🚀 ~ file: LoginPage.js ~ line 20 ~ LoginPage ~ payload',
+        payload
+      );
+      await createTransaction(id, amount, status);
+    } catch (error) {
+      console.log(
+        '🚀 ~ file: LoginPage.js ~ line 20 ~ LoginPage ~ error',
+        error
+      );
+    }
+  };
+
+  // const handleApprove = (order) => {
+  //   //Call backend func to fullfill order
+  //   //if response is success
+  //   setPaidFor(true);
+  //   //Refresh user account
+
+  //   //If response is error
+  //   //Alert user
+
+  //   if (paidFor) {
+  //     const amount = product.price;
+  //     const transactionId = order.id;
+  //     const transactionStatus = order.status;
+  //     const payload = {
+  //       amount,
+  //       transactionId,
+  //       transactionStatus,
+  //     };
+  //     console.log('payload:', payload);
+  //     // Display success message, modal or redirect user to success page
+  //     alert('Thank you!');
+  //   }
+
+  //   if (error) {
+  //     alert(error);
+  //   }
+  // };
+
+  return availableBook > 0 ? (
     <PayPalButtons
       style={{
         color: 'gold',
@@ -69,15 +153,24 @@ const PaypalCheckoutButton = (props) => {
       }}
       onApprove={async (data, actions) => {
         const order = await actions.order.capture();
-        console.log('order:', order);
 
-        handleApprove(order);
+        const createTransaction = await handleCreateTransaction(
+          order.id,
+          order.status
+        );
+
+        const createInvoice = await handleCreateInvoice();
+        // handleApprove(order);
       }}
       onCancel={() => {}}
       onError={(err) => {
         setError(err);
       }}
     />
+  ) : (
+    <div>
+      <p>Don't have Book</p>,<button onClick={handleNavigation}></button>
+    </div>
   );
 };
 

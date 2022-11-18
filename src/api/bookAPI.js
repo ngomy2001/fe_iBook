@@ -76,4 +76,17 @@ const deleteBook = async (id) => {
     console.log('🚀 ~ file: bookAPI.js ~ line 76 ~ deleteBook ~ error', error);
   }
 };
-export { getBooks, createBook, updateBook, deleteBook };
+
+const getBookCopyAvailable = async (bookId) => {
+  try {
+    const URL = `http://localhost:3001/api/bookCopy/search/${bookId}`;
+    const response = await axios.get(URL);
+    return response;
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: bookAPI.js ~ line 86 ~ getBookCopyAvailable ~ error',
+      error
+    );
+  }
+};
+export { getBooks, createBook, updateBook, deleteBook, getBookCopyAvailable };

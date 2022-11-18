@@ -1,5 +1,5 @@
 const memberCollapseItems = [
-  { label: 'Book', path: '' },
+  { label: 'Book', path: '/member/book' },
   { label: 'Category', path: '' },
   { label: 'Author', path: '' },
   { label: 'Publisher', path: '' },
@@ -9,7 +9,7 @@ const memberCollapseItems = [
   { label: 'Log out', path: '' },
 ];
 const items = [
-  { label: 'Book', path: '' },
+  { label: 'Book', path: '/member/book' },
   { label: 'Category', path: '' },
   { label: 'Author', path: '' },
   { label: 'Publisher', path: '' },

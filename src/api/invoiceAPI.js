@@ -1,10 +1,18 @@
 import axios from 'axios';
 
-const createInvoice = async (userId, bookCopyId) => {
+const createInvoice = async (data) => {
   try {
-    const payload = { userId, bookCopyId, status: 'Waiting' };
+    console.log(
+      '🚀 ~ file: invoiceAPI.js ~ line 4 ~ createInvoice ~ data',
+      data
+    );
+
     const URL = 'http://localhost:3001/api/invoice/createInvoice';
-    const response = await axios.post(URL, payload);
+    console.log(
+      '🚀 ~ file: invoiceAPI.js ~ line 7 ~ createInvoice ~ data',
+      data
+    );
+    const response = await axios.post(URL, data);
     console.log(response);
     return response;
   } catch (error) {
