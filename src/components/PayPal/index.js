@@ -7,6 +7,7 @@ import { updateBookCopy } from '../../api/bookCopyAPI';
 import { getBookCopyAvailable } from '../../api/bookAPI';
 import { Button } from 'flowbite-react';
 import { Navigate, useNavigate } from 'react-router-dom';
+import sendEmail from '../../api/sendGmail';
 const PaypalCheckoutButton = (props) => {
   const { product, bookId } = props;
   console.log(
@@ -27,6 +28,7 @@ const PaypalCheckoutButton = (props) => {
   }
 
   const userLoggedIn = useSelector((state) => state.auth.payload.id);
+  const dataUserLoggedIn = useSelector((state) => state.auth.payload);
   // const payload = { userLoggedIn, bookCopy };
   // console.log('payload ccc', payload);
   // console.log(
@@ -84,6 +86,14 @@ const PaypalCheckoutButton = (props) => {
         error
       );
     }
+  };
+
+  const handleSendEmail = async () => {
+    console.log('heloo');
+    const email = dataUserLoggedIn.email;
+    const userid = dataUserLoggedIn.id;
+
+    await sendEmail({ memberEmail: { email }, memberId: { userid } });
   };
 
   // const handleApprove = (order) => {
@@ -160,6 +170,7 @@ const PaypalCheckoutButton = (props) => {
         );
 
         const createInvoice = await handleCreateInvoice();
+        const createNofication = await handleSendEmail();
         // handleApprove(order);
       }}
       onCancel={() => {}}
