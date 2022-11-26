@@ -4,11 +4,12 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button } from '@nextui-org/react';
 
 /* import service */
-import { getBooks, deleteBook } from '../../api/bookAPI';
+import { getBooks, deleteBook, uploadBookSample } from '../../api/bookAPI';
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
 import CreatePopup from './CreatePopup';
 import UpdatePopup from './UpdatePopup';
+import UploadPopup from './UploadPopup';
 
 import './style.css';
 
@@ -16,7 +17,9 @@ const BookPage = () => {
   const [book, setBook] = useState([]);
   const [visibleCreatePopup, setVisibleCreatePopup] = useState(false);
   const [visibleUpdatePopup, setVisibleUpdatePopup] = useState(false);
+  const [visibleUploadPopup, setVisibleUploadPopup] = useState(false);
   const [bookDetails, setBookDetails] = useState([]);
+  const [bookId, setBookId] = useState();
 
   const getBooksData = async () => {
     const books = await getBooks();
@@ -50,6 +53,12 @@ const BookPage = () => {
 
   const handleDeleteBook = async (id) => {
     const deletedBook = await deleteBook(id);
+    await getBooksData();
+  };
+
+  const handleUploadSample = async (id) => {
+    setBookId(id);
+    setVisibleUploadPopup(true);
     await getBooksData();
   };
 
@@ -99,6 +108,10 @@ const BookPage = () => {
                     <div className="ActionGroupButton">
                       <PrimaryButton label="Read sample"></PrimaryButton>
                       <PrimaryButton
+                        label="Upload sample"
+                        onClick={() => handleUploadSample(row._id)}
+                      ></PrimaryButton>
+                      <PrimaryButton
                         label="Update"
                         onClick={() =>
                           handleUpdate(
@@ -133,6 +146,12 @@ const BookPage = () => {
           visible={visibleUpdatePopup}
           closeModal={setVisibleUpdatePopup}
           bookDetails={bookDetails}
+          onCreate={getBooksData}
+        />
+        <UploadPopup
+          visible={visibleUploadPopup}
+          closeModal={setVisibleUploadPopup}
+          bookId={bookId}
           onCreate={getBooksData}
         />
       </div>
