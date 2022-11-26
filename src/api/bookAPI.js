@@ -10,6 +10,16 @@ const getBooks = async () => {
   }
 };
 
+const findBook = async (id) => {
+  try {
+    const URL = `http://localhost:3001/api/book/${id}`;
+    const book = await axios.get(URL);
+    return book.data;
+  } catch (error) {
+    console.log('🚀 ~ file: bookAPI.js ~ line 9 ~ getBooks ~ error', error);
+  }
+};
+
 const createBook = async (
   title,
   categoryId,
@@ -66,6 +76,19 @@ const updateBook = async (
   }
 };
 
+const uploadBookSample = async (id, sample) => {
+  try {
+    const data = { sample };
+    const URL = `http://localhost:3001/api/book/sample/${id}`;
+    const response = await axios.put(URL, data);
+    console.log(response);
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: bookAPI.js ~ line 75 ~ uploadBookSample ~ error',
+      error
+    );
+  }
+};
 const deleteBook = async (id) => {
   try {
     const URL = `http://localhost:3001/api/book/${id}`;
@@ -89,4 +112,12 @@ const getBookCopyAvailable = async (bookId) => {
     );
   }
 };
-export { getBooks, createBook, updateBook, deleteBook, getBookCopyAvailable };
+export {
+  getBooks,
+  createBook,
+  updateBook,
+  deleteBook,
+  getBookCopyAvailable,
+  uploadBookSample,
+  findBook,
+};
