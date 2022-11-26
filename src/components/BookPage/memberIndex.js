@@ -65,7 +65,7 @@ const BookPage = () => {
                   <Table.Cell>
                     <div className="ActionGroupButton">
                       <PrimaryButton label="Read sample"></PrimaryButton>
-                      <PaypalCheckoutButton product={item}>
+                      <PaypalCheckoutButton product={item} bookId={row._id}>
                         {' '}
                       </PaypalCheckoutButton>
                     </div>

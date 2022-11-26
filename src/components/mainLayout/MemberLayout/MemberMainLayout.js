@@ -3,8 +3,23 @@ import { Navbar, Text, Button, Link } from '@nextui-org/react';
 import { memberCollapseItems, items } from './MemberData';
 import { Outlet } from 'react-router-dom';
 import './style.css';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { setLoggedInUser } from '../../../redux/features/auth';
+import { useNavigate } from 'react-router-dom';
 const MemberMainLayout = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userEmail = useSelector((state) => state.auth.payload.email);
+
+  const handleLogOut = () => {
+    try {
+      dispatch(setLoggedInUser(''));
+      navigate('/');
+    } catch (error) {
+      console.log('err', error);
+    }
+  };
+
   return (
     <div>
       <div>
@@ -17,15 +32,23 @@ const MemberMainLayout = () => {
           </Navbar.Brand>
           <Navbar.Content enableCursorHighlight hideIn="xs">
             {items.map((item) => (
-              <Navbar.Link label={item.label}>{item.label}</Navbar.Link>
+              <Navbar.Link label={item.label} href={item.path}>
+                {item.label}
+              </Navbar.Link>
             ))}
           </Navbar.Content>
           <Navbar.Content>
             <Navbar.Link color="inherit" href="#">
-              Welcom member
+              Welcome {userEmail}
             </Navbar.Link>
             <Navbar.Item>
-              <Button auto flat color="error" href="#">
+              <Button
+                auto
+                flat
+                color="error"
+                href="#"
+                onClick={() => handleLogOut()}
+              >
                 Log out
               </Button>
             </Navbar.Item>
