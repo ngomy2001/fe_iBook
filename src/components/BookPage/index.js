@@ -4,12 +4,13 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button } from '@nextui-org/react';
 
 /* import service */
-import { getBooks, deleteBook, uploadBookSample } from '../../api/bookAPI';
+import { getBooks, deleteBook, findBook } from '../../api/bookAPI';
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
 import CreatePopup from './CreatePopup';
 import UpdatePopup from './UpdatePopup';
 import UploadPopup from './UploadPopup';
+import ReadSamplePopup from './ReadSamplePopup';
 
 import './style.css';
 
@@ -18,8 +19,10 @@ const BookPage = () => {
   const [visibleCreatePopup, setVisibleCreatePopup] = useState(false);
   const [visibleUpdatePopup, setVisibleUpdatePopup] = useState(false);
   const [visibleUploadPopup, setVisibleUploadPopup] = useState(false);
+  const [visibleReadSamplePopup, setVisibleReadSamplePopup] = useState(false);
   const [bookDetails, setBookDetails] = useState([]);
   const [bookId, setBookId] = useState();
+  const [sample, setSample] = useState('');
 
   const getBooksData = async () => {
     const books = await getBooks();
@@ -60,6 +63,15 @@ const BookPage = () => {
     setBookId(id);
     setVisibleUploadPopup(true);
     await getBooksData();
+  };
+
+  const handleReadSample = async (id) => {
+    const foundBook = await findBook(id);
+    const sampleURL = foundBook.sample;
+    setSample(sampleURL);
+    setVisibleReadSamplePopup(true);
+    console.log('book', foundBook);
+    console.log(sampleURL);
   };
 
   useEffect(() => {
@@ -106,7 +118,10 @@ const BookPage = () => {
                   <Table.Cell>{row.numberOfCopies}</Table.Cell>
                   <Table.Cell>
                     <div className="ActionGroupButton">
-                      <PrimaryButton label="Read sample"></PrimaryButton>
+                      <PrimaryButton
+                        label="Read sample"
+                        onClick={() => handleReadSample(row._id)}
+                      ></PrimaryButton>
                       <PrimaryButton
                         label="Upload sample"
                         onClick={() => handleUploadSample(row._id)}
@@ -153,6 +168,11 @@ const BookPage = () => {
           closeModal={setVisibleUploadPopup}
           bookId={bookId}
           onCreate={getBooksData}
+        />
+        <ReadSamplePopup
+          visible={visibleReadSamplePopup}
+          closeModal={setVisibleReadSamplePopup}
+          sample={sample}
         />
       </div>
     </div>

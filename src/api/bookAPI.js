@@ -10,6 +10,16 @@ const getBooks = async () => {
   }
 };
 
+const findBook = async (id) => {
+  try {
+    const URL = `http://localhost:3001/api/book/${id}`;
+    const book = await axios.get(URL);
+    return book.data;
+  } catch (error) {
+    console.log('🚀 ~ file: bookAPI.js ~ line 9 ~ getBooks ~ error', error);
+  }
+};
+
 const createBook = async (
   title,
   categoryId,
@@ -109,4 +119,5 @@ export {
   deleteBook,
   getBookCopyAvailable,
   uploadBookSample,
+  findBook,
 };
