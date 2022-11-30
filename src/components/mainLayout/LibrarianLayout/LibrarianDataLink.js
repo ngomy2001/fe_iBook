@@ -5,7 +5,7 @@ const librarianCollapseItems = [
   { label: 'Publisher', path: '/librarian/publisher' },
   { label: 'Invoice', path: '' },
   { label: 'User', path: '/librarian/user' },
-  { label: 'Insight', path: '' },
+  { label: 'Insight', path: '/librarian/insight' },
   { label: 'Profile', path: '' },
   { label: 'Log out', path: '' },
 ];
@@ -16,6 +16,6 @@ const items = [
   { label: 'Publisher', path: '/librarian/publisher' },
   { label: 'Invoice', path: '' },
   { label: 'User', path: '/librarian/user' },
-  { label: 'Insight', path: '' },
+  { label: 'Insight', path: '/librarian/insight' },
 ];
 export { librarianCollapseItems, items };

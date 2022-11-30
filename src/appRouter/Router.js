@@ -26,6 +26,8 @@ import UserPageForLibrarian from '../components/UserPage/index';
 import BookPageForLibrarian from '../components/BookPage/index';
 import BookPageForMember from '../components/BookPage/memberIndex';
 
+/* Insight Page */
+import InsightPage from '../components/InsightPage/index';
 const AppRouter = () => {
   return (
     <BrowserRouter>
@@ -56,6 +58,7 @@ const AppRouter = () => {
             ></Route>
             <Route path="book" element={<BookPageForLibrarian />}></Route>
             <Route path="user" element={<UserPageForLibrarian />}></Route>
+            <Route path="insight" element={<InsightPage />}></Route>
           </Route>
         </Routes>
       </PayPalScriptProvider>
