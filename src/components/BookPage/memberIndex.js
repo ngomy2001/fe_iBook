@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 /* import NextUI component */
 import { Table } from '@nextui-org/react';
+import { Button } from '@nextui-org/react';
 
 /* import service */
 import { getBooks } from '../../api/bookAPI';
@@ -30,7 +31,12 @@ const BookPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="table-space">
+      <div>
+        <Button.Group color="error" flat>
+          <Button>Search</Button>
+        </Button.Group>
+      </div>
       <div>
         <Table
           css={{

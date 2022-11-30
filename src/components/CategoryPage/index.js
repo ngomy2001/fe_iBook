@@ -42,9 +42,12 @@ const CategoryPage = () => {
   return (
     <div className="table-space">
       <div>
-        <Button auto shadow onClick={() => setVisibleCreatePopup(true)}>
-          Add new category
-        </Button>
+        <Button.Group color="error" flat>
+          <Button onClick={() => setVisibleCreatePopup(true)}>
+            Add new category
+          </Button>
+          <Button>Search</Button>
+        </Button.Group>
       </div>
       <div>
         <Table
