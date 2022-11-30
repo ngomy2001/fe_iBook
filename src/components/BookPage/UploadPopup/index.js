@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
-
-import { useForm, Controller } from 'react-hook-form';
-import ReactSelect from 'react-select';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { uploadBookSample } from '../../../api/bookAPI';
 import { firebaseStorage, getTokenSample } from '../../../api/firebase';
 import { uploadBytes, ref } from 'firebase/storage';
@@ -54,22 +52,6 @@ const UploadPopup = ({ visible, closeModal, bookId, onCreate }) => {
         <Modal.Body>
           <Text h6>URL:</Text>
           <input type="file" onChange={handleUploadSample}></input>
-          {/* <Controller
-            render={({ field }) => (
-              <Input
-                clearable
-                fullWidth
-                color="primary"
-                size="lg"
-                type="file"
-                onChange={(event) => handleUploadSample(event)}
-                {...field}
-              />
-            )}
-            name="sample"
-            control={control}
-            defaultValue=""
-          /> */}
         </Modal.Body>
         <Modal.Footer>
           <Button auto flat color="error" onClick={() => closeModal(false)}>

@@ -5,8 +5,7 @@ import { createTransaction } from '../../api/transactionAPI';
 import { createInvoice } from '../../api/invoiceAPI';
 import { updateBookCopy } from '../../api/bookCopyAPI';
 import { getBookCopyAvailable } from '../../api/bookAPI';
-import { Button } from 'flowbite-react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import sendEmail from '../../api/sendGmail';
 const PaypalCheckoutButton = (props) => {
   const { product, bookId } = props;
@@ -29,12 +28,6 @@ const PaypalCheckoutButton = (props) => {
 
   const userLoggedIn = useSelector((state) => state.auth.payload.id);
   const dataUserLoggedIn = useSelector((state) => state.auth.payload);
-  // const payload = { userLoggedIn, bookCopy };
-  // console.log('payload ccc', payload);
-  // console.log(
-  //   '🚀 ~ file: LoginPage.js ~ line 20 ~ LoginPage ~ userLoggedIn',
-  //   userLoggedIn
-  // );
   const checkAvailableBook = async () => {
     const availableBook = await getBookCopyAvailable(bookId);
     setBookCopyAvailable(availableBook.data);
@@ -95,34 +88,6 @@ const PaypalCheckoutButton = (props) => {
 
     await sendEmail({ memberEmail: { email }, memberId: { userid } });
   };
-
-  // const handleApprove = (order) => {
-  //   //Call backend func to fullfill order
-  //   //if response is success
-  //   setPaidFor(true);
-  //   //Refresh user account
-
-  //   //If response is error
-  //   //Alert user
-
-  //   if (paidFor) {
-  //     const amount = product.price;
-  //     const transactionId = order.id;
-  //     const transactionStatus = order.status;
-  //     const payload = {
-  //       amount,
-  //       transactionId,
-  //       transactionStatus,
-  //     };
-  //     console.log('payload:', payload);
-  //     // Display success message, modal or redirect user to success page
-  //     alert('Thank you!');
-  //   }
-
-  //   if (error) {
-  //     alert(error);
-  //   }
-  // };
 
   return availableBook > 0 ? (
     <PayPalButtons
@@ -186,48 +151,3 @@ const PaypalCheckoutButton = (props) => {
 };
 
 export default PaypalCheckoutButton;
-// import React, { useRef, useEffect } from 'react';
-
-// export default function Paypal() {
-//   const paypal = useRef();
-
-//   useEffect(() => {
-//     window.paypal
-//       .Buttons({
-//         createOrder: (data, actions, err) => {
-//           return actions.order.create({
-//             intent: 'CAPTURE',
-//             purchase_units: [
-//               {
-//                 description: 'Cool looking table',
-//                 amount: {
-//                   currency_code: 'USD',
-//                   value: 5.0,
-//                 },
-//               },
-//             ],
-//           });
-//         },
-//         onApprove: async (data, actions) => {
-//           //Note: Data = OrderId, PayerId
-//           const order = await actions.order.capture();
-//           const details = order.purchase_units[0].payments.captures[0];
-//           console.log(
-//             '🚀 ~ file: index.js ~ line 27 ~ onApprove: ~ details',
-//             details
-//           );
-//           return details;
-//         },
-//         onError: (err) => {
-//           console.log(err);
-//         },
-//       })
-//       .render(paypal.current);
-//   }, []);
-
-//   return (
-//     <div>
-//       <div ref={paypal}></div>
-//     </div>
-//   );
-// }
