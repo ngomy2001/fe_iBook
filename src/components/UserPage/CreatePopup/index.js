@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useForm, Controller } from 'react-hook-form';
+import ReactSelect from 'react-select';
 
 import { Modal, Button, Text, Input } from '@nextui-org/react';
 
@@ -14,7 +15,7 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
       const response = await createUser(
         data.firstName,
         data.lastName,
-        data.role,
+        data.role.value,
         data.email,
         data.password
       );
@@ -35,6 +36,7 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
           </Text>
         </Modal.Header>
         <Modal.Body>
+          <Text h6>First name:</Text>
           <Controller
             render={({ field }) => (
               <Input
@@ -51,6 +53,7 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
             control={control}
             defaultValue=""
           />
+          <Text h6>Last name:</Text>
           <Controller
             render={({ field }) => (
               <Input
@@ -67,22 +70,22 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
             control={control}
             defaultValue=""
           />
+          <Text h6>Role:</Text>
           <Controller
-            render={({ field }) => (
-              <Input
-                clearable
-                bordered
-                fullWidth
-                color="primary"
-                size="lg"
-                placeholder="Enter the role of user"
-                {...field}
-              />
-            )}
             name="role"
             control={control}
-            defaultValue=""
+            render={({ field }) => (
+              <ReactSelect
+                isClearable
+                {...field}
+                options={[
+                  { value: 'Librarian', label: 'Librarian' },
+                  { value: 'Member', label: 'Member' },
+                ]}
+              />
+            )}
           />
+          <Text h6>Email:</Text>
           <Controller
             render={({ field }) => (
               <Input
@@ -99,6 +102,7 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
             control={control}
             defaultValue=""
           />
+          <Text h6>Password:</Text>
           <Controller
             render={({ field }) => (
               <Input

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactSelect from 'react-select';
 
 import { useForm, Controller } from 'react-hook-form';
 
@@ -15,7 +16,7 @@ const UpdatePopup = ({ visible, closeModal, userDetails, onCreate }) => {
         userDetails.id,
         data.firstName,
         data.lastName,
-        data.role,
+        data.role.value,
         data.email,
         data.password
       );
@@ -36,6 +37,7 @@ const UpdatePopup = ({ visible, closeModal, userDetails, onCreate }) => {
           </Text>
         </Modal.Header>
         <Modal.Body>
+          <Text h6>First name:</Text>
           <Controller
             render={({ field }) => (
               <Input
@@ -52,6 +54,7 @@ const UpdatePopup = ({ visible, closeModal, userDetails, onCreate }) => {
             control={control}
             defaultValue=""
           />
+          <Text h6>Last name:</Text>
           <Controller
             render={({ field }) => (
               <Input
@@ -68,22 +71,23 @@ const UpdatePopup = ({ visible, closeModal, userDetails, onCreate }) => {
             control={control}
             defaultValue=""
           />
+          <Text h6>Role:</Text>
           <Controller
-            render={({ field }) => (
-              <Input
-                clearable
-                bordered
-                fullWidth
-                color="primary"
-                size="lg"
-                placeholder={userDetails.role}
-                {...field}
-              />
-            )}
             name="role"
             control={control}
-            defaultValue=""
+            render={({ field }) => (
+              <ReactSelect
+                isClearable
+                {...field}
+                placeholder={userDetails.role}
+                options={[
+                  { value: 'Librarian', label: 'Librarian' },
+                  { value: 'Member', label: 'Member' },
+                ]}
+              />
+            )}
           />
+          <Text h6>Email:</Text>
           <Controller
             render={({ field }) => (
               <Input
@@ -100,6 +104,7 @@ const UpdatePopup = ({ visible, closeModal, userDetails, onCreate }) => {
             control={control}
             defaultValue=""
           />
+          <Text h6>Password:</Text>
           <Controller
             render={({ field }) => (
               <Input
