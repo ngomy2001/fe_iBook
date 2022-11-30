@@ -7,6 +7,8 @@ import { updateBookCopy } from '../../api/bookCopyAPI';
 import { getBookCopyAvailable } from '../../api/bookAPI';
 import { useNavigate } from 'react-router-dom';
 import sendEmail from '../../api/sendGmail';
+import { Button } from '@nextui-org/react';
+
 const PaypalCheckoutButton = (props) => {
   const { product, bookId } = props;
   console.log(
@@ -145,7 +147,8 @@ const PaypalCheckoutButton = (props) => {
     />
   ) : (
     <div>
-      <p>Don't have Book</p>,<button onClick={handleNavigation}></button>
+      <Button disabled>Out of stock</Button>
+      <button onClick={handleNavigation}></button>
     </div>
   );
 };
