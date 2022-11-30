@@ -59,7 +59,11 @@ const MemberMainLayout = () => {
             }}
           >
             {memberCollapseItems.map((item) => (
-              <Navbar.CollapseItem key={item.label} activeColor="error">
+              <Navbar.CollapseItem
+                key={item.label}
+                href={item.path}
+                activeColor="error"
+              >
                 <Link
                   color="inherit"
                   css={{
