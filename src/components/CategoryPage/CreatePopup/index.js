@@ -32,6 +32,7 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
           </Text>
         </Modal.Header>
         <Modal.Body>
+          <Text h6>Name:</Text>
           <Controller
             render={({ field }) => (
               <Input
@@ -48,6 +49,7 @@ const CreatePopup = ({ visible, closeModal, onCreate }) => {
             control={control}
             defaultValue=""
           />
+          <Text h6>Description:</Text>
           <Controller
             render={({ field }) => (
               <Input

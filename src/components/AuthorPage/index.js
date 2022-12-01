@@ -42,9 +42,12 @@ const AuthorPage = () => {
   return (
     <div className="table-space">
       <div>
-        <Button auto shadow onClick={() => setVisibleCreatePopup(true)}>
-          Add new author
-        </Button>
+        <Button.Group color="error" flat>
+          <Button onClick={() => setVisibleCreatePopup(true)}>
+            Add new author
+          </Button>
+          <Button>Search</Button>
+        </Button.Group>
       </div>
       <div>
         <Table

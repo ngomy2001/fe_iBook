@@ -1,8 +1,8 @@
 const memberCollapseItems = [
   { label: 'Book', path: '/member/book' },
-  { label: 'Category', path: '' },
-  { label: 'Author', path: '' },
-  { label: 'Publisher', path: '' },
+  { label: 'Category', path: '/member/category' },
+  { label: 'Author', path: '/member/author' },
+  { label: 'Publisher', path: '/member/publisher' },
   { label: 'Invoice', path: '' },
   { label: 'Help & Feedback', path: '' },
   { label: 'Profile', path: '' },
@@ -10,9 +10,9 @@ const memberCollapseItems = [
 ];
 const items = [
   { label: 'Book', path: '/member/book' },
-  { label: 'Category', path: '' },
-  { label: 'Author', path: '' },
-  { label: 'Publisher', path: '' },
+  { label: 'Category', path: '/member/category' },
+  { label: 'Author', path: '/member/author' },
+  { label: 'Publisher', path: '/member/publisher' },
   { label: 'Invoice', path: '' },
   { label: 'Help & Feedback', path: '' },
 ];

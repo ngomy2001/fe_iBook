@@ -1,21 +1,21 @@
 const librarianCollapseItems = [
-  { label: 'Book', path: '' },
-  { label: 'Category', path: '' },
-  { label: 'Author', path: '' },
-  { label: 'Publisher', path: '' },
+  { label: 'Book', path: '/librarian/book' },
+  { label: 'Category', path: '/librarian/category' },
+  { label: 'Author', path: '/librarian/author' },
+  { label: 'Publisher', path: '/librarian/publisher' },
   { label: 'Invoice', path: '' },
-  { label: 'User', path: '' },
-  { label: 'Insight', path: '' },
+  { label: 'User', path: '/librarian/user' },
+  { label: 'Insight', path: '/librarian/insight' },
   { label: 'Profile', path: '' },
   { label: 'Log out', path: '' },
 ];
 const items = [
-  { label: 'Book', path: '' },
-  { label: 'Category', path: '' },
-  { label: 'Author', path: '' },
-  { label: 'Publisher', path: '' },
+  { label: 'Book', path: '/librarian/book' },
+  { label: 'Category', path: '/librarian/category' },
+  { label: 'Author', path: '/librarian/author' },
+  { label: 'Publisher', path: '/librarian/publisher' },
   { label: 'Invoice', path: '' },
-  { label: 'User', path: '' },
-  { label: 'Insight', path: '' },
+  { label: 'User', path: '/librarian/user' },
+  { label: 'Insight', path: '/librarian/insight' },
 ];
 export { librarianCollapseItems, items };

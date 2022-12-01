@@ -17,7 +17,9 @@ const LibrarianMainLayout = () => {
           </Navbar.Brand>
           <Navbar.Content enableCursorHighlight hideIn="xs">
             {items.map((item) => (
-              <Navbar.Link label={item.label}>{item.label}</Navbar.Link>
+              <Navbar.Link label={item.label} href={item.path}>
+                {item.label}
+              </Navbar.Link>
             ))}
           </Navbar.Content>
           <Navbar.Content>
@@ -42,7 +44,6 @@ const LibrarianMainLayout = () => {
                   css={{
                     minWidth: '100%',
                   }}
-                  href="#"
                 >
                   {item.label}
                 </Link>

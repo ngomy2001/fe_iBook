@@ -34,6 +34,7 @@ const UpdatePopup = ({ visible, closeModal, authorDetails, onCreate }) => {
           </Text>
         </Modal.Header>
         <Modal.Body>
+          <Text h6>First name:</Text>
           <Controller
             render={({ field }) => (
               <Input
@@ -50,6 +51,7 @@ const UpdatePopup = ({ visible, closeModal, authorDetails, onCreate }) => {
             control={control}
             defaultValue=""
           />
+          <Text h6>Last name:</Text>
           <Controller
             render={({ field }) => (
               <Input
@@ -66,6 +68,7 @@ const UpdatePopup = ({ visible, closeModal, authorDetails, onCreate }) => {
             control={control}
             defaultValue=""
           />
+          <Text h6>Description:</Text>
           <Controller
             render={({ field }) => (
               <Input

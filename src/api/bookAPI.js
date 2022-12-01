@@ -10,6 +10,19 @@ const getBooks = async () => {
   }
 };
 
+const countBookEachMonth = async () => {
+  try {
+    const URL = 'http://localhost:3001/api/book/countBookEachMonth';
+    const response = await axios.get(URL);
+    return response.data;
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: bookAPI.js ~ line 9 ~ countBookEachMonth ~ error',
+      error
+    );
+  }
+};
+
 const findBook = async (id) => {
   try {
     const URL = `http://localhost:3001/api/book/${id}`;
@@ -120,4 +133,5 @@ export {
   getBookCopyAvailable,
   uploadBookSample,
   findBook,
+  countBookEachMonth,
 };
