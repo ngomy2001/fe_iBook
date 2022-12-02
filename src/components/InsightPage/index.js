@@ -105,23 +105,29 @@ const InsightPage = () => {
     'monthlyBooks',
     countBookEachMonth
   );
-  console.log('aa', data);
-  const Bookdata = {
-    labels,
-    datasets: [
-      {
-        label: 'Number of Book',
-        data: AAExample.map((item) => item.numberOfBookVal),
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-    ],
-  };
-  return (
-    <div>
-      <p>Hello</p>
-      <Bar options={options} data={Bookdata} />
-    </div>
-  );
+
+  // Error and Loading states
+  if (error) return <div>Request Failed</div>;
+  if (isLoading) return <div>Loading...</div>;
+
+  if (data) {
+    const monthlyBookData = {
+      labels,
+      datasets: [
+        {
+          label: 'Number of Book',
+
+          data: data.map((item) => item.numberOfBookVal),
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        },
+      ],
+    };
+    return (
+      <div>
+        <Bar options={options} data={monthlyBookData} />
+      </div>
+    );
+  }
 };
 
 export default InsightPage;

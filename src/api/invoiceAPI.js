@@ -22,5 +22,16 @@ const createInvoice = async (data) => {
     );
   }
 };
-
-export { createInvoice };
+const getInvoices = async () => {
+  try {
+    const URL = 'http://localhost:3001/api/invoice';
+    const invoices = await axios.get(URL);
+    return invoices;
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: invoiceAPI.js ~ line 31 ~ getInvoices ~ error',
+      error
+    );
+  }
+};
+export { createInvoice, getInvoices };
