@@ -50,56 +50,6 @@ const labels = [
   'December',
 ];
 
-const AAExample = [
-  {
-    monthValue: 1,
-    numberOfBookVal: 0,
-  },
-  {
-    monthValue: 2,
-    numberOfBookVal: 0,
-  },
-  {
-    monthValue: 3,
-    numberOfBookVal: 0,
-  },
-  {
-    monthValue: 4,
-    numberOfBookVal: 0,
-  },
-  {
-    monthValue: 5,
-    numberOfBookVal: 0,
-  },
-  {
-    monthValue: 6,
-    numberOfBookVal: 0,
-  },
-  {
-    monthValue: 7,
-    numberOfBookVal: 0,
-  },
-  {
-    monthValue: 8,
-    numberOfBookVal: 0,
-  },
-  {
-    monthValue: 9,
-    numberOfBookVal: 1,
-  },
-  {
-    monthValue: 10,
-    numberOfBookVal: 1,
-  },
-  {
-    monthValue: 11,
-    numberOfBookVal: 2,
-  },
-  {
-    monthValue: 12,
-    numberOfBookVal: 0,
-  },
-];
 const InsightPage = () => {
   const { isLoading, error, data } = useQuery(
     'monthlyBooks',

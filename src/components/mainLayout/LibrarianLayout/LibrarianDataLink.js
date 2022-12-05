@@ -3,7 +3,7 @@ const librarianCollapseItems = [
   { label: 'Category', path: '/librarian/category' },
   { label: 'Author', path: '/librarian/author' },
   { label: 'Publisher', path: '/librarian/publisher' },
-  { label: 'Invoice', path: '' },
+  { label: 'Invoice', path: '/librarian/invoice' },
   { label: 'User', path: '/librarian/user' },
   { label: 'Insight', path: '/librarian/insight' },
   { label: 'Profile', path: '' },
@@ -14,7 +14,7 @@ const items = [
   { label: 'Category', path: '/librarian/category' },
   { label: 'Author', path: '/librarian/author' },
   { label: 'Publisher', path: '/librarian/publisher' },
-  { label: 'Invoice', path: '' },
+  { label: 'Invoice', path: '/librarian/invoice' },
   { label: 'User', path: '/librarian/user' },
   { label: 'Insight', path: '/librarian/insight' },
 ];

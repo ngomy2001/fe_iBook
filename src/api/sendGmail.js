@@ -1,7 +1,6 @@
 import emailjs from '@emailjs/browser';
 const sendEmail = async ({ memberEmail, memberId }) => {
   try {
-    console.log('hello');
     console.log(memberEmail);
     console.log(memberId);
     const email = memberEmail.email;
@@ -13,8 +12,7 @@ const sendEmail = async ({ memberEmail, memberId }) => {
         {
           emailUser: email,
           to_name: memberid,
-          message: 'Input mesgage',
-          from_name: 'Input',
+          from_name: 'iBook system',
         },
         'pTCnFRiO0Hag2m-Cz'
       )

@@ -84,7 +84,6 @@ const PaypalCheckoutButton = (props) => {
   };
 
   const handleSendEmail = async () => {
-    console.log('heloo');
     const email = dataUserLoggedIn.email;
     const userid = dataUserLoggedIn.id;
 
