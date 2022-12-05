@@ -7,15 +7,26 @@ import { Table, Button } from '@nextui-org/react';
 import { getInvoices } from '../../api/invoiceAPI';
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
+import UpdatePopup from './UpdatePopup';
 
 import './style.css';
 
 const InvoicePage = () => {
   const [invoices, setInvoices] = useState([]);
+  const [invoiceDetails, setinvoiceDetails] = useState('');
+  const [invoiceId, setInvoiceId] = useState();
+  const [visibleUpdatePopup, setVisibleUpdatePopup] = useState(false);
 
   const getInvoicesData = async () => {
     const invoices = await getInvoices();
     setInvoices(invoices);
+  };
+
+  const handleUpdate = async (id, status) => {
+    setInvoiceId(id);
+    setinvoiceDetails(status);
+    setVisibleUpdatePopup(true);
+    await getInvoicesData();
   };
 
   useEffect(() => {
@@ -62,13 +73,23 @@ const InvoicePage = () => {
                   <Table.Cell>#</Table.Cell>
                   <Table.Cell>
                     <div className="ActionGroupButton">
-                      <PrimaryButton label="Update"></PrimaryButton>
+                      <PrimaryButton
+                        label="Update"
+                        onClick={() => handleUpdate(row._id, row.status)}
+                      ></PrimaryButton>
                     </div>
                   </Table.Cell>
                 </Table.Row>
               ))}
           </Table.Body>
         </Table>
+        <UpdatePopup
+          visible={visibleUpdatePopup}
+          closeModal={setVisibleUpdatePopup}
+          invoiceId={invoiceId}
+          invoiceDetails={invoiceDetails}
+          onCreate={getInvoicesData}
+        />
       </div>
     </div>
   );

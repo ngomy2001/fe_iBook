@@ -34,4 +34,17 @@ const getInvoices = async () => {
     );
   }
 };
-export { createInvoice, getInvoices };
+const updateInvoiceStatus = async (id, status) => {
+  try {
+    const data = { status };
+    const URL = `http://localhost:3001/api/invoice/updateStatus/${id}`;
+    const response = await axios.put(URL, data);
+    return response.data;
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: invoiceAPI.js ~ line 44 ~ updateInvoiceStatus ~ error',
+      error
+    );
+  }
+};
+export { createInvoice, getInvoices, updateInvoiceStatus };
