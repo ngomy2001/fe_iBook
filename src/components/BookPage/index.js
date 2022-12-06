@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 /* import NextUI component */
 import { Table, Button, Input } from '@nextui-org/react';
+import { CSVLink } from 'react-csv';
 
 /* import service */
 import { getBooks, deleteBook, findBook, searchBooks } from '../../api/bookAPI';
@@ -101,7 +102,11 @@ const BookPage = () => {
           <Button onClick={() => setVisibleCreatePopup(true)}>
             Add new book
           </Button>
-          <Button>Export file</Button>
+          <Button>
+            <CSVLink data={book} filename={'bookData.csv'}>
+              Export to CSV
+            </CSVLink>
+          </Button>
         </Button.Group>
       </div>
       <div>
