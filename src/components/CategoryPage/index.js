@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 /* import NextUI component */
 import { Table, Button, Input } from '@nextui-org/react';
-
+import { CSVLink } from 'react-csv';
 /* import service */
 import {
   getCategories,
@@ -68,6 +68,11 @@ const CategoryPage = () => {
           <Button onClick={() => getSearchedCategoriesData()}>Search</Button>
           <Button onClick={() => setVisibleCreatePopup(true)}>
             Add new category
+          </Button>
+          <Button>
+            <CSVLink data={category} filename={'categoryData.csv'}>
+              Export to CSV
+            </CSVLink>
           </Button>
         </Button.Group>
       </div>
