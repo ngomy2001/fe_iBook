@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 /* import NextUI component */
 import { Table } from '@nextui-org/react';
-import { Button } from '@nextui-org/react';
+import { Button, Input } from '@nextui-org/react';
 
 /* import service */
-import { getBooks } from '../../api/bookAPI';
+import { getBooks, searchBooks } from '../../api/bookAPI';
 
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
@@ -16,13 +16,22 @@ import './style.css';
 
 const BookPage = () => {
   const [book, setBook] = useState([]);
-
+  let [searchInput, setSearchInput] = useState('');
   const item = {
     description: 'Design+Code React Hooks book',
     price: 5,
   };
   const getBooksData = async () => {
     const books = await getBooks();
+    setBook(books);
+  };
+
+  const getSearchedBooksData = async () => {
+    if (!searchInput) {
+      alert('Please enter keyword!');
+      return;
+    }
+    const books = await searchBooks(searchInput);
     setBook(books);
   };
 
@@ -33,8 +42,16 @@ const BookPage = () => {
   return (
     <div className="table-space">
       <div>
+        <Input
+          onChange={(event) => {
+            setSearchInput(event.target.value);
+          }}
+          bordered
+          clearable
+          color="error"
+        />
         <Button.Group color="error" flat>
-          <Button>Search</Button>
+          <Button onClick={() => getSearchedBooksData()}>Search</Button>
         </Button.Group>
       </div>
       <div>
@@ -56,8 +73,8 @@ const BookPage = () => {
             <Table.Column>ACTION</Table.Column>
           </Table.Header>
           <Table.Body>
-            {book.data &&
-              book.data.map((row) => (
+            {book &&
+              book.map((row) => (
                 <Table.Row key={row._id}>
                   <Table.Cell>{row.title}</Table.Cell>
                   <Table.Cell>{row.categoryId.name}</Table.Cell>

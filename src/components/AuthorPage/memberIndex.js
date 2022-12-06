@@ -2,19 +2,26 @@ import React, { useState, useEffect } from 'react';
 
 /* import NextUI component */
 import { Table } from '@nextui-org/react';
-import { Button } from '@nextui-org/react';
+import { Button, Input } from '@nextui-org/react';
 
 /* import service */
-import { getAuthors } from '../../api/authorAPI';
+import { getAuthors, searchAuthors } from '../../api/authorAPI';
 
 const AuthorPage = () => {
   const [author, setAuthor] = useState([]);
-
+  const [searchInput, setSearchInput] = useState('');
   const getAuthorsData = async () => {
     const authors = await getAuthors();
     setAuthor(authors);
   };
-
+  const getSearchedAuthorsData = async () => {
+    if (!searchInput) {
+      alert('Please enter keyword!');
+      return;
+    }
+    const authors = await searchAuthors(searchInput);
+    setAuthor(authors);
+  };
   useEffect(() => {
     getAuthorsData();
   }, []);
@@ -22,8 +29,16 @@ const AuthorPage = () => {
   return (
     <div className="table-space">
       <div>
+        <Input
+          onChange={(event) => {
+            setSearchInput(event.target.value);
+          }}
+          bordered
+          clearable
+          color="error"
+        />
         <Button.Group color="error" flat>
-          <Button>Search</Button>
+          <Button onClick={() => getSearchedAuthorsData()}>Search</Button>
         </Button.Group>
       </div>
       <div>
@@ -39,8 +54,8 @@ const AuthorPage = () => {
             <Table.Column>DESCRIPTION</Table.Column>
           </Table.Header>
           <Table.Body>
-            {author.data &&
-              author.data.map((row) => (
+            {author &&
+              author.map((row) => (
                 <Table.Row key={row._id}>
                   <Table.Cell>
                     {row.firstName} {row.lastName}
