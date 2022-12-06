@@ -39,8 +39,8 @@ const CategoryPage = () => {
             <Table.Column>DESCRIPTION</Table.Column>
           </Table.Header>
           <Table.Body>
-            {category.data &&
-              category.data.map((row) => (
+            {category &&
+              category.map((row) => (
                 <Table.Row key={row._id}>
                   <Table.Cell>{row.name}</Table.Cell>
                   <Table.Cell>{row.description}</Table.Cell>

@@ -56,8 +56,8 @@ const BookPage = () => {
             <Table.Column>ACTION</Table.Column>
           </Table.Header>
           <Table.Body>
-            {book.data &&
-              book.data.map((row) => (
+            {book &&
+              book.map((row) => (
                 <Table.Row key={row._id}>
                   <Table.Cell>{row.title}</Table.Cell>
                   <Table.Cell>{row.categoryId.name}</Table.Cell>

@@ -41,7 +41,16 @@ const LoginPage = () => {
       const token = response.data.token;
       if (!token) return;
       localStorage.setItem('access_token', token);
+      const userRedux = dispatch(setLoggedInUser(response.data));
+      const userRole = userRedux.payload.payload.role;
+      console.log('aaa', userRole);
 
+      if (userRole == 'Librarian') {
+        navigate('/librarian');
+      }
+      if (userRole == 'Member') {
+        navigate('/member');
+      }
       navigate('/librarian/book');
     } catch (error) {
       setError('Something went wrong, please try again or contact us');

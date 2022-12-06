@@ -39,8 +39,8 @@ const AuthorPage = () => {
             <Table.Column>DESCRIPTION</Table.Column>
           </Table.Header>
           <Table.Body>
-            {author.data &&
-              author.data.map((row) => (
+            {author &&
+              author.map((row) => (
                 <Table.Row key={row._id}>
                   <Table.Cell>
                     {row.firstName} {row.lastName}

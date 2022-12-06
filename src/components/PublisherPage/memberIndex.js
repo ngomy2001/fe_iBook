@@ -39,8 +39,8 @@ const PublisherPage = () => {
             <Table.Column>DESCRIPTION</Table.Column>
           </Table.Header>
           <Table.Body>
-            {publisher.data &&
-              publisher.data.map((row) => (
+            {publisher &&
+              publisher.map((row) => (
                 <Table.Row key={row._id}>
                   <Table.Cell>{row.name}</Table.Cell>
                   <Table.Cell>{row.description}</Table.Cell>
