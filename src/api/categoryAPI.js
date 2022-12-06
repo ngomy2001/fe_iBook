@@ -4,7 +4,7 @@ const getCategories = async () => {
     const URL = 'http://localhost:3001/api/category';
     const categories = await axios.get(URL);
     console.log(categories);
-    return categories;
+    return categories.data;
   } catch (error) {
     console.log(
       '🚀 ~ file: categoryAPI.js ~ line 9 ~ getCategories ~ error',
@@ -12,7 +12,18 @@ const getCategories = async () => {
     );
   }
 };
-
+const searchCategories = async (keyword) => {
+  try {
+    const URL = `http://localhost:3001/api/category/searchCategory/${keyword}`;
+    const categories = await axios.get(URL);
+    return categories.data;
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: categoryAPI.js ~ line 21 ~ searchCategories ~ error',
+      error
+    );
+  }
+};
 const createCategory = async (name, description) => {
   try {
     const payload = { name, description };
@@ -56,4 +67,10 @@ const deleteCategory = async (id) => {
     );
   }
 };
-export { getCategories, createCategory, updateCategory, deleteCategory };
+export {
+  getCategories,
+  createCategory,
+  updateCategory,
+  deleteCategory,
+  searchCategories,
+};
