@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 /* import NextUI component */
 import { Table, Button, Input } from '@nextui-org/react';
+import { CSVLink } from 'react-csv';
 
 /* import service */
 import { getAuthors, deleteAuthor, searchAuthors } from '../../api/authorAPI';
@@ -66,6 +67,11 @@ const AuthorPage = () => {
           </Button>
           <Button onClick={() => setVisibleCreatePopup(true)}>
             Add new author
+          </Button>
+          <Button>
+            <CSVLink data={author} filename={'authorData.csv'}>
+              Export to CSV
+            </CSVLink>
           </Button>
         </Button.Group>
       </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 /* import NextUI component */
 import { Table, Button, Input } from '@nextui-org/react';
-
+import { CSVLink } from 'react-csv';
 /* import service */
 import {
   getPublishers,
@@ -72,6 +72,11 @@ const PublisherPage = () => {
           <Button onClick={() => getSearchedPublishersData()}>Search</Button>
           <Button onClick={() => setVisibleCreatePopup(true)}>
             Add new publisher
+          </Button>
+          <Button>
+            <CSVLink data={publisher} filename={'publisherData.csv'}>
+              Export to CSV
+            </CSVLink>
           </Button>
         </Button.Group>
       </div>
