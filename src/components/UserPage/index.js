@@ -5,6 +5,7 @@ import { Table, Button, Input } from '@nextui-org/react';
 
 /* import service */
 import { getUsers, searchUsers } from '../../api/userAPI';
+import { CSVLink } from 'react-csv';
 
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
@@ -12,32 +13,25 @@ import CreatePopup from './CreatePopup';
 import UpdatePopup from './UpdatePopup';
 
 import './style.css';
-import { CSVLink } from 'react-csv';
+
 const UserPage = () => {
   const [user, setUser] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [visibleCreatePopup, setVisibleCreatePopup] = useState(false);
   const [visibleUpdatePopup, setVisibleUpdatePopup] = useState(false);
   const [userDetails, setUserDetails] = useState([]);
-  const header = [
-    { label: 'First Name', key: 'firstName' },
-    { label: 'Last Name', key: 'lastName' },
-    { label: 'Email', key: 'email' },
-    { label: 'Password', key: 'password' },
-  ];
-  const csvFile = {
-    fileName: 'userTable.csv',
-    header: header,
-    data: user,
-  };
 
   const getUsersData = async () => {
     const users = await getUsers();
     setUser(users);
   };
 
-  const getSearchedUsersData = async (keyword) => {
-    const users = await searchUsers(keyword);
+  const getSearchedUsersData = async () => {
+    if (!searchInput) {
+      alert('Please enter keyword!');
+      return;
+    }
+    const users = await searchUsers(searchInput);
     setUser(users);
   };
 
@@ -63,8 +57,8 @@ const UserPage = () => {
     <div className="table-space">
       <div>
         <Input
-          onChange={(event) => {
-            setSearchInput(event.target.value);
+          onChange={(value) => {
+            setSearchInput(value);
           }}
           bordered
           clearable
@@ -77,7 +71,11 @@ const UserPage = () => {
           <Button onClick={() => setVisibleCreatePopup(true)}>
             Add new user
           </Button>
-          <CSVLink {...csvFile}>Exprot to CSV</CSVLink>
+          <Button>
+            <CSVLink data={user} filename={'userData.csv'}>
+              Export to CSV
+            </CSVLink>
+          </Button>
         </Button.Group>
       </div>
       <div>
