@@ -5,11 +5,24 @@ const getAuthors = async () => {
     const URL = 'http://localhost:3001/api/author';
     const authors = await axios.get(URL);
     console.log(authors);
-    return authors;
+    return authors.data;
   } catch (error) {
     console.log(
       '🚀 ~ file: authorAPI.js ~ line 10 ~ getAuthors ~ error',
       JSON.stringify(error)
+    );
+  }
+};
+
+const searchAuthors = async (keyword) => {
+  try {
+    const URL = `http://localhost:3001/api/author/searchAuthor/${keyword}`;
+    const authors = await axios.get(URL);
+    return authors.data;
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: authorAPI.js ~ line 23 ~ searchAuthors ~ error',
+      error
     );
   }
 };
@@ -57,4 +70,4 @@ const deleteAuthor = async (id) => {
     );
   }
 };
-export { getAuthors, createAuthor, updateAuthor, deleteAuthor };
+export { getAuthors, createAuthor, updateAuthor, deleteAuthor, searchAuthors };

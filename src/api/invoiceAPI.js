@@ -23,4 +23,41 @@ const createInvoice = async (data) => {
   }
 };
 
-export { createInvoice };
+const searchInvoices = async (keyword) => {
+  try {
+    const URL = `http://localhost:3001/api/invoice/searchInvoice/${keyword}`;
+    const invoices = await axios.get(URL);
+    return invoices.data;
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: invoiceAPI.js ~ line 32 ~ searchInvoices ~ error',
+      error
+    );
+  }
+};
+const getInvoices = async () => {
+  try {
+    const URL = 'http://localhost:3001/api/invoice';
+    const invoices = await axios.get(URL);
+    return invoices.data;
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: invoiceAPI.js ~ line 31 ~ getInvoices ~ error',
+      error
+    );
+  }
+};
+const updateInvoiceStatus = async (id, status) => {
+  try {
+    const data = { status };
+    const URL = `http://localhost:3001/api/invoice/updateStatus/${id}`;
+    const response = await axios.put(URL, data);
+    return response.data;
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: invoiceAPI.js ~ line 44 ~ updateInvoiceStatus ~ error',
+      error
+    );
+  }
+};
+export { createInvoice, getInvoices, updateInvoiceStatus, searchInvoices };

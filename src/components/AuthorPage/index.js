@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 /* import NextUI component */
-import { Table, Button } from '@nextui-org/react';
+import { Table, Button, Input } from '@nextui-org/react';
 
 /* import service */
-import { getAuthors, deleteAuthor } from '../../api/authorAPI';
+import { getAuthors, deleteAuthor, searchAuthors } from '../../api/authorAPI';
 
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
@@ -14,12 +14,22 @@ import UpdatePopup from './UpdatePopup';
 import './style.css';
 const AuthorPage = () => {
   const [author, setAuthor] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
   const [visibleCreatePopup, setVisibleCreatePopup] = useState(false);
   const [visibleUpdatePopup, setVisibleUpdatePopup] = useState(false);
   const [authorDetails, setAuthorDetails] = useState([]);
 
   const getAuthorsData = async () => {
     const authors = await getAuthors();
+    setAuthor(authors);
+  };
+
+  const getSearchedAuthorsData = async () => {
+    if (!searchInput) {
+      alert('Please enter keyword!');
+      return;
+    }
+    const authors = await searchAuthors(searchInput);
     setAuthor(authors);
   };
 
@@ -42,11 +52,21 @@ const AuthorPage = () => {
   return (
     <div className="table-space">
       <div>
+        <Input
+          onChange={(event) => {
+            setSearchInput(event.target.value);
+          }}
+          bordered
+          clearable
+          color="error"
+        />
         <Button.Group color="error" flat>
+          <Button onClick={() => getSearchedAuthorsData(searchInput)}>
+            Search
+          </Button>
           <Button onClick={() => setVisibleCreatePopup(true)}>
             Add new author
           </Button>
-          <Button>Search</Button>
         </Button.Group>
       </div>
       <div>
@@ -64,8 +84,8 @@ const AuthorPage = () => {
             <Table.Column>ACTION</Table.Column>
           </Table.Header>
           <Table.Body>
-            {author.data &&
-              author.data.map((row) => (
+            {author &&
+              author.map((row) => (
                 <Table.Row key={row._id}>
                   <Table.Cell>{row.firstName}</Table.Cell>
                   <Table.Cell>{row.lastName}</Table.Cell>

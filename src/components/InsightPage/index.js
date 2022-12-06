@@ -50,78 +50,34 @@ const labels = [
   'December',
 ];
 
-const AAExample = [
-  {
-    monthValue: 1,
-    numberOfBookVal: 0,
-  },
-  {
-    monthValue: 2,
-    numberOfBookVal: 0,
-  },
-  {
-    monthValue: 3,
-    numberOfBookVal: 0,
-  },
-  {
-    monthValue: 4,
-    numberOfBookVal: 0,
-  },
-  {
-    monthValue: 5,
-    numberOfBookVal: 0,
-  },
-  {
-    monthValue: 6,
-    numberOfBookVal: 0,
-  },
-  {
-    monthValue: 7,
-    numberOfBookVal: 0,
-  },
-  {
-    monthValue: 8,
-    numberOfBookVal: 0,
-  },
-  {
-    monthValue: 9,
-    numberOfBookVal: 1,
-  },
-  {
-    monthValue: 10,
-    numberOfBookVal: 1,
-  },
-  {
-    monthValue: 11,
-    numberOfBookVal: 2,
-  },
-  {
-    monthValue: 12,
-    numberOfBookVal: 0,
-  },
-];
 const InsightPage = () => {
   const { isLoading, error, data } = useQuery(
     'monthlyBooks',
     countBookEachMonth
   );
-  console.log('aa', data);
-  const Bookdata = {
-    labels,
-    datasets: [
-      {
-        label: 'Number of Book',
-        data: AAExample.map((item) => item.numberOfBookVal),
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-    ],
-  };
-  return (
-    <div>
-      <p>Hello</p>
-      <Bar options={options} data={Bookdata} />
-    </div>
-  );
+
+  // Error and Loading states
+  if (error) return <div>Request Failed</div>;
+  if (isLoading) return <div>Loading...</div>;
+
+  if (data) {
+    const monthlyBookData = {
+      labels,
+      datasets: [
+        {
+          label: 'Number of Book',
+
+          data: data.map((item) => item.numberOfBookVal),
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        },
+      ],
+    };
+    return (
+      <div>
+        <Bar options={options} data={monthlyBookData} />
+      </div>
+    );
+  }
 };
 
 export default InsightPage;

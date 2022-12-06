@@ -4,12 +4,20 @@ const getBooks = async () => {
   try {
     const URL = 'http://localhost:3001/api/book';
     const books = await axios.get(URL);
-    return books;
+    return books.data;
   } catch (error) {
     console.log('🚀 ~ file: bookAPI.js ~ line 9 ~ getBooks ~ error', error);
   }
 };
-
+const searchBooks = async (keyword) => {
+  try {
+    const URL = `http://localhost:3001/api/book/searchBook/${keyword}`;
+    const books = await axios.get(URL);
+    return books.data;
+  } catch (error) {
+    console.log('🚀 ~ file: userAPI.js ~ line 24 ~ searchUsers ~ error', error);
+  }
+};
 const countBookEachMonth = async () => {
   try {
     const URL = 'http://localhost:3001/api/book/countBookEachMonth';
@@ -134,4 +142,5 @@ export {
   uploadBookSample,
   findBook,
   countBookEachMonth,
+  searchBooks,
 };

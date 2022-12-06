@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
 /* import NextUI component */
-import { Table, Button } from '@nextui-org/react';
+import { Table, Button, Input } from '@nextui-org/react';
 
 /* import service */
-import { getCategories, deleteCategory } from '../../api/categoryAPI';
+import {
+  getCategories,
+  deleteCategory,
+  searchCategories,
+} from '../../api/categoryAPI';
 
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
@@ -14,12 +18,22 @@ import UpdatePopup from './UpdatePopup';
 import './style.css';
 const CategoryPage = () => {
   const [category, setData] = useState([]);
+  let [searchInput, setSearchInput] = useState('');
   const [visibleCreatePopup, setVisibleCreatePopup] = useState(false);
   const [visibleUpdatePopup, setVisibleUpdatePopup] = useState(false);
   const [categoryDetails, setCategoryDetails] = useState([]);
 
   const getData = async () => {
     const categories = await getCategories();
+    setData(categories);
+  };
+
+  const getSearchedCategoriesData = async () => {
+    if (!searchInput) {
+      alert('Please enter keyword!');
+      return;
+    }
+    const categories = await searchCategories(searchInput);
     setData(categories);
   };
 
@@ -42,11 +56,19 @@ const CategoryPage = () => {
   return (
     <div className="table-space">
       <div>
+        <Input
+          onChange={(event) => {
+            setSearchInput(event.target.value);
+          }}
+          bordered
+          clearable
+          color="error"
+        />
         <Button.Group color="error" flat>
+          <Button onClick={() => getSearchedCategoriesData()}>Search</Button>
           <Button onClick={() => setVisibleCreatePopup(true)}>
             Add new category
           </Button>
-          <Button>Search</Button>
         </Button.Group>
       </div>
       <div>
@@ -63,8 +85,8 @@ const CategoryPage = () => {
             <Table.Column>ACTION</Table.Column>
           </Table.Header>
           <Table.Body>
-            {category.data &&
-              category.data.map((row) => (
+            {category &&
+              category.map((row) => (
                 <Table.Row key={row._id}>
                   <Table.Cell>{row.name}</Table.Cell>
                   <Table.Cell>{row.description}</Table.Cell>

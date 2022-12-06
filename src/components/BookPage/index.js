@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 /* import NextUI component */
-import { Table, Button } from '@nextui-org/react';
+import { Table, Button, Input } from '@nextui-org/react';
 
 /* import service */
-import { getBooks, deleteBook, findBook } from '../../api/bookAPI';
+import { getBooks, deleteBook, findBook, searchBooks } from '../../api/bookAPI';
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
 import CreatePopup from './CreatePopup';
@@ -16,6 +16,7 @@ import './style.css';
 
 const BookPage = () => {
   const [book, setBook] = useState([]);
+  let [searchInput, setSearchInput] = useState('');
   const [visibleCreatePopup, setVisibleCreatePopup] = useState(false);
   const [visibleUpdatePopup, setVisibleUpdatePopup] = useState(false);
   const [visibleUploadPopup, setVisibleUploadPopup] = useState(false);
@@ -23,12 +24,19 @@ const BookPage = () => {
   const [bookDetails, setBookDetails] = useState([]);
   const [bookId, setBookId] = useState();
   const [sample, setSample] = useState('');
-
   const getBooksData = async () => {
     const books = await getBooks();
     setBook(books);
   };
 
+  const getSearchedBooksData = async () => {
+    if (!searchInput) {
+      alert('Please enter keyword!');
+      return;
+    }
+    const books = await searchBooks(searchInput);
+    setBook(books);
+  };
   const handleUpdate = async (
     id,
     title,
@@ -73,7 +81,6 @@ const BookPage = () => {
     console.log('book', foundBook);
     console.log(sampleURL);
   };
-
   useEffect(() => {
     getBooksData();
   }, []);
@@ -81,11 +88,20 @@ const BookPage = () => {
   return (
     <div className="table-space">
       <div>
+        <Input
+          onChange={(event) => {
+            setSearchInput(event.target.value);
+          }}
+          bordered
+          clearable
+          color="error"
+        />
         <Button.Group color="error" flat>
+          <Button onClick={() => getSearchedBooksData()}>Search</Button>
           <Button onClick={() => setVisibleCreatePopup(true)}>
             Add new book
           </Button>
-          <Button>Search</Button>
+          <Button>Export file</Button>
         </Button.Group>
       </div>
       <div>
@@ -107,8 +123,8 @@ const BookPage = () => {
             <Table.Column>ACTION</Table.Column>
           </Table.Header>
           <Table.Body>
-            {book.data &&
-              book.data.map((row) => (
+            {book &&
+              book.map((row) => (
                 <Table.Row key={row._id}>
                   <Table.Cell>{row.title}</Table.Cell>
                   <Table.Cell>{row.categoryId.name}</Table.Cell>

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
 /* import NextUI component */
-import { Table, Button } from '@nextui-org/react';
+import { Table, Button, Input } from '@nextui-org/react';
 
 /* import service */
-import { getUsers } from '../../api/userAPI';
+import { getUsers, searchUsers } from '../../api/userAPI';
+import { CSVLink } from 'react-csv';
 
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
@@ -15,12 +16,22 @@ import './style.css';
 
 const UserPage = () => {
   const [user, setUser] = useState([]);
+  let [searchInput, setSearchInput] = useState('');
   const [visibleCreatePopup, setVisibleCreatePopup] = useState(false);
   const [visibleUpdatePopup, setVisibleUpdatePopup] = useState(false);
   const [userDetails, setUserDetails] = useState([]);
 
   const getUsersData = async () => {
     const users = await getUsers();
+    setUser(users);
+  };
+
+  const getSearchedUsersData = async () => {
+    if (!searchInput) {
+      alert('Please enter keyword!');
+      return;
+    }
+    const users = await searchUsers(searchInput);
     setUser(users);
   };
 
@@ -45,11 +56,24 @@ const UserPage = () => {
   return (
     <div className="table-space">
       <div>
+        <Input
+          onChange={(event) => {
+            setSearchInput(event.target.value);
+          }}
+          bordered
+          clearable
+          color="error"
+        />
         <Button.Group color="error" flat>
+          <Button onClick={() => getSearchedUsersData()}>Search</Button>
           <Button onClick={() => setVisibleCreatePopup(true)}>
             Add new user
           </Button>
-          <Button>Search</Button>
+          <Button>
+            <CSVLink data={user} filename={'userData.csv'}>
+              Export to CSV
+            </CSVLink>
+          </Button>
         </Button.Group>
       </div>
       <div>
@@ -69,8 +93,8 @@ const UserPage = () => {
             <Table.Column>ACTION</Table.Column>
           </Table.Header>
           <Table.Body>
-            {user.data &&
-              user.data.map((row) => (
+            {user &&
+              user.map((row) => (
                 <Table.Row key={row._id}>
                   <Table.Cell>{row.firstName}</Table.Cell>
                   <Table.Cell>{row.lastName}</Table.Cell>
