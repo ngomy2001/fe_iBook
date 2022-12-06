@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 /* import NextUI component */
-import { Table, Button } from '@nextui-org/react';
+import { Table, Button, Input } from '@nextui-org/react';
 
 /* import service */
-import { getInvoices } from '../../api/invoiceAPI';
+import { getInvoices, searchInvoices } from '../../api/invoiceAPI';
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
 import UpdatePopup from './UpdatePopup';
@@ -13,6 +13,7 @@ import './style.css';
 
 const InvoicePage = () => {
   const [invoices, setInvoices] = useState([]);
+  let [searchInput, setSearchInput] = useState('');
   const [invoiceDetails, setinvoiceDetails] = useState('');
   const [invoiceId, setInvoiceId] = useState();
   const [visibleUpdatePopup, setVisibleUpdatePopup] = useState(false);
@@ -22,6 +23,14 @@ const InvoicePage = () => {
     setInvoices(invoices);
   };
 
+  const getSearchedInvoicesData = async () => {
+    if (!searchInput) {
+      alert('Please enter keyword!');
+      return;
+    }
+    const invoices = await searchInvoices(searchInput);
+    setInvoices(invoices);
+  };
   const handleUpdate = async (id, status) => {
     setInvoiceId(id);
     setinvoiceDetails(status);
@@ -35,8 +44,16 @@ const InvoicePage = () => {
   return (
     <div className="table-space">
       <div>
+        <Input
+          onChange={(event) => {
+            setSearchInput(event.target.value);
+          }}
+          bordered
+          clearable
+          color="error"
+        />
         <Button.Group color="error" flat>
-          <Button>Search</Button>
+          <Button onClick={() => getSearchedInvoicesData()}>Search</Button>
           <Button>Export file</Button>
         </Button.Group>
       </div>
@@ -59,8 +76,8 @@ const InvoicePage = () => {
             <Table.Column>ACTION</Table.Column>
           </Table.Header>
           <Table.Body>
-            {invoices.data &&
-              invoices.data.map((row) => (
+            {invoices &&
+              invoices.map((row) => (
                 <Table.Row key={row._id}>
                   <Table.Cell>
                     {row.userId.firstName + ' ' + row.userId.firstName}

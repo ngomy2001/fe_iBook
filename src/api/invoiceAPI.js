@@ -22,11 +22,24 @@ const createInvoice = async (data) => {
     );
   }
 };
+
+const searchInvoices = async (keyword) => {
+  try {
+    const URL = `http://localhost:3001/api/invoice/searchInvoice/${keyword}`;
+    const invoices = await axios.get(URL);
+    return invoices.data;
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: invoiceAPI.js ~ line 32 ~ searchInvoices ~ error',
+      error
+    );
+  }
+};
 const getInvoices = async () => {
   try {
     const URL = 'http://localhost:3001/api/invoice';
     const invoices = await axios.get(URL);
-    return invoices;
+    return invoices.data;
   } catch (error) {
     console.log(
       '🚀 ~ file: invoiceAPI.js ~ line 31 ~ getInvoices ~ error',
@@ -47,4 +60,4 @@ const updateInvoiceStatus = async (id, status) => {
     );
   }
 };
-export { createInvoice, getInvoices, updateInvoiceStatus };
+export { createInvoice, getInvoices, updateInvoiceStatus, searchInvoices };
