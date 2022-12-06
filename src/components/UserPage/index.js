@@ -16,7 +16,7 @@ import './style.css';
 
 const UserPage = () => {
   const [user, setUser] = useState([]);
-  const [searchInput, setSearchInput] = useState('');
+  let [searchInput, setSearchInput] = useState('');
   const [visibleCreatePopup, setVisibleCreatePopup] = useState(false);
   const [visibleUpdatePopup, setVisibleUpdatePopup] = useState(false);
   const [userDetails, setUserDetails] = useState([]);
@@ -57,17 +57,15 @@ const UserPage = () => {
     <div className="table-space">
       <div>
         <Input
-          onChange={(value) => {
-            setSearchInput(value);
+          onChange={(event) => {
+            setSearchInput(event.target.value);
           }}
           bordered
           clearable
           color="error"
         />
         <Button.Group color="error" flat>
-          <Button onClick={() => getSearchedUsersData(searchInput)}>
-            Search
-          </Button>
+          <Button onClick={() => getSearchedUsersData()}>Search</Button>
           <Button onClick={() => setVisibleCreatePopup(true)}>
             Add new user
           </Button>
