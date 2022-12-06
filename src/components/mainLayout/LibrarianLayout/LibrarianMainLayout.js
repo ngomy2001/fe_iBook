@@ -34,7 +34,7 @@ const LibrarianMainLayout = () => {
           </Navbar.Content>
           <Navbar.Collapse
             css={{
-              background: '#FFFFFF',
+              background: 'white',
             }}
           >
             {librarianCollapseItems.map((item) => (

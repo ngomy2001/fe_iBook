@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 /* import NextUI component */
-import { Table, Button } from '@nextui-org/react';
+import { Table, Button, Input } from '@nextui-org/react';
 
 /* import service */
-import { getUsers } from '../../api/userAPI';
+import { getUsers, searchUsers } from '../../api/userAPI';
 
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
@@ -12,15 +12,32 @@ import CreatePopup from './CreatePopup';
 import UpdatePopup from './UpdatePopup';
 
 import './style.css';
-
+import { CSVLink } from 'react-csv';
 const UserPage = () => {
   const [user, setUser] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
   const [visibleCreatePopup, setVisibleCreatePopup] = useState(false);
   const [visibleUpdatePopup, setVisibleUpdatePopup] = useState(false);
   const [userDetails, setUserDetails] = useState([]);
+  const header = [
+    { label: 'First Name', key: 'firstName' },
+    { label: 'Last Name', key: 'lastName' },
+    { label: 'Email', key: 'email' },
+    { label: 'Password', key: 'password' },
+  ];
+  const csvFile = {
+    fileName: 'userTable.csv',
+    header: header,
+    data: user,
+  };
 
   const getUsersData = async () => {
     const users = await getUsers();
+    setUser(users);
+  };
+
+  const getSearchedUsersData = async (keyword) => {
+    const users = await searchUsers(keyword);
     setUser(users);
   };
 
@@ -45,11 +62,22 @@ const UserPage = () => {
   return (
     <div className="table-space">
       <div>
+        <Input
+          onChange={(event) => {
+            setSearchInput(event.target.value);
+          }}
+          bordered
+          clearable
+          color="error"
+        />
         <Button.Group color="error" flat>
+          <Button onClick={() => getSearchedUsersData(searchInput)}>
+            Search
+          </Button>
           <Button onClick={() => setVisibleCreatePopup(true)}>
             Add new user
           </Button>
-          <Button>Search</Button>
+          <CSVLink {...csvFile}>Exprot to CSV</CSVLink>
         </Button.Group>
       </div>
       <div>
@@ -69,8 +97,8 @@ const UserPage = () => {
             <Table.Column>ACTION</Table.Column>
           </Table.Header>
           <Table.Body>
-            {user.data &&
-              user.data.map((row) => (
+            {user &&
+              user.map((row) => (
                 <Table.Row key={row._id}>
                   <Table.Cell>{row.firstName}</Table.Cell>
                   <Table.Cell>{row.lastName}</Table.Cell>

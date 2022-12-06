@@ -5,12 +5,23 @@ const getUsers = async () => {
     const URL = 'http://localhost:3001/api/accounts';
     const users = await axios.get(URL);
     console.log(users);
-    return users;
+    return users.data;
   } catch (error) {
     console.log(
       '🚀 ~ file: userAPI.js ~ line 10 ~ getUsers ~ error',
       JSON.stringify(error)
     );
+  }
+};
+
+const searchUsers = async (keyword) => {
+  try {
+    const URL = `http://localhost:3001/api/accounts/searchAccount/${keyword}`;
+    const users = await axios.get(URL);
+    console.log(users);
+    return users.data;
+  } catch (error) {
+    console.log('🚀 ~ file: userAPI.js ~ line 24 ~ searchUsers ~ error', error);
   }
 };
 
@@ -38,4 +49,4 @@ const updateUser = async (id, firstName, lastName, role, email, password) => {
   }
 };
 
-export { getUsers, createUser, updateUser };
+export { getUsers, createUser, updateUser, searchUsers };
