@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
 /* import NextUI component */
-import { Table, Button } from '@nextui-org/react';
+import { Table, Button, Input } from '@nextui-org/react';
 
 /* import service */
-import { getPublishers, deletePublisher } from '../../api/publisherAPI';
+import {
+  getPublishers,
+  deletePublisher,
+  searchPublishers,
+} from '../../api/publisherAPI';
 
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
@@ -15,6 +19,7 @@ import './style.css';
 
 const PublisherPage = () => {
   const [publisher, setPublisher] = useState([]);
+  let [searchInput, setSearchInput] = useState('');
   const [visibleCreatePopup, setVisibleCreatePopup] = useState(false);
   const [visibleUpdatePopup, setVisibleUpdatePopup] = useState(false);
   const [publisherDetails, setPublisherDetails] = useState([]);
@@ -28,6 +33,14 @@ const PublisherPage = () => {
     setPublisher(publishers);
   };
 
+  const getSearchedPublishersData = async () => {
+    if (!searchInput) {
+      alert('Please enter keyword!');
+      return;
+    }
+    const publishers = await searchPublishers(searchInput);
+    setPublisher(publishers);
+  };
   const handleUpdate = async (id, name, description) => {
     const details = { id, name, description };
     setPublisherDetails(details);
@@ -47,11 +60,19 @@ const PublisherPage = () => {
   return (
     <div className="table-space">
       <div>
+        <Input
+          onChange={(event) => {
+            setSearchInput(event.target.value);
+          }}
+          bordered
+          clearable
+          color="error"
+        />
         <Button.Group color="error" flat>
+          <Button onClick={() => getSearchedPublishersData()}>Search</Button>
           <Button onClick={() => setVisibleCreatePopup(true)}>
             Add new publisher
           </Button>
-          <Button>Search</Button>
         </Button.Group>
       </div>
       <div>
@@ -68,8 +89,8 @@ const PublisherPage = () => {
             <Table.Column>ACTION</Table.Column>
           </Table.Header>
           <Table.Body>
-            {publisher.data &&
-              publisher.data.map((row) => (
+            {publisher &&
+              publisher.map((row) => (
                 <Table.Row key={row._id}>
                   <Table.Cell>{row.name}</Table.Cell>
                   <Table.Cell>{row.description}</Table.Cell>

@@ -4,11 +4,23 @@ const getPublishers = async () => {
   try {
     const URL = 'http://localhost:3001/api/publisher';
     const publishers = await axios.get(URL);
-    console.log(publishers);
-    return publishers;
+    return publishers.data;
   } catch (error) {
     console.log(
       '🚀 ~ file: publisherAPI.js ~ line 10 ~ getPublishers ~ error',
+      error
+    );
+  }
+};
+
+const searchPublishers = async (keyword) => {
+  try {
+    const URL = `http://localhost:3001/api/publisher/searchPublisher/${keyword}`;
+    const publishers = await axios.get(URL);
+    return publishers.data;
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: publisherAPI.js ~ line 22 ~ searchPublishers ~ error',
       error
     );
   }
@@ -57,4 +69,10 @@ const deletePublisher = async (id) => {
     );
   }
 };
-export { getPublishers, createPublisher, updatePublisher, deletePublisher };
+export {
+  getPublishers,
+  createPublisher,
+  updatePublisher,
+  deletePublisher,
+  searchPublishers,
+};
