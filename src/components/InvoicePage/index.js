@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 /* import NextUI component */
 import { Table, Button, Input } from '@nextui-org/react';
+import { CSVLink } from 'react-csv';
 
 /* import service */
 import { getInvoices, searchInvoices } from '../../api/invoiceAPI';
@@ -54,7 +55,11 @@ const InvoicePage = () => {
         />
         <Button.Group color="error" flat>
           <Button onClick={() => getSearchedInvoicesData()}>Search</Button>
-          <Button>Export file</Button>
+          <Button>
+            <CSVLink data={invoices} filename={'invoiceData.csv'}>
+              Export to CSV
+            </CSVLink>
+          </Button>
         </Button.Group>
       </div>
       <div>
