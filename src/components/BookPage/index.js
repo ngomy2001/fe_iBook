@@ -86,6 +86,34 @@ const BookPage = () => {
     console.log('book', foundBook);
     console.log(sampleURL);
   };
+  const [typeSort, setTypeSort] = useState('default');
+  console.log(typeSort);
+  const handleChangeSortType = (field) => {
+    try {
+      console.log(field);
+      if (typeSort == 'default') {
+        setTypeSort('down');
+        const sortData = [...book].sort((a, b) =>
+          a[field] > b[field] ? 1 : -1
+        );
+
+        setBook(sortData);
+      }
+      if (typeSort == 'down') {
+        setTypeSort('up');
+        const sortData = [...book].sort((a, b) =>
+          a[field] < b[field] ? 1 : -1
+        );
+
+        setBook(sortData);
+      }
+      if (typeSort == 'up') {
+        setTypeSort('default');
+        getBooksData();
+      }
+    } catch (error) {}
+  };
+
   useEffect(() => {
     getBooksData();
   }, []);
@@ -122,13 +150,50 @@ const BookPage = () => {
           }}
         >
           <Table.Header>
-            <Table.Column>TITLE</Table.Column>
-            <Table.Column>CATEGORY</Table.Column>
-            <Table.Column>AUTHOR</Table.Column>
-            <Table.Column>PUBLISHER</Table.Column>
-            <Table.Column>LANGUAGE</Table.Column>
-            <Table.Column>NUMBER OF PAGES</Table.Column>
-            <Table.Column>NUMBER OF COPIES</Table.Column>
+            <Table.Column>
+              TITLE {''}
+              <button onClick={() => handleChangeSortType('title')}>
+                sort
+              </button>
+            </Table.Column>
+            <Table.Column>
+              CATEGORY{' '}
+              <button onClick={() => handleChangeSortType('category')}>
+                sort
+              </button>
+            </Table.Column>
+            <Table.Column>
+              AUTHOR{' '}
+              <button
+                onClick={() => handleChangeSortType('authorId.firstName')}
+              >
+                sort
+              </button>
+            </Table.Column>
+            <Table.Column>
+              PUBLISHER{' '}
+              <button onClick={() => handleChangeSortType('publisherId.name')}>
+                sort
+              </button>
+            </Table.Column>
+            <Table.Column>
+              LANGUAGE{' '}
+              <button onClick={() => handleChangeSortType('language')}>
+                sort
+              </button>
+            </Table.Column>
+            <Table.Column>
+              NUMBER OF PAGES{' '}
+              <button onClick={() => handleChangeSortType('numberOfPages')}>
+                sort
+              </button>
+            </Table.Column>
+            <Table.Column>
+              NUMBER OF COPIES{' '}
+              <button onClick={() => handleChangeSortType('numberOfCopies')}>
+                sort
+              </button>
+            </Table.Column>
             <Table.Column>ACTION</Table.Column>
           </Table.Header>
           <Table.Body>
