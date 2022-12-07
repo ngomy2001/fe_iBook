@@ -46,12 +46,11 @@ const LoginPage = () => {
       console.log('aaa', userRole);
 
       if (userRole == 'Librarian') {
-        navigate('/librarian');
+        navigate('/librarian/book');
       }
       if (userRole == 'Member') {
-        navigate('/member');
+        navigate('/member/book');
       }
-      navigate('/librarian/book');
     } catch (error) {
       setError('Something went wrong, please try again or contact us');
     }
