@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 /* import NextUI component */
 import { Table, Button, Input } from '@nextui-org/react';
 import { CSVLink } from 'react-csv';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 /* import service */
 import { getBooks, deleteBook, findBook, searchBooks } from '../../api/bookAPI';
 /* import component */
@@ -25,6 +26,9 @@ const BookPage = () => {
   const [bookDetails, setBookDetails] = useState([]);
   const [bookId, setBookId] = useState();
   const [sample, setSample] = useState('');
+
+  const userRole = useSelector((state) => state.auth.payload.role);
+  console.log('aaa', userRole);
   const getBooksData = async () => {
     const books = await getBooks();
     setBook(books);

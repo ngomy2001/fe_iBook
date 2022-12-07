@@ -10,6 +10,7 @@ import './style.css';
 const LibrarianMainLayout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const userEmail = useSelector((state) => state.auth.payload.email);
 
   const handleLogOut = () => {
