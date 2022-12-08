@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 /* import NextUI component */
-import { Table } from '@nextui-org/react';
+import { Table, Grid } from '@nextui-org/react';
 import { Button, Input } from '@nextui-org/react';
 
 /* import service */
@@ -9,6 +9,7 @@ import { getBooks, searchBooks } from '../../api/bookAPI';
 
 /* import component */
 import PrimaryButton from '../customComponents/customButtonComponent/Button';
+import CardComponent from '../customComponents/cardComponent/card';
 import PaypalCheckoutButton from '../PayPal';
 //import PayPal from '../PayPal/index';
 
@@ -87,6 +88,8 @@ const BookPage = () => {
                   <Table.Cell>{row.numberOfCopies}</Table.Cell>
                   <Table.Cell>
                     <div className="ActionGroupButton">
+                      <PrimaryButton label="Read reviews"></PrimaryButton>
+                      <PrimaryButton label="Write reviews"></PrimaryButton>
                       <PrimaryButton label="Read sample"></PrimaryButton>
                       <PaypalCheckoutButton product={item} bookId={row._id}>
                         {' '}
@@ -98,6 +101,19 @@ const BookPage = () => {
           </Table.Body>
         </Table>
       </div>
+      <Grid.Container gap={2} justify="center">
+        {book &&
+          book.map((row) => (
+            <Grid>
+              <CardComponent
+                title={row.title}
+                category={row.categoryId.name}
+                item={item}
+                rowId={row._id}
+              ></CardComponent>
+            </Grid>
+          ))}
+      </Grid.Container>
     </div>
   );
 };

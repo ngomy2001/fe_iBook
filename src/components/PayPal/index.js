@@ -147,7 +147,7 @@ const PaypalCheckoutButton = (props) => {
   ) : (
     <div>
       <Button disabled>Out of stock</Button>
-      <button onClick={handleNavigation}></button>
+      {/* <button onClick={handleNavigation}></button> */}
     </div>
   );
 };
