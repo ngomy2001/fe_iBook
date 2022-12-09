@@ -7,7 +7,7 @@ const createInvoice = async (data) => {
       data
     );
 
-    const URL = 'http://localhost:3001/api/invoice/createInvoice';
+    const URL = '${process.env.REACT_APP_LOCALHOST}/api/invoice/createInvoice';
     console.log(
       '🚀 ~ file: invoiceAPI.js ~ line 7 ~ createInvoice ~ data',
       data
@@ -25,7 +25,7 @@ const createInvoice = async (data) => {
 
 const searchInvoices = async (keyword) => {
   try {
-    const URL = `http://localhost:3001/api/invoice/searchInvoice/${keyword}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/invoice/searchInvoice/${keyword}`;
     const invoices = await axios.get(URL);
     return invoices.data;
   } catch (error) {
@@ -37,7 +37,7 @@ const searchInvoices = async (keyword) => {
 };
 const getInvoices = async () => {
   try {
-    const URL = 'http://localhost:3001/api/invoice';
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/invoice`;
     const invoices = await axios.get(URL);
     return invoices.data;
   } catch (error) {
@@ -49,7 +49,7 @@ const getInvoices = async () => {
 };
 const calculateBudget = async () => {
   try {
-    const URL = 'http://localhost:3001/api/invoice/calculateBudget';
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/invoice/calculateBudget`;
     const responses = await axios.get(URL);
     return responses.data;
   } catch (error) {
@@ -61,7 +61,7 @@ const calculateBudget = async () => {
 };
 const getInvoicesByUserId = async (userId) => {
   try {
-    const URL = `http://localhost:3001/api/invoice/${userId}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/invoice/${userId}`;
     const invoices = await axios.get(URL);
     return invoices.data;
   } catch (error) {
@@ -74,7 +74,7 @@ const getInvoicesByUserId = async (userId) => {
 
 const getMonthlyInvoices = async () => {
   try {
-    const URL = 'http://localhost:3001/api/invoice/countInvoiceEachMonth';
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/invoice/countInvoiceEachMonth`;
     const invoices = await axios.get(URL);
     return invoices.data;
   } catch (error) {
@@ -88,7 +88,7 @@ const getMonthlyInvoices = async () => {
 const updateInvoiceStatus = async (id, status) => {
   try {
     const data = { status };
-    const URL = `http://localhost:3001/api/invoice/updateStatus/${id}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/invoice/updateStatus/${id}`;
     const response = await axios.put(URL, data);
     return response.data;
   } catch (error) {

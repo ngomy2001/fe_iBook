@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const getPublishers = async () => {
   try {
-    const URL = 'http://localhost:3001/api/publisher';
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/publisher`;
     const publishers = await axios.get(URL);
     return publishers.data;
   } catch (error) {
@@ -15,7 +15,7 @@ const getPublishers = async () => {
 
 const searchPublishers = async (keyword) => {
   try {
-    const URL = `http://localhost:3001/api/publisher/searchPublisher/${keyword}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/publisher/searchPublisher/${keyword}`;
     const publishers = await axios.get(URL);
     return publishers.data;
   } catch (error) {
@@ -29,7 +29,7 @@ const searchPublishers = async (keyword) => {
 const createPublisher = async (name, description) => {
   try {
     const payload = { name, description };
-    const URL = 'http://localhost:3001/api/publisher/createPublisher';
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/publisher/createPublisher`;
     const response = await axios.post(URL, payload);
     console.log(response);
     return response;
@@ -44,7 +44,7 @@ const createPublisher = async (name, description) => {
 const updatePublisher = async (id, name, description) => {
   try {
     const payload = { name, description };
-    const URL = `http://localhost:3001/api/publisher/${id}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/publisher/${id}`;
     const response = await axios.put(URL, payload);
     console.log(response);
     return response;
@@ -58,7 +58,7 @@ const updatePublisher = async (id, name, description) => {
 
 const deletePublisher = async (id) => {
   try {
-    const URL = `http://localhost:3001/api/publisher/${id}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/publisher/${id}`;
     const response = await axios.delete(URL, id);
     console.log(response);
     return response;

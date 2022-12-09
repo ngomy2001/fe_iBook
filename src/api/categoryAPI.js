@@ -1,7 +1,7 @@
 import axios from 'axios';
 const getCategories = async () => {
   try {
-    const URL = 'http://localhost:3001/api/category';
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/category`;
     const categories = await axios.get(URL);
     console.log(categories);
     return categories.data;
@@ -14,7 +14,7 @@ const getCategories = async () => {
 };
 const searchCategories = async (keyword) => {
   try {
-    const URL = `http://localhost:3001/api/category/searchCategory/${keyword}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/category/searchCategory/${keyword}`;
     const categories = await axios.get(URL);
     return categories.data;
   } catch (error) {
@@ -27,7 +27,7 @@ const searchCategories = async (keyword) => {
 const createCategory = async (name, description) => {
   try {
     const payload = { name, description };
-    const URL = 'http://localhost:3001/api/category/createCategory';
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/category/createCategory`;
     const response = await axios.post(URL, payload);
     console.log(response);
     return response;
@@ -42,7 +42,7 @@ const createCategory = async (name, description) => {
 const updateCategory = async (id, name, description) => {
   try {
     const payload = { name, description };
-    const URL = `http://localhost:3001/api/category/${id}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/category/${id}`;
     const response = await axios.put(URL, payload);
     console.log(response);
     return response;
@@ -56,7 +56,7 @@ const updateCategory = async (id, name, description) => {
 
 const deleteCategory = async (id) => {
   try {
-    const URL = `http://localhost:3001/api/category/${id}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/category/${id}`;
     const response = await axios.delete(URL, id);
     console.log(response);
     return response;

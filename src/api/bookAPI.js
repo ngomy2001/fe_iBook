@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const getBooks = async () => {
   try {
-    const URL = 'http://localhost:3001/api/book';
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/book`;
     const books = await axios.get(URL);
     return books.data;
   } catch (error) {
@@ -11,7 +11,7 @@ const getBooks = async () => {
 };
 const searchBooks = async (keyword) => {
   try {
-    const URL = `http://localhost:3001/api/book/searchBook/${keyword}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/book/searchBook/${keyword}`;
     const books = await axios.get(URL);
     return books.data;
   } catch (error) {
@@ -20,7 +20,7 @@ const searchBooks = async (keyword) => {
 };
 const countBookEachMonth = async () => {
   try {
-    const URL = 'http://localhost:3001/api/book/countBookEachMonth';
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/book/countBookEachMonth`;
     const response = await axios.get(URL);
     return response.data;
   } catch (error) {
@@ -33,7 +33,7 @@ const countBookEachMonth = async () => {
 
 const findBook = async (id) => {
   try {
-    const URL = `http://localhost:3001/api/book/${id}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/book/${id}`;
     const book = await axios.get(URL);
     return book.data;
   } catch (error) {
@@ -60,7 +60,7 @@ const createBook = async (
       numberOfPages,
       numberOfCopies,
     };
-    const URL = 'http://localhost:3001/api/book/createBook';
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/book/createBook`;
     const response = await axios.post(URL, payload);
     return response;
   } catch (error) {
@@ -88,7 +88,7 @@ const updateBook = async (
       numberOfPages,
       numberOfCopies,
     };
-    const URL = `http://localhost:3001/api/book/${id}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/book/${id}`;
     const response = await axios.put(URL, payload);
     console.log(response);
     return response;
@@ -100,7 +100,7 @@ const updateBook = async (
 const uploadBookSample = async (id, sample) => {
   try {
     const data = { sample };
-    const URL = `http://localhost:3001/api/book/sample/${id}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/book/sample/${id}`;
     const response = await axios.put(URL, data);
     console.log(response);
   } catch (error) {
@@ -112,7 +112,7 @@ const uploadBookSample = async (id, sample) => {
 };
 const deleteBook = async (id) => {
   try {
-    const URL = `http://localhost:3001/api/book/${id}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/book/${id}`;
     const response = await axios.delete(URL, id);
     console.log(response);
     return response;
@@ -123,7 +123,7 @@ const deleteBook = async (id) => {
 
 const getBookCopyAvailable = async (bookId) => {
   try {
-    const URL = `http://localhost:3001/api/bookCopy/search/${bookId}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/bookCopy/search/${bookId}`;
     const response = await axios.get(URL);
     return response;
   } catch (error) {

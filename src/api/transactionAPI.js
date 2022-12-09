@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const getTransactions = async () => {
   try {
-    const URL = 'http://localhost:3001/api/transaction';
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/transaction`;
     const transactions = await axios.get(URL);
     console.log(transactions);
     return transactions;
@@ -17,7 +17,7 @@ const getTransactions = async () => {
 const createTransaction = async (transactionId, amount, status) => {
   try {
     const payload = { transactionId, amount, status };
-    const URL = 'http://localhost:3001/api/transaction';
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/transaction`;
     const response = await axios.post(URL, payload);
     console.log(response);
     return response;
@@ -32,7 +32,7 @@ const createTransaction = async (transactionId, amount, status) => {
 const updateTransaction = async (id, transactionId, amount, status) => {
   try {
     const payload = { transactionId, amount, status };
-    const URL = `http://localhost:3001/api/transaction/${id}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/transaction/${id}`;
     const response = await axios.put(URL, payload);
     console.log(response);
     return response;
@@ -46,7 +46,7 @@ const updateTransaction = async (id, transactionId, amount, status) => {
 
 const deleteTransaction = async (id) => {
   try {
-    const URL = `http://localhost:3001/api/transaction/${id}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/transaction/${id}`;
     const response = await axios.delete(URL, id);
     console.log(response);
     return response;
