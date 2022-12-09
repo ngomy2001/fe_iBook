@@ -7,7 +7,7 @@ const updateBookCopy = async (bookCopyId, status) => {
       bookCopyId
     );
     const data = { status };
-    const URL = `http://localhost:3001/api/bookCopy/${bookCopyId}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/bookCopy/${bookCopyId}`;
 
     const updateBookCopy = await axios.put(URL, data);
   } catch (error) {

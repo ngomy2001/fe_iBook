@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const getComments = async (bookId) => {
   try {
-    const URL = `http://localhost:3001/api/comment/${bookId}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/comment/${bookId}`;
     const comments = await axios.get(URL);
     return comments.data;
   } catch (error) {
@@ -20,7 +20,7 @@ const createComment = async (userId, bookId, content) => {
       bookId,
       content,
     };
-    const URL = 'http://localhost:3001/api/comment/addComment';
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/comment/addComment`;
     const response = await axios.post(URL, payload);
     return response;
   } catch (error) {

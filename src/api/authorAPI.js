@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const getAuthors = async () => {
   try {
-    const URL = 'http://localhost:3001/api/author';
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/author`;
     const authors = await axios.get(URL);
     console.log(authors);
     return authors.data;
@@ -16,7 +16,7 @@ const getAuthors = async () => {
 
 const searchAuthors = async (keyword) => {
   try {
-    const URL = `http://localhost:3001/api/author/searchAuthor/${keyword}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/author/searchAuthor/${keyword}`;
     const authors = await axios.get(URL);
     return authors.data;
   } catch (error) {
@@ -30,7 +30,7 @@ const searchAuthors = async (keyword) => {
 const createAuthor = async (firstName, lastName, description) => {
   try {
     const payload = { firstName, lastName, description };
-    const URL = 'http://localhost:3001/api/author/createAuthor';
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/author/createAuthor`;
     const response = await axios.post(URL, payload);
     console.log(response);
     return response;
@@ -45,7 +45,7 @@ const createAuthor = async (firstName, lastName, description) => {
 const updateAuthor = async (id, firstName, lastName, description) => {
   try {
     const payload = { firstName, lastName, description };
-    const URL = `http://localhost:3001/api/author/${id}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/author/${id}`;
     const response = await axios.put(URL, payload);
     console.log(response);
     return response;
@@ -59,7 +59,7 @@ const updateAuthor = async (id, firstName, lastName, description) => {
 
 const deleteAuthor = async (id) => {
   try {
-    const URL = `http://localhost:3001/api/author/${id}`;
+    const URL = `${process.env.REACT_APP_LOCALHOST}/api/author/${id}`;
     const response = await axios.delete(URL, id);
     console.log(response);
     return response;
