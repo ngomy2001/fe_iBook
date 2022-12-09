@@ -47,6 +47,19 @@ const getInvoices = async () => {
     );
   }
 };
+
+const getInvoicesByUserId = async (userId) => {
+  try {
+    const URL = `http://localhost:3001/api/invoice/${userId}`;
+    const invoices = await axios.get(URL);
+    return invoices.data;
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: invoiceAPI.js ~ line 57 ~ getInvoicesByUserId ~ error',
+      error
+    );
+  }
+};
 const updateInvoiceStatus = async (id, status) => {
   try {
     const data = { status };
@@ -60,4 +73,10 @@ const updateInvoiceStatus = async (id, status) => {
     );
   }
 };
-export { createInvoice, getInvoices, updateInvoiceStatus, searchInvoices };
+export {
+  createInvoice,
+  getInvoices,
+  updateInvoiceStatus,
+  searchInvoices,
+  getInvoicesByUserId,
+};

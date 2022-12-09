@@ -31,6 +31,7 @@ import InsightPage from '../components/InsightPage/index';
 
 /* Invoice Page */
 import InvoicePageForLibrarian from '../components/InvoicePage/index';
+import InvoicePageForMember from '../components/InvoicePage/memberIndex';
 const AppRouter = () => {
   return (
     <BrowserRouter>
@@ -48,6 +49,7 @@ const AppRouter = () => {
               element={<PublisherPageForMember />}
             ></Route>
             <Route path="book" element={<BookPageForMember />}></Route>
+            <Route path="invoice" element={<InvoicePageForMember />}></Route>
           </Route>
           <Route path="/librarian" element={<LibrarianMainLayout />}>
             <Route path="author" element={<AuthorPageForLibrarian />}></Route>

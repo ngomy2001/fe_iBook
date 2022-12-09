@@ -3,7 +3,7 @@ const memberCollapseItems = [
   { label: 'Category', path: '/member/category' },
   { label: 'Author', path: '/member/author' },
   { label: 'Publisher', path: '/member/publisher' },
-  { label: 'Invoice', path: '' },
+  { label: 'Invoice', path: '/member/invoice' },
   { label: 'Help & Feedback', path: '' },
   { label: 'Profile', path: '' },
   { label: 'Log out', path: '' },
@@ -13,7 +13,7 @@ const items = [
   { label: 'Category', path: '/member/category' },
   { label: 'Author', path: '/member/author' },
   { label: 'Publisher', path: '/member/publisher' },
-  { label: 'Invoice', path: '' },
+  { label: 'Invoice', path: '/member/invoice' },
   { label: 'Help & Feedback', path: '' },
 ];
 export { memberCollapseItems, items };
