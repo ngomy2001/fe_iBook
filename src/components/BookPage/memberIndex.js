@@ -8,15 +8,16 @@ import { Button, Input } from '@nextui-org/react';
 import { getBooks, searchBooks } from '../../api/bookAPI';
 
 /* import component */
-import PrimaryButton from '../customComponents/customButtonComponent/Button';
+// import PrimaryButton from '../customComponents/customButtonComponent/Button';
 import CardComponent from '../customComponents/cardComponent/card';
-import PaypalCheckoutButton from '../PayPal';
+// import PaypalCheckoutButton from '../PayPal';
 //import PayPal from '../PayPal/index';
 
 import './style.css';
 
 const BookPage = () => {
   const [book, setBook] = useState([]);
+  const [typeSort, setTypeSort] = useState('default');
   let [searchInput, setSearchInput] = useState('');
   const item = {
     description: 'Design+Code React Hooks book',

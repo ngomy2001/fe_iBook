@@ -47,7 +47,18 @@ const getInvoices = async () => {
     );
   }
 };
-
+const calculateBudget = async () => {
+  try {
+    const URL = 'http://localhost:3001/api/invoice/calculateBudget';
+    const responses = await axios.get(URL);
+    return responses.data;
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: invoiceAPI.js ~ line 83 ~ calculateBudget ~ error',
+      error
+    );
+  }
+};
 const getInvoicesByUserId = async (userId) => {
   try {
     const URL = `http://localhost:3001/api/invoice/${userId}`;
@@ -60,6 +71,20 @@ const getInvoicesByUserId = async (userId) => {
     );
   }
 };
+
+const getMonthlyInvoices = async () => {
+  try {
+    const URL = 'http://localhost:3001/api/invoice/countInvoiceEachMonth';
+    const invoices = await axios.get(URL);
+    return invoices.data;
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: invoiceAPI.js ~ line 70 ~ getMonthlyInvoices ~ error',
+      error
+    );
+  }
+};
+
 const updateInvoiceStatus = async (id, status) => {
   try {
     const data = { status };
@@ -79,4 +104,6 @@ export {
   updateInvoiceStatus,
   searchInvoices,
   getInvoicesByUserId,
+  getMonthlyInvoices,
+  calculateBudget,
 };
