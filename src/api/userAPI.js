@@ -13,7 +13,18 @@ const getUsers = async () => {
     );
   }
 };
-
+const getMonthlyUsers = async () => {
+  try {
+    const URL = 'http://localhost:3001/api/accounts/countAccountEachMonth';
+    const users = await axios.get(URL);
+    return users.data;
+  } catch (error) {
+    console.log(
+      '🚀 ~ file: userAPI.js ~ line 22 ~ getMonthlyUsers ~ error',
+      error
+    );
+  }
+};
 const searchUsers = async (keyword) => {
   try {
     const URL = `http://localhost:3001/api/accounts/searchAccount/${keyword}`;
@@ -49,4 +60,4 @@ const updateUser = async (id, firstName, lastName, role, email, password) => {
   }
 };
 
-export { getUsers, createUser, updateUser, searchUsers };
+export { getUsers, createUser, updateUser, searchUsers, getMonthlyUsers };

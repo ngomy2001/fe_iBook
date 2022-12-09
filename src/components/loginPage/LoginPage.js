@@ -81,7 +81,7 @@ const LoginPage = () => {
           </div>
           <div className="Password-form">
             <label>Password</label>
-            <Input
+            <Input.Password
               placeholder="Enter your password"
               css={{
                 boxSizing: 'border - box',
