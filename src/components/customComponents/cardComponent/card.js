@@ -33,7 +33,7 @@ const CardComponent = ({ title, category, item, rowId }) => {
         </Card.Header>
         <Card.Body css={{ p: 0 }}>
           <Card.Image
-            src="https://nextui.org/images/card-example-6.jpeg"
+            src="https://firebasestorage.googleapis.com/v0/b/finalproject-afaa4.appspot.com/o/bookSamples%2F001-book-brand-cover-back-presentation-mockup-psd.jpeg?alt=media"
             width="100%"
             height="100%"
             objectFit="cover"

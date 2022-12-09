@@ -55,7 +55,7 @@ const BookPage = () => {
           <Button onClick={() => getSearchedBooksData()}>Search</Button>
         </Button.Group>
       </div>
-      <div>
+      {/* <div>
         <Table
           css={{
             height: 'auto',
@@ -100,7 +100,7 @@ const BookPage = () => {
               ))}
           </Table.Body>
         </Table>
-      </div>
+      </div> */}
       <Grid.Container gap={2} justify="center">
         {book &&
           book.map((row) => (
